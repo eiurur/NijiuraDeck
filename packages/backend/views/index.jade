@@ -1,0 +1,70 @@
+extends layout
+
+block body
+  main.container
+    div(ng-controller='AdminController')
+      span.container(ng-if='isLoaded')
+        .row
+          .col
+            | 1 of 2
+          .col
+            | 2 of 2
+        .row
+          .col
+            | 1 of 3
+          .col
+            | 2 of 3
+          .col
+            | 3 of 3
+
+      span.container(ng-if='!isLoaded')
+        .intro-container
+          .spinner
+
+  //- span(ng-controller='AdminController')
+  //-   span(ng-if='isLoaded')
+  //-     nav.navbar.navbar-inverse(role='navigation')
+  //-       .container
+  //-         .navbar-header
+  //-           button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse')
+  //-             span.sr-only Toggle navigation
+  //-             span.icon-bar
+  //-             span.icon-bar
+  //-             span.icon-bar
+  //-           a.navbar-brand(href='/') Angular-express-bootstrap-starter
+  //-         #navbar-collapse.collapse.navbar-collapse
+  //-           span(ng-if='!isAuthenticated')
+  //-             a.btn.btn-danger.navbar-btn.pull-right(href='/auth/twitter/callback', target='_self') ログイン
+  //-           span.header-is-auth(ng-if='isAuthenticated')
+  //-             ul.nav.navbar-nav
+  //-               li
+  //-                 a(href='#') Link
+  //-               li
+  //-                 a(href='#') Afford
+  //-             ul.nav.navbar-nav.navbar-right
+  //-               li.dropdown
+  //-                 a.dropdown-toggle(href='#', data-toggle='dropdown')
+  //-                   img.icon(ng-src='{{user._json.profile_image_url_https}}')
+  //-                 ul.dropdown-menu(role='menu')
+  //-                   //- li.dropdown-header Setting
+  //-                   li
+  //-                     a.menu-user(href='https://twitter.com/{{user.username}}', target='_blank')
+  //-                       span.screenname @{{user.username}}
+  //-                   li
+  //-                     a(href='#') Another action
+  //-                   li
+  //-                     a(href='#') Something else here
+  //-                   li.divider
+  //-                   li
+  //-                     a(href='/logout', target='_self') ログアウト
+  //-                   li.divider
+  //-                   li.disabled
+  //-                     a(href='#') One more separated link
+
+
+  //-     .container
+  //-       div(ng-view)
+
+  //-   span(ng-if='!isLoaded')
+  //-     .intro-container
+  //-       .spinner

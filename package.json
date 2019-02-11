@@ -1,0 +1,42 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiurur/syarko"
+  },
+  "author": "https://github.com/eiurur",
+  "bugs": {
+    "url": "https://github.com/eiurur/syako/issues",
+    "email": "eiurur789@gmail.com"
+  },
+  "license": "MIT",
+  "config": {
+    "imageRepo": "eiurur/syako",
+    "imageName": "syako"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend \"",
+    "start:backend": "npm run dev --prefix ./packages/backend",
+    "start:frontend": "npm run dev --prefix ./packages/frontend",
+    "test": "npm run test:common && npm run test:server && npm run test:frontend",
+    "test:common": "npm test --prefix ./packages/common",
+    "test:server": "npm test --prefix ./packages/backend",
+    "test:ui": "npm test --prefix ./packages/frontend",
+    "build": "lerna run build",
+    "getv": "echo $IMAGE_VERSION",
+    "docker:build": "IMAGE_VERSION=$(node -p \"require('./lerna.json').version\") && docker image build -t $npm_package_config_imageRepo:$IMAGE_VERSION -f ./docker/Dockerfile .",
+    "publish": "lerna publish"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "lerna": "^3.11.0"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "name": "Syako"
+}

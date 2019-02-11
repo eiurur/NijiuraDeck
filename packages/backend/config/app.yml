@@ -1,0 +1,19 @@
+default:
+  PORT: 12700
+  COOKIE_SECRET: sss
+  APP_NAME: 'SyaseiSenkyo'
+  SITE_URL: 'https://127.0.0.1:12700'
+  TW_CK: 'YOUR'
+  TW_CS: 'YOUR'
+  CALLBACK_URL: 'https://127.0.0.1:12700/auth/twitter/callback'
+  MONGODB_URI: 'mongodb://127.0.0.1/syasei_senkyo'
+
+production: &production
+  PORT: #{process.env.PORT}
+  COOKIE_SECRET: #{process.env.COOKIE_SECRET}
+  APP_NAME: 'SyaseiSenkyo'
+  SITE_URL: #{process.env.SITE_URL}
+  TW_CK: #{process.env.TW_CK}
+  TW_CS: #{process.env.TW_CS}
+  CALLBACK_URL: #{process.env.CALLBACK_URL}
+  MONGODB_URI: 'mongodb://127.0.0.1/syasei_senkyo'
