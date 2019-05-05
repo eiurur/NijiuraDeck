@@ -2,15 +2,15 @@ const express = require('express');
 const path = require('path');
 const configs = require('konfig')();
 const morgan = require('morgan');
-const Logger = require('../utils/Logger');
 
-module.exports = function (app) {
+const { logger } = require(path.resolve('logger'));
+
+module.exports = function(app) {
   app.locals.pretty = true;
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.on('unhandledRejection', console.dir);
 
   app.use(morgan('dev'));
-  Logger.activate();
   logger.info(configs.app);
 
   app.use((err, req, res, next) => {

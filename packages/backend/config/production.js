@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const morgan = require('morgan');
-const Logger = require('../utils/Logger');
+const { logger } = require(path.resolve('logger'));
 
 module.exports = app => {
   // require('newrelic');
@@ -26,7 +26,6 @@ module.exports = app => {
 
   // setup the logger
   app.use(morgan('combined', { stream: accessLogStream }));
-  Logger.activate();
   logger.info(process.env);
 
   const cacheOptions = {
@@ -41,5 +40,7 @@ module.exports = app => {
     },
   };
 
-  app.use(express.static(path.join(__dirname, '..', '..', 'dist'), cacheOptions));
+  app.use(
+    express.static(path.join(__dirname, '..', '..', 'dist'), cacheOptions),
+  );
 };

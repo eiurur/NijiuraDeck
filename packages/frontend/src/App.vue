@@ -3,9 +3,9 @@
     <div id="nav">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :router="true">
         <!-- <el-menu-item index="1">Processing Center</el-menu-item>\ -->
-        <el-menu-item index="/">Kokona</el-menu-item>
-        <el-menu-item index="/about">About</el-menu-item>
-        <el-menu-item index="/login" class="right">Login</el-menu-item>
+        <el-menu-item index="/">射精選挙</el-menu-item>
+        <el-menu-item index="/about">このサイトについて</el-menu-item>
+        <el-menu-item index="/auth/twitter/callback" class="right" target="_blank">ログイン</el-menu-item>
       </el-menu>
     </div>
     <router-view/>

@@ -1,0 +1,7 @@
+0 silly argv { _: [ 'bootstrap' ],
+0 silly argv   lernaVersion: '3.13.4',
+0 silly argv   '$0':
+0 silly argv    'C:\\Program Files (x86)\\Nodist\\bin\\node_modules\\lerna\\cli.js' }
+1 notice cli v3.13.4
+2 verbose rootPath D:\workspace\Github\development_projects\00_developing\NijiuraDeck
+3 error

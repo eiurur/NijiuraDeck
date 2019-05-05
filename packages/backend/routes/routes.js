@@ -1,12 +1,4 @@
 module.exports = app => {
-  app.get('/logout', (req, res) => {
-    if ((req.session != null ? req.session.id : undefined) == null) {
-      return;
-    }
-    req.logout();
-    req.session.destroy();
-    res.redirect('/');
-  });
   app.get('/ping', (req, res) => {
     res.send('pong');
   });

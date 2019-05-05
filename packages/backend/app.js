@@ -5,6 +5,7 @@ const path = require('path');
 const cluster = require('cluster');
 const createListener = require('./express');
 const numCPUs = require('os').cpus().length;
+const { logger } = require(path.resolve('logger'));
 
 /**
  * Application
@@ -14,7 +15,6 @@ const listener = createListener();
 /**
  * routes, session
  */
-require('./routes/passport')(listener);
 require('./routes/api')(listener);
 require('./routes/routes')(listener);
 
@@ -36,6 +36,8 @@ if (process.env.NODE_ENV === 'production' && cluster.isMaster) {
 } else {
   // createServer(httpsOptions, listener).listen(listener.get('port'), () => {
   createServer(listener).listen(listener.get('port'), () => {
-    logger.info(`Express HTTPS server listening on port ${listener.get('port')}`);
+    logger.info(
+      `Express HTTPS server listening on port ${listener.get('port')}`,
+    );
   });
 }

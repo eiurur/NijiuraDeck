@@ -5,17 +5,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/eiurur/syarko"
+    "url": "https://github.com/eiurur/nijiura-deck"
   },
   "author": "https://github.com/eiurur",
   "bugs": {
-    "url": "https://github.com/eiurur/syako/issues",
+    "url": "https://github.com/eiurur/nijiura-deck/issues",
     "email": "eiurur789@gmail.com"
   },
   "license": "MIT",
   "config": {
-    "imageRepo": "eiurur/syako",
-    "imageName": "syako"
+    "imageRepo": "eiurur/nijiura-deck",
+    "imageName": "nijiura-deck"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -38,5 +38,5 @@
   "engines": {
     "node": ">= 10"
   },
-  "name": "Syako"
+  "name": "NijiuraDeck"
 }
