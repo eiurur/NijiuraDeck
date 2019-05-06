@@ -1,7 +1,11 @@
 default:
+  PROTOCOL: 'http'
+  DOMAIN: 'localhost'
   PORT: 12700
   APP_NAME: 'NijiuraDeck'
 
 production: &production
+  PROTOCOL: #{process.env.PROTOCOL}
+  DOMAIN: #{process.env.DOMAIN}
   PORT: #{process.env.PORT}
   APP_NAME: 'NijiuraDeck'

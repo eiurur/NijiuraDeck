@@ -3,8 +3,8 @@ const configs = require('konfig')();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const methodOverride = require('method-override');
-const passport = require('passport');
 const compression = require('compression');
 const ejs = require('ejs');
 
@@ -25,6 +25,7 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
   app.use(methodOverride());
   app.use(compression({ level: 9 }));
+  app.use(cors());
 
   if (env === 'development') {
     require('./config/development')(app);

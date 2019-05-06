@@ -11,21 +11,16 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Home
     },
     {
       path: '/about',
       name: 'about',
-      component: About,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      redirect: '/auth/twitter/callback',
+      component: About
     },
     {
       path: '*',
-      redirect: '/',
-    },
-  ],
+      redirect: '/'
+    }
+  ]
 });
