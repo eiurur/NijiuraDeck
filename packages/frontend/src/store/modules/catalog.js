@@ -2,18 +2,19 @@ import board from '../../api/board';
 
 const state = {
   modalOpen: false,
-  list: []
+  list: [],
+  responses: []
 };
 
 const getters = {
   getModal: state => state.modalOpen,
-  getList: state => state.list
+  getList: state => state.list,
+  getResponses: state => state.responses
 };
 
 const actions = {
   // closeModal({ commit }) {
   //   commit('CLOSE_MODAL');
-  // },
   updateModal({ commit, dispatch, state }, value) {
     commit('UPDATE_MODAL');
     if (state.modalOpen) {
@@ -25,6 +26,12 @@ const actions = {
     const { data } = await board.fetchCatalogList(value);
     payload.list = data;
     commit('LOAD_LIST', payload);
+  },
+  async loadResponse({ commit, dispatch, state }, value) {
+    const payload = {};
+    const { data } = await board.fetchReponseList(value);
+    payload.list = data;
+    commit('LOAD_RESPONSE', payload);
   }
 };
 const mutations = {
@@ -36,6 +43,9 @@ const mutations = {
   },
   LOAD_LIST(state, payload) {
     state.list = payload.list;
+  },
+  LOAD_RESPONSE(state, payload) {
+    state.responses = payload.list;
   }
 };
 export default {

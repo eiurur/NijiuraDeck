@@ -63,7 +63,7 @@
     "MSPゴシック", "Osaka", "MS PGothic", "Arial", "Helvetica", "Verdana",
     "sans-serif";
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 600;
   margin-top: 0;
   line-height: 1.6;
   /* color: #2c3e50; */
@@ -121,6 +121,7 @@ export default {
   },
   methods: {
     updateCatalogModal() {
+      // TODO:選択式
       const payload = { boardType: "MAY" };
       this.$store.dispatch("catalog/updateModal", payload);
     },

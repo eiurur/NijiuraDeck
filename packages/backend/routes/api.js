@@ -19,7 +19,6 @@ module.exports = app => {
       });
       board.setCatalogParameter({ sort: req.params.sort });
       const threads = await board.thread.list();
-
       res.send(threads);
     },
   );
@@ -28,7 +27,9 @@ module.exports = app => {
     `/api/${API_VERSION}/:boardType/thread/:threadId`,
     [parameters.getParameters, logging.log],
     async (req, res) => {
-      res.json({});
+      const board = new Board(req.params.boardType.toUpperCase());
+      const responses = await board.response.list(req.params.threadId);
+      res.send(responses);
     },
   );
 

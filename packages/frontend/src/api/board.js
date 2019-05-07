@@ -17,6 +17,10 @@ export default {
       params: { sort: SORT_TYPE.MANY }
     });
     return list;
+  },
+  async fetchReponseList({ boardType, threadId }) {
+    const list = await axios.get(`${API_ROOT}/${boardType}/thread/${threadId}`);
+    return list;
   }
 
   // getProducts(cb) {
