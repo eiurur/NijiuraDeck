@@ -1,18 +1,21 @@
 <template>
   <el-dialog title="カタログ" width="90vw" height="75vh" top="5vh" :visible.sync="modal">
     <div class="split--vertical">
-      <div ref="scrollable" :gutter="10" class="catalog scrollable half">
-        <div
-          v-for="{ id, title, number, img } in list"
-          :key="id"
-          @click="loadResponses(id)"
-          class="thread"
-        >
-          <img class="threadImage" :src="img">
-          <div class="threadBody">
-            <div class="title">{{ title }}</div>
-            <div class="number">
-              <span>{{number}} res</span>
+      <div ref="scrollable" :gutter="10" class="scrollable half">
+        <el-input placeholder="検索" v-model="searchWord"></el-input>
+        <div class="catalog">
+          <div
+            v-for="{ id, title, number, img } in filteredList"
+            :key="id"
+            @click="loadResponses(id)"
+            class="thread"
+          >
+            <img class="threadImage" :src="img">
+            <div class="threadBody">
+              <div class="title">{{ title }}</div>
+              <div class="number">
+                <span>{{number}} res</span>
+              </div>
             </div>
           </div>
         </div>
@@ -27,13 +30,14 @@
   display: flex;
 }
 .scrollable {
+  position: relative;
   overflow-y: auto;
   height: calc(100vh - 25vh);
 }
 .catalog {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .half {
   width: 50%;
@@ -95,11 +99,21 @@ export default {
         this.$store.dispatch("catalog/updateModal");
         this.$refs.scrollable.scrollTop = 0;
       }
+    },
+    filteredList() {
+      if (!this.list) return [];
+      if (this.searchWord === "") return this.list;
+      return this.list.filter(thread => {
+        return thread.title
+          .toLowerCase()
+          .includes(this.searchWord.toLowerCase());
+      });
     }
   },
   data() {
     return {
       formLabelWidth: "120px",
+      searchWord: "",
       intervalId: undefined
     };
   },
