@@ -63,6 +63,9 @@ export default {
   components: {
     ResponseImage
   },
-  props: ["responses"]
+  props: ["responses"],
+  updated() {
+    this.$refs.scrollable.scrollTop = 0;
+  }
 };
 </script>
