@@ -99,8 +99,18 @@ export default {
   },
   data() {
     return {
-      formLabelWidth: "120px"
+      formLabelWidth: "120px",
+      intervalId: undefined
     };
+  },
+  mounted() {
+    this.intervalId = setInterval(() => {
+      const payload = { boardType: "MAY" };
+      this.$store.dispatch("catalog/load", payload);
+    }, 30 * 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
   }
 };
 </script>
