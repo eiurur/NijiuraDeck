@@ -1,14 +1,33 @@
 <template>
-  <div ref="scrollable" :gutter="10" class="container scrollable half">
-    <div
-      v-for="{ id, name, quote, res, img, thumb, createdAt } in responses"
-      :key="id"
-      class="response"
-    >
-      <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
-      <div class="responseBody">
-        <div v-if="quote" class="quote">{{ quote }}</div>
-        <div class="res">{{ res }}</div>
+  <div ref="scrollable" :gutter="10" class="scrollable half">
+    <div class="stickyContainer">
+      <div class="toggleDisplayImage">
+        <el-button
+          circle
+          icon="el-icon-picture-outline"
+          type="success"
+          v-if="isFilteringImage"
+          @click="toggleDisplayImage"
+        ></el-button>
+        <el-button
+          circle
+          icon="el-icon-picture-outline"
+          v-if="!isFilteringImage"
+          @click="toggleDisplayImage"
+        ></el-button>
+      </div>
+    </div>
+    <div class="container">
+      <div
+        v-for="{ id, name, quote, res, img, thumb, createdAt } in filteredResponse"
+        :key="id"
+        class="response"
+      >
+        <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
+        <div class="responseBody">
+          <div v-if="quote" class="quote">{{ quote }}</div>
+          <div class="res">{{ res }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -16,9 +35,16 @@
 
 <style lang="scss" scopedd>
 .scrollable {
+  position: relative;
   overflow-y: auto;
   height: calc(100vh - 25vh);
   background: #fbfbec;
+}
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 .catalog {
   display: flex;
@@ -53,6 +79,27 @@
 .quote {
   color: rgb(120, 153, 34);
 }
+.stickyContainer {
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  /* クリックイベントを透過 */
+  pointer-events: none;
+  & > * {
+    pointer-events: auto;
+  }
+}
+.toggleDisplayImage {
+  display: block;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
 </style>
 
 <script>
@@ -64,8 +111,30 @@ export default {
     ResponseImage
   },
   props: ["responses"],
+  data() {
+    return {
+      isFilteringImage: false
+    };
+  },
   updated() {
     this.$refs.scrollable.scrollTop = 0;
+  },
+  computed: {
+    filteredResponse() {
+      return this.responses.filter(response => {
+        if (this.isFilteringImage) {
+          return !!response.img;
+        } else {
+          return true;
+        }
+      });
+    }
+  },
+  methods: {
+    toggleDisplayImage() {
+      this.isFilteringImage = !this.isFilteringImage;
+      console.log(this.isFilteringImage);
+    }
   }
 };
 </script>
