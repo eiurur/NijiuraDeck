@@ -1,4 +1,8 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 const SORT_TYPE = {
   NEW: 1,
@@ -12,25 +16,21 @@ const VERSION = 'v1';
 const API_ROOT = `http://127.0.0.1:12700/api/${VERSION}`;
 
 export default {
+  normalizeResponses(responses) {
+    return responses.map((response) => {
+      response.createdAt = `20${response.createdAt.replace(/\(.\)/, ' ')}`;
+      response.fromNow = dayjs(response.createdAt).fromNow();
+      return response;
+    });
+  },
   async fetchCatalogList({ boardType }) {
-    const list = await axios.get(`${API_ROOT}/${boardType}/threads`, {
+    const { data } = await axios.get(`${API_ROOT}/${boardType}/threads`, {
       params: { sort: SORT_TYPE.MANY }
     });
-    return list;
+    return data;
   },
   async fetchReponseList({ boardType, threadId }) {
-    const list = await axios.get(`${API_ROOT}/${boardType}/thread/${threadId}`);
-    return list;
+    const { data } = await axios.get(`${API_ROOT}/${boardType}/thread/${threadId}`);
+    return this.normalizeResponses(data);
   }
-
-  // getProducts(cb) {
-  //   setTimeout(() => cb(_products), 100);
-  // },
-
-  // buyProducts(products, cb, errorCb) {
-  //   setTimeout(() => {
-  //     // simulate random checkout failure.
-  //     Math.random() > 0.5 || navigator.userAgent.indexOf('PhantomJS') > -1 ? cb() : errorCb();
-  //   }, 100);
-  // }
 };

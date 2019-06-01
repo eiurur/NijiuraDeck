@@ -2,8 +2,8 @@
   <div id="app">
     <el-container style=" border: 1px solid #eee">
       <el-aside width="64px;" style="background-color: rgb(238, 241, 246)">
-        <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="true">
-          <el-submenu index="1">
+        <el-menu class="el-menu-vertical-demo" :collapse="true">
+          <!-- <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-menu"></i>
               <span slot="title">メニュー</span>
@@ -20,30 +20,23 @@
               <span slot="title">item four</span>
               <el-menu-item index="1-4-1">item one</el-menu-item>
             </el-submenu>
-          </el-submenu>
+          </el-submenu>-->
+          <el-menu-item index="1" @click="updateCatalogModal">
+            <i class="el-icon-s-grid"></i>
+            <span slot="title">スレッド一覧を開く</span>
+          </el-menu-item>
           <el-menu-item index="2">
             <i class="el-icon-refresh-left"></i>
             <span slot="title">Navigator Two</span>
           </el-menu-item>
-          <el-menu-item index="3" @click="updateCatalogModal">
-            <i class="el-icon-s-grid"></i>
-            <span slot="title">スレッド一覧を開く</span>
-          </el-menu-item>
-          <el-menu-item index="4" @click="updateSettingModal">
+          <el-menu-item index="3" @click="updateSettingModal">
             <i class="el-icon-setting"></i>
             <span slot="title">設定</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
-
       <el-container>
-        <el-main>
-          <el-table :data="tableData">
-            <el-table-column prop="date" label="Date" width="140"></el-table-column>
-            <el-table-column prop="name" label="Name" width="120"></el-table-column>
-            <el-table-column prop="address" label="Address"></el-table-column>
-          </el-table>
-        </el-main>
+        <Columns></Columns>
       </el-container>
     </el-container>
     <Catalog></Catalog>
@@ -51,9 +44,16 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 :root {
   --main-color: black;
+}
+
+body,
+html,
+#app {
+  height: 100%;
+  margin: 0;
 }
 #app {
   background: white;
@@ -106,18 +106,54 @@ a.disabled {
   width: 200px;
   min-height: 400px;
 }
+.el-container {
+  height: 100%;
+}
+.el-main {
+  background-color: rgb(255, 255, 238);
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+::-webkit-scrollbar {
+  background-color: #fff;
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+::-webkit-scrollbar-track:hover {
+  background-color: #f4f4f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  border-radius: 8px;
+  border: 5px solid #fff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a0a0a5;
+  border: 4px solid #f4f4f4;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
 </style>
 
 
 <script>
 import Catalog from "@/components/Catalog.vue"; // @ is an alias to /src
 import Setting from "@/components/Setting.vue"; // @ is an alias to /src
+import Columns from "@/components/Columns.vue"; // @ is an alias to /src
 
 export default {
   name: "App",
   components: {
     Catalog,
-    Setting
+    Setting,
+    Columns
   },
   methods: {
     updateCatalogModal() {
@@ -128,16 +164,6 @@ export default {
     updateSettingModal() {
       this.$store.dispatch("setting/updateModal");
     }
-  },
-  data() {
-    const item = {
-      date: "2016-05-02",
-      name: "Tom",
-      address: "No. 189, Grove St, Los Angeles"
-    };
-    return {
-      tableData: Array(10).fill(item)
-    };
   }
 };
 </script>

@@ -11,7 +11,7 @@
   </span>
 </template>
 
-<style lang="scss" scopedd>
+<style lang="scss" scoped>
 .image {
   cursor: pointer;
   object-fit: contain;

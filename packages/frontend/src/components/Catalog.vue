@@ -7,7 +7,7 @@
           <div
             v-for="{ id, title, number, img } in filteredList"
             :key="id"
-            @click="loadResponses(id)"
+            @click="loadResponses({id, title})"
             class="thread"
           >
             <img class="threadImage" :src="img">
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <ResponseList :responses="responses"></ResponseList>
+      <ResponseList :responses="responses" :currentThread="currentThread"></ResponseList>
     </div>
   </el-dialog>
 </template>
@@ -78,8 +78,9 @@ export default {
     ResponseList
   },
   methods: {
-    loadResponses(threadId) {
-      const payload = { boardType: "MAY", threadId };
+    loadResponses(thread) {
+      const payload = { boardType: "MAY", threadId: thread.id };
+      this.currentThread = thread;
       this.$store.dispatch("catalog/loadResponse", payload);
     }
   },
@@ -112,6 +113,7 @@ export default {
   },
   data() {
     return {
+      currentThread: {},
       formLabelWidth: "120px",
       searchWord: "",
       intervalId: undefined

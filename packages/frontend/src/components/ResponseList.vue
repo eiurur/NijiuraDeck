@@ -1,7 +1,7 @@
 <template>
   <div ref="scrollable" :gutter="10" class="scrollable half">
     <div class="stickyContainer">
-      <div class="toggleDisplayImage">
+      <div class="bottons">
         <el-button
           circle
           icon="el-icon-picture-outline"
@@ -14,6 +14,13 @@
           icon="el-icon-picture-outline"
           v-if="!isFilteringImage"
           @click="toggleDisplayImage"
+        ></el-button>
+        <el-button
+          circle
+          type="primary"
+          icon="el-icon-plus"
+          v-bind:disabled="currentThread === null"
+          @click="addTreadhColumn(currentThread)"
         ></el-button>
       </div>
     </div>
@@ -33,7 +40,7 @@
   </div>
 </template>
 
-<style lang="scss" scopedd>
+<style lang="scss" scoped>
 .scrollable {
   position: relative;
   overflow-y: auto;
@@ -94,7 +101,7 @@
     pointer-events: auto;
   }
 }
-.toggleDisplayImage {
+.bottons {
   display: block;
   position: absolute;
   right: 15px;
@@ -110,7 +117,7 @@ export default {
   components: {
     ResponseImage
   },
-  props: ["responses"],
+  props: ["responses", "currentThread"],
   data() {
     return {
       isFilteringImage: false
@@ -131,6 +138,12 @@ export default {
     }
   },
   methods: {
+    addTreadhColumn(thread) {
+      if (!thread.id) return;
+      console.log(thread);
+      const payload = { boardType: "MAY", id: thread.id, title: thread.title };
+      this.$store.dispatch("watchingThread/add", payload);
+    },
     toggleDisplayImage() {
       this.isFilteringImage = !this.isFilteringImage;
       console.log(this.isFilteringImage);
