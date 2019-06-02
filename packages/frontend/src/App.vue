@@ -11,11 +11,11 @@
             <i class="el-icon-refresh-left"></i>
             <span slot="title">全スレッドを更新する</span>
           </el-menu-item>
-          <el-menu-item index="3" @click="removeDeadThreadColumn()">
+          <el-menu-item index="3" @click="removeDownThreadColumn()">
             <i class="el-icon-delete"></i>
             <span slot="title">dat落ちのスレッドを削除する</span>
           </el-menu-item>
-          <el-menu-item index="4" @click="updateSettingModal">
+          <el-menu-item index="4" @click="updateSettingModal" disabled>
             <i class="el-icon-setting"></i>
             <span slot="title">設定</span>
           </el-menu-item>
@@ -83,6 +83,13 @@ a.disabled {
   color: inherit;
   pointer-events: none;
   cursor: default;
+}
+
+span > i.left {
+  padding-right: 8px;
+}
+span > i.right {
+  padding-left: 8px;
 }
 
 /* css framework */
@@ -169,8 +176,8 @@ export default {
     updateAllThreadColumn() {
       this.$store.dispatch("watchingThread/updateAll");
     },
-    removeDeadThreadColumn() {
-      this.$store.dispatch("watchingThread/removeDead");
+    removeDownThreadColumn() {
+      this.$store.dispatch("watchingThread/removeDown");
     },
     updateSettingModal() {
       this.$store.dispatch("setting/updateModal");

@@ -143,7 +143,6 @@ export default {
     },
     toggleDisplayImage() {
       this.isFilteringImage = !this.isFilteringImage;
-      console.log(this.isFilteringImage);
     }
   }
 };

@@ -48,7 +48,6 @@ export default {
         .pop()
         .trim();
       var VIDEO_EXTENSIONS = ["mp4", "webm"];
-      console.log(img, ext, VIDEO_EXTENSIONS.includes(ext));
       if (VIDEO_EXTENSIONS.includes(ext)) {
         this.isShownVideo = true;
       } else {

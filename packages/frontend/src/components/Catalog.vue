@@ -8,7 +8,6 @@
             v-for="thread in filteredList"
             :key="thread.id"
             @click="loadResponses(thread)"
-            @contextmenu="onContextMenu"
             class="thread"
           >
             <img class="threadImage" :src="thread.img">
@@ -106,10 +105,10 @@ export default {
       if (!thread.id) return;
       const payload = Object.assign({ boardType: "MAY" }, thread);
       this.$store.dispatch("watchingThread/add", payload);
-    },
-    onContextMenu(e) {
-      e.preventDefault();
     }
+    // onContextMenu(e) {
+    //   e.preventDefault();
+    // }
   },
   computed: {
     responses() {
@@ -123,7 +122,6 @@ export default {
         return this.$store.getters["catalog/getModal"];
       },
       set() {
-        // TODO: Tabの値から取得する
         this.$store.dispatch("catalog/updateModal");
         this.$refs.scrollable.scrollTop = 0;
       }
@@ -148,14 +146,15 @@ export default {
   },
   watch: {
     modal() {
-      console.log("this.modal", this.modal);
       if (!this.modal) {
+        console.log("!this.modal = ", !this.modal);
         clearInterval(this.intervalId);
       }
     }
   },
   mounted() {
     this.intervalId = setInterval(() => {
+      if (!this.modal) return;
       const payload = { boardType: "MAY" };
       this.$store.dispatch("catalog/load", payload);
     }, 30 * 1000);

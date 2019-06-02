@@ -14,7 +14,25 @@ export default new Vuex.Store({
     setting,
     watchingThread
   },
-  strict: debug
-  // plugins: debug ? [createLogger()] : [],
+  strict: debug,
+  actions: {
+    saveLocalStorage({ commit }) {
+      commit('SAVE');
+    },
+    loadLocalStorage({ commit }) {
+      commit('LOAD');
+    }
+  },
+  mutations: {
+    SAVE(state) {
+      localStorage.setItem('store', JSON.stringify(state));
+    },
+    LOAD(state) {
+      if (localStorage.getItem('store')) {
+        const store = JSON.parse(localStorage.getItem('store'));
+        this.replaceState(Object.assign(state, store));
+      }
+    }
+  }
   // plugins: debug ? [createLogger()] : [],
 });
