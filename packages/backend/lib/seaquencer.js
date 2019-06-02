@@ -10,41 +10,13 @@ exports.seaquencer = (req, res, resolver) => {
     return res.status(400).send('Bad Request');
   };
 
-  const onError = error => {
-    logger.error('seq onError statusCode =>  ', error.statusCode);
-    logger.error('seq onError message =>  ', error.message);
-    logger.error('seq onError trace=>  ', error.stack);
-
-    const statusCode = !error.statusCode ? 500 : error.statusCode;
-    const message = `${statusCode} - ${JSON.stringify(error.message || error)}`;
-    const user = req.user || {
-      name: 'Anonymous',
-      screenName: 'Anounymous',
-      icon: 'https://assets.tumblr.com/images/anonymous_avatar_96.gif',
-    };
-
-    // new SlackLogger().send({
-    //   text: message,
-    //   attachments: [
-    //     {
-    //       color: 'danger',
-    //       author_name: `${user.screenName} @${user.name}`,
-    //       author_link: `https://twitter.com/${user.name}`,
-    //       author_icon: user.icon,
-    //       title: `StatudCode - ${statusCode}`,
-    //       title_link: `https://twitter.com/${user.name}`,
-    //       text: JSON.stringify(req.params.post),
-    //       fields: [
-    //         {
-    //           title: 'StackTrace',
-    //           value: JSON.stringify(error.stack),
-    //           short: false,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // });
-    return res.status(statusCode).send({ message: error.message });
+  const onError = e => {
+    logger.error('seq onError statusCode =>  ', e.statusCode);
+    logger.error('seq onError message =>  ', e.message);
+    logger.error('seq onError trace=>  ', e.stack);
+    const statusCode = e.response ? e.response.status : e.statusCode;
+    const message = e.response ? e.response.data : e.message;
+    return res.status(statusCode).send(message);
   };
 
   return resolver.then(onResp).catch(onError);

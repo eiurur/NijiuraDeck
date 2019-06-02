@@ -1,22 +1,10 @@
 const util = require('util');
 const crypto = require('crypto');
 
-const my = function () {
+const my = function() {
   // module.exports = class My
 
   return {
-    c(desciption, str) {
-      desciption = desciption || '';
-      str = str || '';
-      return console.log(`${desciption}: ${str}`);
-    },
-
-    e(desciption, str) {
-      desciption = desciption || '';
-      str = str || '';
-      return console.error(`${desciption}: ${str}`);
-    },
-
     dump(obj) {
       return console.log(util.inspect(obj, false, null));
     },
@@ -35,7 +23,6 @@ const my = function () {
     },
     // => 'key=apikey&code=01234&start=0&rows=0'
 
-    // 開始時刻と終了時刻が同じ日かどうか判定
     isSameDay(startTimeYMD, endTimeYMD) {
       if (startTimeYMD === endTimeYMD) {
         return true;
@@ -56,7 +43,9 @@ const my = function () {
     // http://blog.fkei.me/2012/03/nodejs-uid.html
     createUID(size, base) {
       size = size || 32;
-      base = base || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      base =
+        base ||
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       const len = base.length;
       const buf = [];
       let i = 0;
@@ -70,29 +59,6 @@ const my = function () {
 
     random(array) {
       return array[Math.floor(Math.random() * array.length)];
-    },
-
-    randomByLimitNum(array, num) {
-      let result = [];
-
-      if (array.length < num) {
-        result = [].concat(array);
-        console.log(`\
-num =  ${num} array = ${array.length}, result = ${result.length}\
-`);
-        return result;
-      }
-
-      while (result.length < num) {
-        const pluckedVal = this.random(array);
-        if (_.contains(result, pluckedVal)) {
-          continue;
-        }
-        result.push(pluckedVal);
-      }
-      // HACK: 上の2行は 下の1行でいいんじゃね？
-      // result = _.uniq result
-      return result;
     },
   };
 };
