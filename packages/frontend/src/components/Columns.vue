@@ -15,25 +15,9 @@ export default {
   components: {
     Column
   },
-  props: [""],
   computed: {
     threads() {
       return this.$store.getters["watchingThread/getList"];
-    }
-  },
-  data() {
-    return {
-      isFilteringImage: false
-    };
-  },
-  methods: {
-    addTreadhColumn(threadId) {
-      if (!threadId) return;
-      console.log(threadId);
-    },
-    toggleDisplayImage() {
-      this.isFilteringImage = !this.isFilteringImage;
-      console.log(this.isFilteringImage);
     }
   }
 };

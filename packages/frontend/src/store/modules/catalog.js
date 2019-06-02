@@ -23,14 +23,14 @@ const actions = {
   },
   async load({ commit }, value) {
     const payload = {};
-    const data = await board.fetchCatalogList(value);
-    payload.list = data;
+    const list = await board.fetchCatalogList(value);
+    payload.list = list;
     commit('LOAD_LIST', payload);
   },
   async loadResponse({ commit, dispatch, state }, value) {
     const payload = {};
-    const data = await board.fetchReponseList(value);
-    payload.list = data;
+    const list = await board.fetchReponseList(value);
+    payload.list = list;
     commit('LOAD_RESPONSE', payload);
   }
 };

@@ -6,7 +6,7 @@
       v-if="!(isShownImage || isShownVideo)"
       @click="showOriginal(img)"
     >
-    <img :src="img" class="original" v-if="isShownImage">
+    <img :src="img" class="original" v-if="isShownImage" data-zoomable>
     <video autoplay controls loop :src="img" class="original" v-if="isShownVideo"></video>
   </span>
 </template>
@@ -17,8 +17,8 @@
   object-fit: contain;
   height: auto;
   width: auto;
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 320px;
+  max-width: 320px;
 }
 .original {
   width: 100%;
@@ -26,6 +26,7 @@
 </style>
 
 <script>
+import mediumZoom from "medium-zoom";
 export default {
   name: "ResponseImage",
   props: ["thumb", "img"],
@@ -54,6 +55,15 @@ export default {
         this.isShownImage = true;
       }
     }
+  },
+  updated() {
+    Array.from(
+      document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
+    ).map(img => {
+      img.onload = () => {
+        mediumZoom(img);
+      };
+    });
   }
 };
 </script>

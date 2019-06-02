@@ -20,7 +20,7 @@
           type="primary"
           icon="el-icon-plus"
           v-bind:disabled="currentThread === null"
-          @click="addTreadhColumn(currentThread)"
+          @click="addThreadhColumn(currentThread)"
         ></el-button>
       </div>
     </div>
@@ -73,15 +73,13 @@
   object-fit: contain;
   height: auto;
   width: auto;
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 320px;
+  max-width: 320px;
 }
 .responseBody {
   margin: 1rem;
   background: #eddbd1;
   // width: 100%;
-}
-.name {
 }
 .quote {
   color: rgb(120, 153, 34);
@@ -138,10 +136,9 @@ export default {
     }
   },
   methods: {
-    addTreadhColumn(thread) {
+    addThreadhColumn(thread) {
       if (!thread.id) return;
-      console.log(thread);
-      const payload = { boardType: "MAY", id: thread.id, title: thread.title };
+      const payload = Object.assign({ boardType: "MAY" }, thread);
       this.$store.dispatch("watchingThread/add", payload);
     },
     toggleDisplayImage() {

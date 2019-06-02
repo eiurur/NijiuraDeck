@@ -3,19 +3,26 @@
     <div class="column-holder">
       <div class="column-panel">
         <header class="column-header">
-          <div class="column-header-title">{{thread.title}}</div>
+          <div class="column-header-title" :class="{dead: this.thread.isDead}">
+            <span v-if="this.thread.isDead">
+              <el-tooltip class="item" effect="dark" content="スレ落ち" placement="bottom">
+                <i class="el-icon-warning"></i>
+              </el-tooltip>
+            </span>
+            <a :href="thread.url" target="_blank">{{thread.title}}</a>
+          </div>
           <div class="column-header-actions">
             <i class="el-icon-refresh-left"></i>
             <i class="el-icon-picture-outline" v-if="!isFilteringImage" @click="toggleDisplayImage"></i>
             <i class="el-icon-picture active" v-if="isFilteringImage" @click="toggleDisplayImage"></i>
-            <i class="el-icon-close"></i>
+            <i class="el-icon-close" @click="remove()"></i>
           </div>
         </header>
         <div class="column-content">
           <div class="column-scroiller scrollbar">
             <article
               class="stream-item"
-              v-for="{ id, name, quote, res, img, thumb, createdAt, fromNow } in filteredResponse"
+              v-for="{ id, quote, res, img, thumb, fromNow } in filteredResponse"
               :key="id"
             >
               <div class="item-box">
@@ -42,7 +49,6 @@
 </template>
 
 <style lang="scss" scoped>
-/* tt */
 .column-holder {
   position: absolute;
   top: 0;
@@ -59,7 +65,7 @@
 .column {
   border-radius: 0;
   position: relative;
-  z-index: 1;
+  // z-index: 1;
   display: inline-block;
   overflow: hidden;
   width: 400px;
@@ -75,7 +81,7 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  background: #fff;
+  background: #eddbd1;
   display: flex;
   flex-direction: column;
 }
@@ -93,6 +99,9 @@ header.column-header {
 }
 .column-header-title {
   overflow: hidden;
+}
+.dead {
+  color: #f56c6c;
 }
 .column-header-actions {
   & i {
@@ -187,8 +196,9 @@ export default {
   },
   computed: {
     filteredResponse() {
-      if (!this.thread.responses || this.thread.responses.length === 0)
+      if (!this.thread.responses || this.thread.responses.length === 0) {
         return this.thread.responses;
+      }
       return this.thread.responses.filter(response => {
         if (this.isFilteringImage) {
           return !!response.img;
@@ -201,6 +211,23 @@ export default {
   methods: {
     toggleDisplayImage() {
       this.isFilteringImage = !this.isFilteringImage;
+    },
+    // updateColumn() {
+    //   this.$store.dispatch("watchingThread/update");
+    // },
+    remove() {
+      const payload = {
+        id: this.thread.id
+      };
+      this.$store.dispatch("watchingThread/remove", payload);
+    }
+  },
+  watch: {
+    thread() {
+      if (this.thread.isDown) {
+        console.log("clearInterval column", this.thread);
+        clearInterval(this.intervalId);
+      }
     }
   },
   mounted() {
@@ -208,10 +235,11 @@ export default {
       const payload = {
         boardType: "MAY",
         id: this.thread.id,
-        title: this.thread.title
+        title: this.thread.title,
+        url: this.thread.url
       };
       this.$store.dispatch("watchingThread/update", payload);
-    }, 30 * 1000);
+    }, 60 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.intervalId);

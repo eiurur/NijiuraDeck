@@ -3,33 +3,19 @@
     <el-container style=" border: 1px solid #eee">
       <el-aside width="64px;" style="background-color: rgb(238, 241, 246)">
         <el-menu class="el-menu-vertical-demo" :collapse="true">
-          <!-- <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-menu"></i>
-              <span slot="title">メニュー</span>
-            </template>
-            <el-menu-item-group>
-              <span slot="title">Group One</span>
-              <el-menu-item index="1-1">item one</el-menu-item>
-              <el-menu-item index="1-2">item two</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-              <el-menu-item index="1-3">item three</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <span slot="title">item four</span>
-              <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-submenu>
-          </el-submenu>-->
           <el-menu-item index="1" @click="updateCatalogModal">
             <i class="el-icon-s-grid"></i>
             <span slot="title">スレッド一覧を開く</span>
           </el-menu-item>
-          <el-menu-item index="2">
+          <el-menu-item index="2" @click="updateAllThreadColumn()">
             <i class="el-icon-refresh-left"></i>
-            <span slot="title">Navigator Two</span>
+            <span slot="title">全スレッドを更新する</span>
           </el-menu-item>
-          <el-menu-item index="3" @click="updateSettingModal">
+          <el-menu-item index="3" @click="removeDeadThreadColumn()">
+            <i class="el-icon-delete"></i>
+            <span slot="title">dat落ちのスレッドを削除する</span>
+          </el-menu-item>
+          <el-menu-item index="4" @click="updateSettingModal">
             <i class="el-icon-setting"></i>
             <span slot="title">設定</span>
           </el-menu-item>
@@ -83,15 +69,23 @@ ul {
   padding-inline-start: 0;
 }
 
-a {
+a,
+a:visited,
+a:hover,
+a:active {
   text-decoration: none;
+  color: inherit;
   cursor: pointer;
   transition: 0.3s ease all;
 }
 a.disabled {
+  text-decoration: none;
+  color: inherit;
   pointer-events: none;
   cursor: default;
 }
+
+/* css framework */
 .el-header {
   background-color: #b3c0d1;
   color: #333;
@@ -112,16 +106,27 @@ a.disabled {
 .el-main {
   background-color: rgb(255, 255, 238);
   padding: 0 !important;
-  overflow: hidden !important;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
+  white-space: nowrap;
 }
 
+/* libarary */
+.medium-zoom-overlay {
+  z-index: 10000;
+}
+.medium-zoom-image--opened {
+  z-index: 10001;
+}
+
+/* extend property */
 ::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: #f4f4f4;
   width: 16px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #fff;
+  background-color: #f4f4f4;
 }
 ::-webkit-scrollbar-track:hover {
   background-color: #f4f4f4;
@@ -130,7 +135,7 @@ a.disabled {
 ::-webkit-scrollbar-thumb {
   background-color: #babac0;
   border-radius: 8px;
-  border: 5px solid #fff;
+  border: 5px solid #f4f4f4;
 }
 ::-webkit-scrollbar-thumb:hover {
   background-color: #a0a0a5;
@@ -160,6 +165,12 @@ export default {
       // TODO:選択式
       const payload = { boardType: "MAY" };
       this.$store.dispatch("catalog/updateModal", payload);
+    },
+    updateAllThreadColumn() {
+      this.$store.dispatch("watchingThread/updateAll");
+    },
+    removeDeadThreadColumn() {
+      this.$store.dispatch("watchingThread/removeDead");
     },
     updateSettingModal() {
       this.$store.dispatch("setting/updateModal");

@@ -13,6 +13,7 @@ const actions = {
     const payload = {
       id: value.id,
       title: value.title,
+      url: value.url,
       boardType: value.boardType
     };
     commit('ADD_WATCHING_THREAD_ID', payload);
@@ -24,27 +25,61 @@ const actions = {
     };
     commit('REMOVE_WATCHING_THREAD_ID', payload);
   },
+  async removeDead({ commit, state }) {
+    for (const thread in state.list) {
+      console.log('removeDead', thread);
+      try {
+        const responses = await board.fetchReponseList({ boardType: 'MAY', threadId: thread.id });
+        payload.push({
+          id: thread.id,
+          title: thread.title,
+          responses
+        });
+      } catch (e) {
+        const payload = {
+          id: thread.id
+        };
+        commit('REMOVE_WATCHING_THREAD_ID', payload);
+      }
+    }
+  },
   clear({ commit }) {
     commit('CLEAR_WATCHING_THREAD_ID');
   },
   async update({ commit }, value) {
-    const data = await board.fetchReponseList({ boardType: 'MAY', threadId: value.id });
     const payload = {
       id: value.id,
       title: value.title,
-      responses: data
+      url: value.url
     };
-    commit('UPDATE_WATCHING_THREAD', payload);
+    try {
+      const responses = await board.fetchReponseList({ boardType: 'MAY', threadId: value.id });
+      payload.responses = responses;
+      commit('UPDATE_WATCHING_THREAD', payload);
+    } catch (e) {
+      commit('FREEZE_WATCHING_THREAD', payload);
+    }
   },
   async updateAll({ commit, state }) {
     const payload = [];
     for (const thread in state.list) {
-      const data = await board.fetchReponseList({ boardType: 'MAY', threadId: thread.id });
-      payload.push({
-        id: thread.id,
-        title: thread.title,
-        responses: data
-      });
+      try {
+        const responses = await board.fetchReponseList({ boardType: 'MAY', threadId: thread.id });
+        payload.push({
+          id: thread.id,
+          title: thread.title,
+          url: value.url,
+          responses
+        });
+      } catch (e) {
+        payload.push({
+          id: thread.id,
+          title: thread.title,
+          url: value.url,
+          responses: thread.responses,
+          isDown: true
+        });
+      }
     }
     commit('UPDATE_ALL_WATCHING_THREAD', payload);
   },
@@ -77,7 +112,14 @@ const mutations = {
     state.list.splice(i, 1, payload);
   },
   UPDATE_ALL_WATCHING_THREAD(state, payload) {
-    state.list = payload;
+    state.list = [...payload];
+  },
+  FREEZE_WATCHING_THREAD(state, payload) {
+    const i = state.list.findIndex(thread => thread.id === payload.id);
+    if (i === -1) return;
+    const freezedThread = Object.assign(state.list[i], { isDown: true });
+    console.log(freezedThread);
+    state.list.splice(i, 1, freezedThread);
   }
 };
 export default {

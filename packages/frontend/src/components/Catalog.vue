@@ -5,16 +5,20 @@
         <el-input placeholder="検索" v-model="searchWord"></el-input>
         <div class="catalog">
           <div
-            v-for="{ id, title, number, img } in filteredList"
-            :key="id"
-            @click="loadResponses({id, title})"
+            v-for="thread in filteredList"
+            :key="thread.id"
+            @click="loadResponses(thread)"
+            @contextmenu="onContextMenu"
             class="thread"
           >
-            <img class="threadImage" :src="img">
+            <img class="threadImage" :src="thread.img">
             <div class="threadBody">
-              <div class="title">{{ title }}</div>
-              <div class="number">
-                <span>{{number}} res</span>
+              <div class="title">{{ thread.title }}</div>
+              <div class="footer">
+                <span>
+                  <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
+                </span>
+                <span>{{thread.number}} res</span>
               </div>
             </div>
           </div>
@@ -43,6 +47,9 @@
   width: 50%;
 }
 .thread {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
   cursor: pointer;
   color: #666;
   width: 120px;
@@ -60,12 +67,21 @@
 }
 .threadBody {
   padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-.title {
-}
-.number {
-  text-align: right;
+
+.footer {
   padding-top: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex: 1;
+  transition: color 0.1s ease;
+  & i:hover {
+    color: #5cb6ff;
+  }
 }
 </style>
 
@@ -79,9 +95,20 @@ export default {
   },
   methods: {
     loadResponses(thread) {
-      const payload = { boardType: "MAY", threadId: thread.id };
+      const payload = Object.assign(
+        { boardType: "MAY" },
+        { threadId: thread.id }
+      );
       this.currentThread = thread;
       this.$store.dispatch("catalog/loadResponse", payload);
+    },
+    addThreadhColumn(thread) {
+      if (!thread.id) return;
+      const payload = Object.assign({ boardType: "MAY" }, thread);
+      this.$store.dispatch("watchingThread/add", payload);
+    },
+    onContextMenu(e) {
+      e.preventDefault();
     }
   },
   computed: {
@@ -118,6 +145,14 @@ export default {
       searchWord: "",
       intervalId: undefined
     };
+  },
+  watch: {
+    modal() {
+      console.log("this.modal", this.modal);
+      if (!this.modal) {
+        clearInterval(this.intervalId);
+      }
+    }
   },
   mounted() {
     this.intervalId = setInterval(() => {
