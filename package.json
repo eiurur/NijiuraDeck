@@ -19,9 +19,11 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend \"",
-    "start:backend": "npm run dev --prefix ./packages/backend",
-    "start:frontend": "npm run dev --prefix ./packages/frontend",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend \"",
+    "dev:backend": "npm run dev --prefix ./packages/backend",
+    "dev:frontend": "npm run dev --prefix ./packages/frontend",
+    "start:backend": "npm run start --prefix ./packages/backend",
+    "start:frontend": "npm run start --prefix ./packages/frontend",
     "test": "npm run test:common && npm run test:server && npm run test:frontend",
     "test:common": "npm test --prefix ./packages/common",
     "test:server": "npm test --prefix ./packages/backend",
@@ -38,7 +40,7 @@
   "engines": {
     "node": ">= 10"
   },
-  "name": "NijiuraDeck",
+  "name": "nijiura-deck",
   "dependencies": {
     "chalk": "^2.4.2"
   }

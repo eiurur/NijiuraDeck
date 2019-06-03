@@ -6,7 +6,7 @@ const { logger } = require(path.resolve('logger'));
 module.exports = {
   log(req, res, next) {
     if (req.query) {
-      logger.info(chalk.bgGreen('req.query ====> '));
+      logger.info(chalk.bgCyan('req.query ====> '));
       logger.info(req.query);
     }
     if (req.params) {

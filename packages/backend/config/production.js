@@ -26,7 +26,7 @@ module.exports = app => {
 
   // setup the logger
   app.use(morgan('combined', { stream: accessLogStream }));
-  logger.info(process.env);
+  // logger.info(process.env);
 
   const cacheOptions = {
     dotfiles: 'ignore',
@@ -40,7 +40,11 @@ module.exports = app => {
     },
   };
 
+  console.log(path.join(__dirname, '..', '..', 'frontend', 'dist'));
   app.use(
-    express.static(path.join(__dirname, '..', '..', 'dist'), cacheOptions),
+    express.static(
+      path.join(__dirname, '..', '..', 'frontend', 'dist'),
+      cacheOptions,
+    ),
   );
 };

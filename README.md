@@ -1,22 +1,24 @@
 # NijiuraDeck
 
-## Build Setup
+## Launch
 
 ```bash
 # install dependencies
 npm install
 
-npm start
+npm run bootstrap
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-## development
+## Development
 
 ```bash
-npm start
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+
 ```
