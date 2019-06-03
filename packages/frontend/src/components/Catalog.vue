@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="カタログ" width="90vw" height="75vh" top="5vh" :visible.sync="modal">
     <div class="split--vertical">
-      <div ref="scrollable" :gutter="10" class="scrollable half">
+      <div ref="scrollable" :gutter="10" class="scrollable w-75">
         <el-input placeholder="検索" v-model="searchWord"></el-input>
         <div class="catalog">
           <div
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <ResponseList :responses="responses" :currentThread="currentThread"></ResponseList>
+      <ThreadPreview :responses="responses" :currentThread="currentThread"></ThreadPreview>
     </div>
   </el-dialog>
 </template>
@@ -42,8 +42,8 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.half {
-  width: 50%;
+.w-75 {
+  width: 75%;
 }
 .thread {
   display: flex;
@@ -85,12 +85,12 @@
 </style>
 
 <script>
-import ResponseList from "@/components/ResponseList.vue"; // @ is an alias to /src
+import ThreadPreview from "@/components/ThreadPreview.vue"; // @ is an alias to /src
 
 export default {
   name: "Catalog",
   components: {
-    ResponseList
+    ThreadPreview
   },
   methods: {
     loadResponses(thread) {
@@ -147,7 +147,6 @@ export default {
   watch: {
     modal() {
       if (!this.modal) {
-        console.log("!this.modal = ", !this.modal);
         clearInterval(this.intervalId);
       }
     }

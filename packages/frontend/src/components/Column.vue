@@ -18,31 +18,11 @@
             <i class="el-icon-close" @click="remove()"></i>
           </div>
         </header>
-        <div ref="scrollable" class="column-content">
-          <div class="column-scroiller scrollbar">
-            <article
-              class="stream-item"
-              v-for="{ id, quote, res, img, thumb, fromNow } in filteredResponse"
-              :key="id"
-            >
-              <div class="item-box">
-                <div class="res">
-                  <div class="response-body">
-                    <div class="response-header">
-                      <span>No.{{id}}</span>
-                      <span>{{fromNow}}</span>
-                    </div>
-                    <div class="response-text">
-                      <div v-if="quote" class="quote">{{quote}}</div>
-                      <div class="res">{{res}}</div>
-                    </div>
-                  </div>
-                  <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
+        <ResponseList
+          ref="responseList"
+          :responses="this.thread.responses"
+          :isFilteringImage="isFilteringImage"
+        ></ResponseList>
       </div>
     </div>
   </div>
@@ -181,11 +161,11 @@ article.stream-item {
 </style>
 
 <script>
-import ResponseImage from "@/components/ResponseImage.vue";
+import ResponseList from "@/components/ResponseList.vue";
 export default {
   name: "Column",
   components: {
-    ResponseImage
+    ResponseList
   },
   props: ["thread"],
   data() {
@@ -194,23 +174,9 @@ export default {
       intervalId: undefined
     };
   },
-  computed: {
-    filteredResponse() {
-      if (!this.thread.responses || this.thread.responses.length === 0) {
-        return this.thread.responses;
-      }
-      return this.thread.responses.filter(response => {
-        if (this.isFilteringImage) {
-          return !!response.img;
-        } else {
-          return true;
-        }
-      });
-    }
-  },
   methods: {
     moveToBottom() {
-      this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;
+      this.$refs.responseList.moveToBottom();
     },
     toggleDisplayImage() {
       this.isFilteringImage = !this.isFilteringImage;
@@ -225,7 +191,6 @@ export default {
   watch: {
     thread() {
       if (this.thread.isDown) {
-        console.log("this.thread.isDown = ", this.thread.isDown);
         clearInterval(this.intervalId);
       }
     }

@@ -1,109 +1,90 @@
 <template>
-  <div ref="scrollable" :gutter="10" class="scrollable half">
-    <div class="stickyContainer">
-      <div class="bottons">
-        <el-button
-          circle
-          icon="el-icon-picture-outline"
-          type="success"
-          v-if="isFilteringImage"
-          @click="toggleDisplayImage"
-        ></el-button>
-        <el-button
-          circle
-          icon="el-icon-picture-outline"
-          v-if="!isFilteringImage"
-          @click="toggleDisplayImage"
-        ></el-button>
-        <el-button
-          circle
-          type="primary"
-          icon="el-icon-plus"
-          v-bind:disabled="currentThread === null"
-          @click="addThreadhColumn(currentThread)"
-        ></el-button>
-      </div>
-    </div>
-    <div class="container">
-      <div
-        v-for="{ id, name, quote, res, img, thumb, createdAt } in filteredResponse"
+  <div ref="scrollable" class="column-content">
+    <div class="column-scroiller scrollbar">
+      <article
+        class="stream-item"
+        v-for="{ id, quote, res, img, thumb, fromNow } in filteredResponse"
         :key="id"
-        class="response"
       >
-        <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
-        <div class="responseBody">
-          <div v-if="quote" class="quote">{{ quote }}</div>
-          <div class="res">{{ res }}</div>
+        <div class="item-box">
+          <div class="res">
+            <div class="response-body">
+              <div class="response-header">
+                <span>No.{{id}}</span>
+                <span>{{fromNow}}</span>
+              </div>
+              <div class="response-text">
+                <div v-if="quote" class="quote">{{quote}}</div>
+                <div class="res">{{res}}</div>
+              </div>
+            </div>
+            <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
+          </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.scrollable {
+.column-content {
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 1px;
+  min-height: 1px;
+  overflow: auto;
+}
+
+.column-scroiller {
+  overflow-x: hidden;
+  word-break: break-word;
+  word-wrap: break-word;
+  will-change: transform;
+}
+
+article.stream-item {
+  background-color: #fff;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.item-box {
   position: relative;
-  overflow-y: auto;
-  height: calc(100vh - 25vh);
-  background: #fbfbec;
-}
-.container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
-.catalog {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.half {
-  width: 50%;
-}
-.response {
+  padding: 8px 10px;
   background: #eddbd1;
   color: #666;
-  font-size: 14px;
-  margin: 1rem;
-  display: flex;
-}
-.image {
-  cursor: pointer;
-  object-fit: contain;
-  height: auto;
-  width: auto;
-  max-height: 320px;
-  max-width: 320px;
-}
-.responseBody {
-  margin: 1rem;
-  background: #eddbd1;
-  // width: 100%;
-}
-.quote {
-  color: rgb(120, 153, 34);
-}
-.stickyContainer {
-  position: sticky;
-  left: 0;
-  top: 0;
-  z-index: 1;
 
-  width: 100%;
-  height: 100%;
+  & .response {
+    background: #eddbd1;
+    color: #666;
+    font-size: 14px;
+    margin: 1rem;
+    display: flex;
 
-  /* クリックイベントを透過 */
-  pointer-events: none;
-  & > * {
-    pointer-events: auto;
+    line-height: 1.28578em;
+    word-break: break-word;
+    word-wrap: break-word;
+    display: block;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      color: #c9686870;
+      padding: 8px 0;
+    }
   }
-}
-.bottons {
-  display: block;
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
+  & .response-text {
+    padding: 8px 0 16px;
+  }
+  & .quote {
+    color: rgb(120, 153, 34);
+  }
+
+  & .image {
+    width: 100%;
+    & img {
+      width: 100%;
+      border-radius: 1rem;
+    }
+  }
 }
 </style>
 
@@ -115,34 +96,23 @@ export default {
   components: {
     ResponseImage
   },
-  props: ["responses", "currentThread"],
-  data() {
-    return {
-      isFilteringImage: false
-    };
-  },
-  updated() {
-    this.$refs.scrollable.scrollTop = 0;
-  },
+  props: ["responses", "isFilteringImage"],
   computed: {
     filteredResponse() {
+      if (!this.responses || this.responses.length === 0) {
+        return [];
+      }
       return this.responses.filter(response => {
         if (this.isFilteringImage) {
           return !!response.img;
-        } else {
-          return true;
         }
+        return true;
       });
     }
   },
   methods: {
-    addThreadhColumn(thread) {
-      if (!thread.id) return;
-      const payload = Object.assign({ boardType: "MAY" }, thread);
-      this.$store.dispatch("watchingThread/add", payload);
-    },
-    toggleDisplayImage() {
-      this.isFilteringImage = !this.isFilteringImage;
+    moveToBottom() {
+      this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;
     }
   }
 };
