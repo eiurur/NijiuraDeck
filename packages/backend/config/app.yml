@@ -1,11 +1,11 @@
 default:
   PROTOCOL: 'http'
   DOMAIN: 'localhost'
-  PORT: 12700
+  PORT: 12701
   APP_NAME: 'NijiuraDeck'
 
 production: &production
   PROTOCOL: 'http'
   DOMAIN: 'localhost'
-  PORT: 12700
+  PORT: 12721
   APP_NAME: 'NijiuraDeck'
