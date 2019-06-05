@@ -1,5 +1,3 @@
-const { createServer } = require('http');
-// const { createServer } = require('https');
 const fs = require('fs');
 const path = require('path');
 const cluster = require('cluster');
@@ -21,23 +19,7 @@ require('./routes/routes')(listener);
 /**
  * Server
  */
-// const hskey = fs.readFileSync(path.resolve('keys', 'app-key.pem'));
-// const hscert = fs.readFileSync(path.resolve('keys', 'app-cert.pem'));
-
-const httpsOptions = {
-  // key: hskey,
-  // cert: hscert,
-};
-
-if (process.env.NODE_ENV === 'production' && cluster.isMaster) {
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-} else {
-  // createServer(httpsOptions, listener).listen(listener.get('port'), () => {
-  createServer(listener).listen(listener.get('port'), () => {
-    logger.info(
-      `Express HTTPS server listening on port ${listener.get('port')}`,
-    );
-  });
-}
+const { createServer } = require('http');
+createServer(listener).listen(listener.get('port'), () => {
+  logger.info(`Express HTTS server listening on port ${listener.get('port')}`);
+});

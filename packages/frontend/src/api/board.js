@@ -13,7 +13,7 @@ const SORT_TYPE = {
   SO: 8
 };
 const VERSION = 'v1';
-const API_ROOT = `http://127.0.0.1:12700/api/${VERSION}`;
+const API_ROOT = `/api/${VERSION}`;
 
 export default {
   normalizeResponses(responses) {

@@ -33,7 +33,7 @@ module.exports = app => {
     etag: true,
     extensions: ['css', 'js', 'jpg', 'png', 'gif'],
     index: false,
-    maxAge: 86400000 * 30, // 30日
+    maxAge: 0,
     redirect: false,
     setHeaders(res, path, stat) {
       res.set({ 'x-timestamp': Date.now() });
