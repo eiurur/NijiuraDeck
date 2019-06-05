@@ -34,5 +34,4 @@ export default new Vuex.Store({
       }
     }
   }
-  // plugins: debug ? [createLogger()] : [],
 });

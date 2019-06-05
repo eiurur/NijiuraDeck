@@ -45,7 +45,6 @@
 .column {
   border-radius: 0;
   position: relative;
-  // z-index: 1;
   display: inline-block;
   overflow: hidden;
   width: 400px;
@@ -66,7 +65,7 @@
   flex-direction: column;
 }
 
-header.column-header {
+.column-header {
   display: flex;
   justify-content: space-between;
   padding: 8px 10px;
@@ -79,10 +78,11 @@ header.column-header {
 }
 .column-header-title {
   overflow: hidden;
+  &.down {
+    color: #f56c6c;
+  }
 }
-.down {
-  color: #f56c6c;
-}
+
 .column-header-actions {
   & i {
     cursor: pointer;
@@ -98,70 +98,11 @@ header.column-header {
     padding-right: 16px;
   }
 }
-
-.column-content {
-  flex: 1 1 auto;
-  flex-direction: column;
-  min-width: 1px;
-  min-height: 1px;
-  overflow: auto;
-}
-
-.column-scroiller {
-  overflow-x: hidden;
-  word-break: break-word;
-  word-wrap: break-word;
-  will-change: transform;
-}
-
-article.stream-item {
-  background-color: #fff;
-  border-bottom: 1px solid #e1e8ed;
-}
-
-.item-box {
-  position: relative;
-  padding: 8px 10px;
-  background: #eddbd1;
-  color: #666;
-
-  & .response {
-    background: #eddbd1;
-    color: #666;
-    font-size: 14px;
-    margin: 1rem;
-    display: flex;
-
-    line-height: 1.28578em;
-    word-break: break-word;
-    word-wrap: break-word;
-    display: block;
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      color: #c9686870;
-      padding: 8px 0;
-    }
-  }
-  & .response-text {
-    padding: 8px 0 16px;
-  }
-  & .quote {
-    color: rgb(120, 153, 34);
-  }
-
-  & .image {
-    width: 100%;
-    & img {
-      width: 100%;
-      border-radius: 1rem;
-    }
-  }
-}
 </style>
 
 <script>
 import ResponseList from "@/components/ResponseList.vue";
+
 export default {
   name: "Column",
   components: {

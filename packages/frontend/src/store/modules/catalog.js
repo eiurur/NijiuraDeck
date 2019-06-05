@@ -2,19 +2,23 @@ import board from '../../api/board';
 
 const state = {
   modalOpen: false,
-  list: [],
-  responses: []
+  threads: {
+    loading: false,
+    list: []
+  },
+  responses: {
+    loading: false,
+    list: []
+  }
 };
 
 const getters = {
   getModal: state => state.modalOpen,
-  getList: state => state.list,
+  getThreads: state => state.threads,
   getResponses: state => state.responses
 };
 
 const actions = {
-  // closeModal({ commit }) {
-  //   commit('CLOSE_MODAL');
   updateModal({ commit, dispatch, state }, value) {
     commit('UPDATE_MODAL');
     if (state.modalOpen) {
@@ -22,30 +26,35 @@ const actions = {
     }
   },
   async load({ commit }, value) {
+    commit('UPDATE_FETCHING_STATUS', { type: 'threads', loading: true });
     const payload = {};
     const list = await board.fetchCatalogList(value);
     payload.list = list;
     commit('LOAD_LIST', payload);
+    commit('UPDATE_FETCHING_STATUS', { type: 'threads', loading: false });
   },
-  async loadResponse({ commit, dispatch, state }, value) {
+  async loadResponse({ commit }, value) {
+    commit('UPDATE_FETCHING_STATUS', { type: 'responses', loading: true });
     const payload = {};
     const list = await board.fetchReponseList(value);
     payload.list = list;
     commit('LOAD_RESPONSE', payload);
+    commit('UPDATE_FETCHING_STATUS', { type: 'responses', loading: false });
   }
 };
 const mutations = {
-  // CLOSE_MODAL(state) {
-  //   state.modalOpen = false;
-  // },
   UPDATE_MODAL(state) {
     state.modalOpen = !state.modalOpen;
   },
+  UPDATE_FETCHING_STATUS(state, payload) {
+    if (!state[payload.type]) return;
+    state[payload.type].loading = payload.loading;
+  },
   LOAD_LIST(state, payload) {
-    state.list = payload.list;
+    state.threads.list = payload.list;
   },
   LOAD_RESPONSE(state, payload) {
-    state.responses = payload.list;
+    state.responses.list = payload.list;
   }
 };
 export default {

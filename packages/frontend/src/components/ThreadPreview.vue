@@ -1,5 +1,5 @@
 <template>
-  <div ref="scrollable" :gutter="10" class="scrollable w-25">
+  <div v-loading="responses.loading" ref="scrollable" :gutter="10" class="scrollable w-25">
     <div class="stickyContainer">
       <div class="bottons">
         <el-button
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="container">
-      <ResponseList :responses="responses" :isFilteringImage="isFilteringImage"></ResponseList>
+      <ResponseList :responses="responses.list" :isFilteringImage="isFilteringImage"></ResponseList>
     </div>
   </div>
 </template>

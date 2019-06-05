@@ -15,11 +15,6 @@
               </div>
               <div class="response-text">
                 <div class="res" v-html="$sanitize(rawText)"></div>
-
-                <!-- <div class="res">{{rawText}}</div> -->
-
-                <!-- <div v-if="quote" class="quote">{{quote | replaceNewLine}}</div>
-                <div class="res">{{res | replaceNewLine}}</div>-->
               </div>
             </div>
             <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
@@ -114,12 +109,6 @@ export default {
       });
     }
   },
-  // filters: {
-  //   replaceNewLine: value => {
-  //     if (!value) return "";
-  //     return value.replace(/(\r\n|\n|\r)/gm, "<br />");
-  //   }
-  // },
   methods: {
     moveToBottom() {
       this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;

@@ -2,22 +2,24 @@
   <el-dialog title="カタログ" width="90vw" height="75vh" top="5vh" :visible.sync="modal">
     <div class="split--vertical">
       <div ref="scrollable" :gutter="10" class="scrollable w-75">
-        <el-input placeholder="検索" v-model="searchWord"></el-input>
-        <div class="catalog">
-          <div
-            v-for="thread in filteredList"
-            :key="thread.id"
-            @click="loadResponses(thread)"
-            class="thread"
-          >
-            <img class="threadImage" :src="thread.img">
-            <div class="threadBody">
-              <div class="title">{{ thread.title }}</div>
-              <div class="footer">
-                <span>
-                  <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
-                </span>
-                <span>{{thread.number}} res</span>
+        <div class="catalog-wrapper" v-loading="threads.loading">
+          <el-input placeholder="検索" v-model="searchWord"></el-input>
+          <div class="catalog">
+            <div
+              v-for="thread in filteredList"
+              :key="thread.id"
+              @click="loadResponses(thread)"
+              class="thread"
+            >
+              <img class="threadImage" :src="thread.img">
+              <div class="threadBody">
+                <div class="title">{{ thread.title }}</div>
+                <div class="footer">
+                  <span>
+                    <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
+                  </span>
+                  <span>{{thread.number}} res</span>
+                </div>
               </div>
             </div>
           </div>
@@ -31,6 +33,7 @@
 <style lang="scss" scoped>
 .split--vertical {
   display: flex;
+  position: relative;
 }
 .scrollable {
   position: relative;
@@ -106,16 +109,13 @@ export default {
       const payload = Object.assign({ boardType: "MAY" }, thread);
       this.$store.dispatch("watchingThread/add", payload);
     }
-    // onContextMenu(e) {
-    //   e.preventDefault();
-    // }
   },
   computed: {
     responses() {
       return this.$store.getters["catalog/getResponses"];
     },
-    list() {
-      return this.$store.getters["catalog/getList"];
+    threads() {
+      return this.$store.getters["catalog/getThreads"];
     },
     modal: {
       get() {
@@ -127,9 +127,9 @@ export default {
       }
     },
     filteredList() {
-      if (!this.list) return [];
-      if (this.searchWord === "") return this.list;
-      return this.list.filter(thread => {
+      if (!this.threads.list) return [];
+      if (this.searchWord === "") return this.threads.list;
+      return this.threads.list.filter(thread => {
         return thread.title
           .toLowerCase()
           .includes(this.searchWord.toLowerCase());
@@ -156,7 +156,7 @@ export default {
       if (!this.modal) return;
       const payload = { boardType: "MAY" };
       this.$store.dispatch("catalog/load", payload);
-    }, 30 * 1000);
+    }, 60 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.intervalId);
