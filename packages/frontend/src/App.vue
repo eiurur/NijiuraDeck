@@ -120,6 +120,7 @@ span > i.right {
 
 /* libarary */
 .medium-zoom-overlay {
+  background: rgba(0, 0, 0, 0.8);
   z-index: 10000;
 }
 .medium-zoom-image--opened {
@@ -151,6 +152,11 @@ span > i.right {
 
 ::-webkit-scrollbar-button {
   display: none;
+}
+
+/**/
+.quote {
+  color: rgb(120, 153, 34);
 }
 </style>
 

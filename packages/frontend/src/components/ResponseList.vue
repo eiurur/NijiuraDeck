@@ -3,7 +3,7 @@
     <div class="column-scroiller scrollbar">
       <article
         class="stream-item"
-        v-for="{ id, quote, res, img, thumb, fromNow } in filteredResponse"
+        v-for="{ id, rawText, quote, res, img, thumb, fromNow } in filteredResponse"
         :key="id"
       >
         <div class="item-box">
@@ -14,8 +14,12 @@
                 <span>{{fromNow}}</span>
               </div>
               <div class="response-text">
-                <div v-if="quote" class="quote">{{quote}}</div>
-                <div class="res">{{res}}</div>
+                <div class="res" v-html="$sanitize(rawText)"></div>
+
+                <!-- <div class="res">{{rawText}}</div> -->
+
+                <!-- <div v-if="quote" class="quote">{{quote | replaceNewLine}}</div>
+                <div class="res">{{res | replaceNewLine}}</div>-->
               </div>
             </div>
             <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
@@ -74,8 +78,8 @@ article.stream-item {
   & .response-text {
     padding: 8px 0 16px;
   }
-  & .quote {
-    color: rgb(120, 153, 34);
+  & .res {
+    line-height: 1.7;
   }
 
   & .image {
@@ -110,6 +114,12 @@ export default {
       });
     }
   },
+  // filters: {
+  //   replaceNewLine: value => {
+  //     if (!value) return "";
+  //     return value.replace(/(\r\n|\n|\r)/gm, "<br />");
+  //   }
+  // },
   methods: {
     moveToBottom() {
       this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;
