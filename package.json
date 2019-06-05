@@ -22,6 +22,7 @@
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend \"",
     "dev:backend": "npm run dev --prefix ./packages/backend",
     "dev:frontend": "npm run dev --prefix ./packages/frontend",
+    "start": "npm run start:backend",
     "start:backend": "npm run start --prefix ./packages/backend",
     "start:frontend": "npm run start --prefix ./packages/frontend",
     "test": "npm run test:common && npm run test:server && npm run test:frontend",
