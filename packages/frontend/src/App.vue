@@ -57,7 +57,9 @@ html,
 #nav {
   padding: 0 0 30px;
 }
-
+* {
+  box-sizing: border-box;
+}
 ul {
   list-style: none;
   margin: 0;
@@ -120,7 +122,6 @@ span > i.right {
 
 /* libarary */
 .medium-zoom-overlay {
-  background: rgba(0, 0, 0, 0.8);
   z-index: 10000;
 }
 .medium-zoom-image--opened {
