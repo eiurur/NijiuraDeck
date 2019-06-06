@@ -35,6 +35,12 @@
   display: flex;
   position: relative;
 }
+.catalog-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .scrollable {
   position: relative;
   overflow-y: auto;
@@ -56,7 +62,7 @@
   color: #666;
   width: 120px;
   font-size: 14px;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0 0;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -123,6 +129,7 @@ export default {
       },
       set() {
         this.$store.dispatch("catalog/updateModal");
+        this.$store.dispatch("saveLocalStorage");
         this.$refs.scrollable.scrollTop = 0;
       }
     },
