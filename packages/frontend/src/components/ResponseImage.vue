@@ -60,7 +60,7 @@ export default {
       document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
     ).map(img => {
       img.onload = () => {
-        mediumZoom(img);
+        mediumZoom(img, { background: "#000" });
       };
     });
   }
