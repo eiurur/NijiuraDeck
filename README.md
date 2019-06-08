@@ -1,6 +1,6 @@
 # NijiuraDeck
 
-![demo](https://github.com/eiurur/NijiuraDeck/blob/master/media/demo.jpg)
+<img src="media/columns.jpg" alt="columns" width="640" height="auto">
 
 TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank">二次元裏＠ふたば</a>を閲覧するためのビューアです。
 
@@ -9,9 +9,10 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 # 機能
 
 - [x] カタログ表示
+- [x] スレ検索機能(タイトル検索、お気に入り検索)
 - [x] スレッド表示
 - [x] 自動更新
-- [x] メディア表示(画像)
+- [x] メディアフィルタ(画像)
 - [ ] 設定変更(カタログ)
 - [ ] ストリーミング
 - [ ] 書き込み
