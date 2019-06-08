@@ -42,7 +42,7 @@ html,
   margin: 0;
 }
 #app {
-  background: white;
+  background: rgb(255, 255, 238);
   color: #000;
   font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック",
     "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
@@ -112,12 +112,12 @@ span > i.right {
 .el-container {
   height: 100%;
 }
-.el-main {
+main {
   background-color: rgb(255, 255, 238);
   padding: 0 !important;
-  overflow-y: hidden !important;
-  overflow-x: auto !important;
-  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 /* libarary */

@@ -1,7 +1,7 @@
 <template>
-  <el-main>
+  <main>
     <Column :thread="thread" v-for="thread in threads" v-bind:key="thread.id"></Column>
-  </el-main>
+  </main>
 </template>
 
 <style lang="scss" scoped>

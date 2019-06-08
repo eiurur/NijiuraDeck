@@ -47,12 +47,13 @@
   position: relative;
   display: inline-block;
   overflow: hidden;
-  width: 400px;
+  width: 480px;
   height: 100%;
   margin: 0 6px 0 0;
   background-color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   white-space: normal;
+  flex: 0 0 auto;
 }
 
 .column-panel {

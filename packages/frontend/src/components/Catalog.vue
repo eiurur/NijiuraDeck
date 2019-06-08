@@ -3,7 +3,9 @@
     <div class="split--vertical">
       <div ref="scrollable" :gutter="10" class="scrollable w-75">
         <div class="catalog-wrapper" v-loading="threads.loading">
-          <el-input placeholder="検索" v-model="searchWord"></el-input>
+          <div class="catalog-header">
+            <el-input placeholder="検索" v-model="searchWord"></el-input>
+          </div>
           <div class="catalog">
             <div
               v-for="thread in filteredList"
@@ -41,6 +43,8 @@
   justify-content: center;
   align-items: center;
 }
+.catalog-header {
+}
 .scrollable {
   position: relative;
   overflow-y: auto;
@@ -61,6 +65,7 @@
   cursor: pointer;
   color: #666;
   width: 120px;
+  flex-grow: 1;
   font-size: 14px;
   padding: 0.5em 0.5em 0 0;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
@@ -163,7 +168,7 @@ export default {
       if (!this.modal) return;
       const payload = { boardType: "MAY" };
       this.$store.dispatch("catalog/load", payload);
-    }, 60 * 1000);
+    }, 3 * 60 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.intervalId);
