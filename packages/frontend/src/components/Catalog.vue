@@ -85,7 +85,8 @@ export default {
     },
     favoriteList() {
       if (!this.threads.list) return [];
-      if (this.favoriteSearchWords.length === 0) return [];
+      if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0)
+        return [];
       const words = this.favoriteSearchWords.map(word => word.toLowerCase());
       return this.threads.list.filter(thread =>
         words.some(word => thread.title.toLowerCase().indexOf(word) !== -1)
