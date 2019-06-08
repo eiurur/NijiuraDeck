@@ -1,29 +1,12 @@
 <template>
   <el-dialog title="カタログ" width="90vw" height="75vh" top="5vh" :visible.sync="modal">
     <div class="split--vertical">
-      <div ref="scrollable" :gutter="10" class="scrollable w-75">
+      <div ref="scrollable" :gutter="10" class="scrollable w-80">
         <div class="catalog-wrapper" v-loading="threads.loading">
-          <div class="catalog-header">
-            <el-input placeholder="検索" v-model="searchWord"></el-input>
-          </div>
+          <CatalogHeader v-model="searchWord"></CatalogHeader>
           <div class="catalog">
-            <div
-              v-for="thread in filteredList"
-              :key="thread.id"
-              @click="loadResponses(thread)"
-              class="thread"
-            >
-              <img class="threadImage" :src="thread.img">
-              <div class="threadBody">
-                <div class="title">{{ thread.title }}</div>
-                <div class="footer">
-                  <span>
-                    <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
-                  </span>
-                  <span>{{thread.number}} res</span>
-                </div>
-              </div>
-            </div>
+            <ThreadList title="お気に入り" :threads="favoriteList"></ThreadList>
+            <ThreadList title="一覧" :threads="filteredList"></ThreadList>
           </div>
         </div>
       </div>
@@ -41,9 +24,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .catalog-header {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 0.5em 0.5em 0;
 }
 .scrollable {
   position: relative;
@@ -55,55 +42,21 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.w-75 {
-  width: 75%;
-}
-.thread {
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-  cursor: pointer;
-  color: #666;
-  width: 120px;
-  flex-grow: 1;
-  font-size: 14px;
-  padding: 0.5em 0.5em 0 0;
-  transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
-  &:hover {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  }
-}
-.threadImage {
-  object-fit: cover;
-  width: 100%;
-  height: 120px;
-}
-.threadBody {
-  padding: 0.5em;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.footer {
-  padding-top: 0.5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex: 1;
-  transition: color 0.1s ease;
-  & i:hover {
-    color: #5cb6ff;
-  }
+.w-80 {
+  width: 80%;
 }
 </style>
 
 <script>
 import ThreadPreview from "@/components/ThreadPreview.vue"; // @ is an alias to /src
+import CatalogHeader from "@/components/CatalogHeader.vue"; // @ is an alias to /src
+import ThreadList from "@/components/ThreadList.vue"; // @ is an alias to /src
 
 export default {
   name: "Catalog",
   components: {
+    CatalogHeader,
+    ThreadList,
     ThreadPreview
   },
   methods: {
@@ -112,7 +65,6 @@ export default {
         { boardType: "MAY" },
         { threadId: thread.id }
       );
-      this.currentThread = thread;
       this.$store.dispatch("catalog/loadResponse", payload);
     },
     addThreadhColumn(thread) {
@@ -128,6 +80,28 @@ export default {
     threads() {
       return this.$store.getters["catalog/getThreads"];
     },
+    favoriteSearchWords() {
+      return this.$store.getters["catalog/getFavoriteSearchWords"];
+    },
+    favoriteList() {
+      if (!this.threads.list) return [];
+      if (this.favoriteSearchWords.length === 0) return [];
+      const words = this.favoriteSearchWords.map(word => word.toLowerCase());
+      return this.threads.list.filter(thread =>
+        words.some(word => thread.title.toLowerCase().indexOf(word) !== -1)
+      );
+    },
+    filteredList() {
+      if (!this.threads.list) return [];
+      if (this.searchWord === "") return this.threads.list;
+      const word = this.searchWord.toLowerCase();
+      return this.threads.list.filter(thread => {
+        return thread.title.toLowerCase().includes(word);
+      });
+    },
+    currentThread() {
+      return this.$store.getters["catalog/getCurrentThread"];
+    },
     modal: {
       get() {
         return this.$store.getters["catalog/getModal"];
@@ -137,20 +111,10 @@ export default {
         this.$store.dispatch("saveLocalStorage");
         this.$refs.scrollable.scrollTop = 0;
       }
-    },
-    filteredList() {
-      if (!this.threads.list) return [];
-      if (this.searchWord === "") return this.threads.list;
-      return this.threads.list.filter(thread => {
-        return thread.title
-          .toLowerCase()
-          .includes(this.searchWord.toLowerCase());
-      });
     }
   },
   data() {
     return {
-      currentThread: {},
       formLabelWidth: "120px",
       searchWord: "",
       intervalId: undefined

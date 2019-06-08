@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="responses.loading" ref="scrollable" :gutter="10" class="scrollable w-25">
+  <div v-loading="responses.loading" ref="scrollable" :gutter="10" class="scrollable w-20">
     <div class="stickyContainer">
       <div class="bottons">
         <el-button
@@ -36,8 +36,8 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.w-25 {
-  width: 25%;
+.w-20 {
+  width: 20%;
 }
 .container {
   position: absolute;

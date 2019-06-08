@@ -2,6 +2,8 @@ import board from '../../api/board';
 
 const state = {
   modalOpen: false,
+  favoriteSearchWords: [],
+  currentThread: {},
   threads: {
     loading: false,
     list: []
@@ -14,6 +16,8 @@ const state = {
 
 const getters = {
   getModal: state => state.modalOpen,
+  getFavoriteSearchWords: state => state.favoriteSearchWords,
+  getCurrentThread: state => state.currentThread,
   getThreads: state => state.threads,
   getResponses: state => state.responses
 };
@@ -24,6 +28,18 @@ const actions = {
     if (state.modalOpen) {
       dispatch('load', value);
     }
+  },
+  removeFavoriteSearchWords({ commit }, value) {
+    const payload = { word: value };
+    commit('REMOVE_FAVORITE_SEARCH_WORDS', payload);
+  },
+  addFavoriteSearchWords({ commit }, value) {
+    const payload = { word: value };
+    commit('UPDATE_FAVORITE_SEARCH_WORDS', payload);
+  },
+  setCurrentThread({ commit }, value) {
+    const payload = { thread: value.thread };
+    commit('UPDATE_CURRENT_THREAD', payload);
   },
   async load({ commit }, value) {
     commit('UPDATE_FETCHING_STATUS', { type: 'threads', loading: true });
@@ -45,6 +61,20 @@ const actions = {
 const mutations = {
   UPDATE_MODAL(state) {
     state.modalOpen = !state.modalOpen;
+  },
+  REMOVE_FAVORITE_SEARCH_WORDS(state, payload) {
+    state.favoriteSearchWords.splice(state.favoriteSearchWords.indexOf(payload.word), 1);
+  },
+  UPDATE_FAVORITE_SEARCH_WORDS(state, payload) {
+    console.log(state);
+    if (!state.favoriteSearchWords) {
+      state.favoriteSearchWord = [payload.word];
+    } else {
+      state.favoriteSearchWords = Array.from(new Set([...state.favoriteSearchWords, payload.word]));
+    }
+  },
+  UPDATE_CURRENT_THREAD(state, payload) {
+    state.currentThread = payload.thread;
   },
   UPDATE_FETCHING_STATUS(state, payload) {
     if (!state[payload.type]) return;
