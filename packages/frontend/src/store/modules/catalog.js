@@ -66,7 +66,6 @@ const mutations = {
     state.favoriteSearchWords.splice(state.favoriteSearchWords.indexOf(payload.word), 1);
   },
   UPDATE_FAVORITE_SEARCH_WORDS(state, payload) {
-    console.log(state);
     if (!state.favoriteSearchWords) {
       state.favoriteSearchWord = [payload.word];
     } else {

@@ -110,7 +110,6 @@ const mutations = {
     const i = state.list.findIndex(thread => thread.id === payload.id);
     if (i === -1) return;
     const freezedThread = Object.assign({}, state.list[i], { isDown: true });
-    console.log(freezedThread);
     state.list.splice(i, 1, freezedThread);
   },
   UPDATE_WATCHING_THREAD(state, payload) {

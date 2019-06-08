@@ -40,7 +40,6 @@ module.exports = app => {
     },
   };
 
-  console.log(path.join(__dirname, '..', '..', 'frontend', 'dist'));
   app.use(
     express.static(
       path.join(__dirname, '..', '..', 'frontend', 'dist'),
