@@ -31,12 +31,7 @@
   flex-wrap: wrap;
   -webkit-box-pack: start;
   justify-content: flex-start;
-  // background: #eddbd1;
-  // padding-left: 8px;
-  // border-radius: 4px;
-  &:not(:last-of-type) {
-    margin-bottom: 8px;
-  }
+  padding-bottom: 8px;
 }
 .over300 {
   color: #f56c6c;

@@ -25,6 +25,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  padding-right: 20px;
 }
 .catalog-header {
   display: flex;
@@ -41,6 +42,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  flex-direction: column;
 }
 .w-80 {
   width: 80%;
