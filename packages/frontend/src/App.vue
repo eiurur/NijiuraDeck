@@ -112,6 +112,10 @@ span > i.right {
 .el-container {
   height: 100%;
 }
+.el-dialog__body {
+  padding: 0 20px 30px !important;
+}
+
 main {
   background-color: rgb(255, 255, 238);
   padding: 0 !important;
