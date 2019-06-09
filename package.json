@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "lerna": "^3.11.0"
+    "lerna": "^3.14.1"
   },
   "engines": {
     "node": ">= 10"
