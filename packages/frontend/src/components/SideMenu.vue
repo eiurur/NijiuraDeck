@@ -17,6 +17,10 @@
         <i class="el-icon-setting"></i>
         <span slot="title">設定</span>
       </el-menu-item>
+      <el-menu-item index="5" @click="updateAboutModal">
+        <i class="el-icon-info"></i>
+        <span slot="title">このサイトについて</span>
+      </el-menu-item>
     </el-menu>
   </el-aside>
 </template>
@@ -33,8 +37,17 @@
 </style>
 
 <script>
+import Catalog from "@/components/Catalog.vue"; // @ is an alias to /src
+import Setting from "@/components/Setting.vue"; // @ is an alias to /src
+import About from "@/components/About.vue"; // @ is an alias to /src
+
 export default {
   name: "SideMenu",
+  components: {
+    Catalog,
+    Setting,
+    About
+  },
   methods: {
     updateCatalogModal() {
       // TODO:選択式
@@ -42,13 +55,28 @@ export default {
       this.$store.dispatch("catalog/updateModal", payload);
     },
     updateAllThreadColumn() {
-      this.$store.dispatch("watchingThread/updateAll");
+      this.$message("各スレッドの新着レスを取得しています。");
+      this.$store.dispatch("watchingThread/updateAll").then(() => {
+        this.$message({
+          message: "新着レスの更新が完了しました",
+          type: "success"
+        });
+      });
     },
     removeDownThreadColumn() {
-      this.$store.dispatch("watchingThread/removeDown");
+      this.$message("スレッドの状況確認を開始します。");
+      this.$store.dispatch("watchingThread/removeDown").then(() => {
+        this.$message({
+          message: "dat落ちしているスレッドを一覧から削除しました。",
+          type: "success"
+        });
+      });
     },
     updateSettingModal() {
       this.$store.dispatch("setting/updateModal");
+    },
+    updateAboutModal() {
+      this.$store.dispatch("modal/updateAbout");
     }
   }
 };

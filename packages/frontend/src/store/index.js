@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import catalog from './modules/catalog';
 import setting from './modules/setting';
+import modal from './modules/modal';
 import watchingThread from './modules/watchingThread';
 
 Vue.use(Vuex);
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     catalog,
     setting,
+    modal,
     watchingThread
   },
   strict: debug,

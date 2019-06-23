@@ -8,6 +8,7 @@
     </el-container>
     <Catalog></Catalog>
     <Setting></Setting>
+    <About></About>
   </div>
 </template>
 
@@ -66,6 +67,10 @@ a.disabled {
   color: inherit;
   pointer-events: none;
   cursor: default;
+}
+a.link {
+  color: blue;
+  text-decoration: underline;
 }
 
 span > i.left {
@@ -136,6 +141,11 @@ main {
 .quote {
   color: rgb(120, 153, 34);
 }
+
+.scrollable {
+  position: relative;
+  overflow-y: auto;
+}
 </style>
 
 
@@ -143,6 +153,7 @@ main {
 import SideMenu from "@/components/SideMenu.vue"; // @ is an alias to /src
 import Catalog from "@/components/Catalog.vue"; // @ is an alias to /src
 import Setting from "@/components/Setting.vue"; // @ is an alias to /src
+import About from "@/components/About.vue"; // @ is an alias to /src
 import Columns from "@/components/Columns.vue"; // @ is an alias to /src
 
 export default {
@@ -151,6 +162,7 @@ export default {
     SideMenu,
     Catalog,
     Setting,
+    About,
     Columns
   }
 };
