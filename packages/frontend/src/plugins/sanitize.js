@@ -7,8 +7,13 @@ const sanitizeFont = (text) => {
   return text.replace(start.re, start.to).replace(end.re, end.to);
 };
 
+const enableUrl = (text) => {
+  if (!text) return text;
+  return text.replace('/bin/jump.php?', '');
+};
+
 export default function sanitize(dirty) {
-  return sanitizeHTML(sanitizeFont(dirty), {
+  return sanitizeHTML(enableUrl(sanitizeFont(dirty)), {
     allowedTags: [...sanitizeHTML.defaults.allowedTags, 'span'],
     allowedClasses: {
       '*': ['allowed']
