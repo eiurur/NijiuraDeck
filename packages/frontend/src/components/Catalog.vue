@@ -34,8 +34,6 @@
   padding: 0 0.5em 0.5em 0;
 }
 .scrollable {
-  position: relative;
-  overflow-y: auto;
   height: calc(100vh - 25vh);
 }
 .catalog {

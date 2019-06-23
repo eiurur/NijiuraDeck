@@ -27,16 +27,26 @@ const actions = {
     dispatch('saveLocalStorage', null, { root: true });
   },
   async removeDown({ commit, dispatch, state }) {
-    for (const thread of state.list) {
-      try {
-        const responses = await board.fetchReponseList({ boardType: 'MAY', threadId: thread.id });
-      } catch (e) {
+    const checks = state.list.map(async (thread) => {
+      if (thread.isDown) {
         const payload = {
           id: thread.id
         };
-        commit('REMOVE_WATCHING_THREAD_ID', payload);
+        return commit('REMOVE_WATCHING_THREAD_ID', payload);
       }
-    }
+      await board
+        .fetchReponseList({
+          boardType: 'MAY',
+          threadId: thread.id
+        })
+        .catch((e) => {
+          const payload = {
+            id: thread.id
+          };
+          commit('REMOVE_WATCHING_THREAD_ID', payload);
+        });
+    });
+    await Promise.all(checks);
     dispatch('saveLocalStorage', null, { root: true });
   },
   clear({ commit }) {

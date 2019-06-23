@@ -24,7 +24,7 @@
         ></el-button>
       </div>
     </div>
-    <div class="container">
+    <div v-loading="responses.loading" class="container">
       <ResponseList :responses="responses.list" :isFilteringImage="isFilteringImage"></ResponseList>
     </div>
   </div>
