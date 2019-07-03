@@ -52,7 +52,7 @@ const actions = {
   async loadResponse({ commit }, value) {
     commit('UPDATE_FETCHING_STATUS', { type: 'responses', loading: true });
     const payload = {};
-    const list = await board.fetchReponseList(value);
+    const list = await board.fetchResponseList(value);
     payload.list = list;
     commit('LOAD_RESPONSE', payload);
     commit('UPDATE_FETCHING_STATUS', { type: 'responses', loading: false });

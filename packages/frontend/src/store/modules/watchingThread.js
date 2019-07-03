@@ -35,7 +35,7 @@ const actions = {
         return commit('REMOVE_WATCHING_THREAD_ID', payload);
       }
       await board
-        .fetchReponseList({
+        .fetchResponseList({
           boardType: 'MAY',
           threadId: thread.id
         })
@@ -59,7 +59,7 @@ const actions = {
       url: value.url
     };
     try {
-      const responses = await board.fetchReponseList({ boardType: 'MAY', threadId: value.id });
+      const responses = await board.fetchResponseList({ boardType: 'MAY', threadId: value.id });
       payload.responses = responses;
       commit('UPDATE_WATCHING_THREAD', payload);
     } catch (e) {
@@ -71,7 +71,7 @@ const actions = {
     const payload = [];
     for (const thread of state.list) {
       try {
-        const responses = await board.fetchReponseList({ boardType: 'MAY', threadId: thread.id });
+        const responses = await board.fetchResponseList({ boardType: 'MAY', threadId: thread.id });
         payload.push({
           id: thread.id,
           title: thread.title,
@@ -99,7 +99,7 @@ const actions = {
   },
   async loadResponse({ commit }, value) {
     const payload = {};
-    const data = await board.fetchReponseList(value);
+    const data = await board.fetchResponseList(value);
     payload.list = data;
     commit('LOAD_RESPONSE', payload);
   }

@@ -29,7 +29,7 @@ export default {
     });
     return data;
   },
-  async fetchReponseList({ boardType, threadId }) {
+  async fetchResponseList({ boardType, threadId }) {
     const { data } = await axios.get(`${API_ROOT}/${boardType}/thread/${threadId}`);
     return this.normalizeResponses(data);
   }
