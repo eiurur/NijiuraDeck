@@ -36,15 +36,13 @@
     "preinstall": "npm cache clean -f && npm run bootstrap",
     "postinstall": "npm run build"
   },
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "lerna": "^3.14.1"
-  },
   "engines": {
     "node": "10.x"
   },
   "name": "nijiura-deck",
   "dependencies": {
+    "concurrently": "^4.1.0",
+    "lerna": "^3.14.1",
     "chalk": "^2.4.2"
   }
 }
