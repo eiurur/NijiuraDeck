@@ -3,7 +3,7 @@
   "name": "nijiuradeck",
   "builds": [
     {
-      "src": "*",
+      "src": "**/*",
       "use": "@now/static"
     }
   ],
