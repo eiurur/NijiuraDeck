@@ -3,9 +3,11 @@
   "name": "nijiuradeck",
   "builds": [
     {
-      "src": "**/*",
-      "use": "@now/static"
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "packages/frontend/dist" }
     }
   ],
+  "routes": [{ "src": "/api/*", "dest": "/api/*" }],
   "alias": "nijiuradeck"
 }
