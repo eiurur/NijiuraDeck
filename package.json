@@ -32,7 +32,8 @@
     "build": "lerna run build",
     "getv": "echo $IMAGE_VERSION",
     "docker:build": "IMAGE_VERSION=$(node -p \"require('./lerna.json').version\") && docker image build -t $npm_package_config_imageRepo:$IMAGE_VERSION -f ./docker/Dockerfile .",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "now-build": "lerna bootstrap && npm run build"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
