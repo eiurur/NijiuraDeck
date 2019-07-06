@@ -6,8 +6,9 @@
       "src": "package.json",
       "use": "@now/static-build",
       "config": { "distDir": "packages/frontend/dist" }
-    }
+    },
+    { "src": "packages/backend/routes/**/*.js", "use": "@now/node" }
   ],
-  "routes": [{ "src": "/api/*", "dest": "/api/*" }],
+  "routes": [{ "src": "/", "dest": "packages/frontend/dist/index.html" }],
   "alias": "nijiuradeck"
 }
