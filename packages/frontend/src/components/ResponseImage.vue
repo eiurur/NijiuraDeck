@@ -1,5 +1,5 @@
 <template>
-  <span data-orig="orig">
+  <span :data-orig="orig">
     <img
       class="image"
       :src="thumb"
