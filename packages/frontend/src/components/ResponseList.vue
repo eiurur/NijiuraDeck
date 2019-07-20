@@ -1,6 +1,6 @@
 <template>
   <div ref="scrollable" class="column-content">
-    <div class="column-scroiller scrollbar">
+    <div class="column-scroller scrollbar">
       <article
         class="stream-item"
         v-for="{ id, rawText, quote, res, img, thumb, fromNow } in filteredResponse"
@@ -34,7 +34,7 @@
   overflow: auto;
 }
 
-.column-scroiller {
+.column-scroller {
   overflow-x: hidden;
   word-break: break-word;
   word-wrap: break-word;
