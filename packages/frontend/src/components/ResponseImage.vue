@@ -1,12 +1,12 @@
 <template>
-  <span>
+  <span data-orig="orig">
     <img
       class="image"
       :src="thumb"
       v-if="!(isShownImage || isShownVideo)"
       @click="showOriginal(img)"
-    >
-    <img :src="img" class="original" v-if="isShownImage" data-zoomable>
+    />
+    <img :src="img" class="original" v-if="isShownImage" data-zoomable />
     <video autoplay controls loop :src="img" class="original" v-if="isShownVideo"></video>
   </span>
 </template>
@@ -27,9 +27,10 @@
 
 <script>
 import mediumZoom from "medium-zoom";
+
 export default {
   name: "ResponseImage",
-  props: ["thumb", "img"],
+  props: ["thumb", "img", "orig"],
   created() {
     this.isShownImage = false;
     this.isShownVideo = false;
@@ -42,12 +43,12 @@ export default {
   },
   methods: {
     showOriginal(img) {
-      var ext = img
+      const ext = img
         .split(/\#|\?/)[0]
         .split(".")
         .pop()
         .trim();
-      var VIDEO_EXTENSIONS = ["mp4", "webm"];
+      const VIDEO_EXTENSIONS = ["mp4", "webm"];
       if (VIDEO_EXTENSIONS.includes(ext)) {
         this.isShownVideo = true;
       } else {
@@ -58,7 +59,7 @@ export default {
   updated() {
     Array.from(
       document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
-    ).map(img => {
+    ).map((img) => {
       img.onload = () => {
         mediumZoom(img, { background: "#000" });
       };

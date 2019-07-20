@@ -17,7 +17,7 @@
                 <div class="res" v-html="$sanitize(rawText)"></div>
               </div>
             </div>
-            <ResponseImage :thumb="thumb" :img="img"></ResponseImage>
+            <ResponseImage :thumb="thumb" :img="img" :orig="img"></ResponseImage>
           </div>
         </div>
       </article>
@@ -101,7 +101,7 @@ export default {
       if (!this.responses || this.responses.length === 0) {
         return [];
       }
-      return this.responses.filter(response => {
+      return this.responses.filter((response) => {
         if (this.isFilteringImage) {
           return !!response.img;
         }
