@@ -62,7 +62,7 @@
   padding-bottom: 0;
 }
 .input-new-tag {
-  width: 90px;
+  min-width: 90px;
   margin-right: 10px;
   vertical-align: bottom;
 }
