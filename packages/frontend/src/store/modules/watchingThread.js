@@ -52,6 +52,17 @@ const actions = {
   clear({ commit }) {
     commit('CLEAR_WATCHING_THREAD_ID');
   },
+  async postComment({ commit, dispatch }, value) {
+    const payload = Object.assign({ boardType: 'MAY' }, { threadId: value.id });
+    try {
+      await board.postComment({
+        boardType: 'MAY',
+        thread: { threadID: value.id, threadURL: value.url },
+        payload: { comment: value.comment }
+      });
+      dispatch('loadResponse', payload);
+    } catch (e) {}
+  },
   async update({ commit, dispatch }, value) {
     const payload = {
       id: value.id,

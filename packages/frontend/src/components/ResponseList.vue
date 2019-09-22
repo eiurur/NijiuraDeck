@@ -75,6 +75,9 @@ article.stream-item {
   }
   & .res {
     line-height: 1.7;
+    a {
+      color: #5d5dc5;
+    }
   }
 
   & .image {

@@ -43,4 +43,23 @@ module.exports = app => {
         })(req.params),
       ),
   );
+
+  app.post(
+    `/api/${API_VERSION}/:boardType/thread`,
+    [parameters.getParameters, logging.log],
+    (req, res) =>
+      seaquencer(
+        req,
+        res,
+        (async ({ boardType, thread, payload }) => {
+          const board = new Board(boardType.toUpperCase());
+          const result = await board.thread.post(
+            thread.url,
+            thread.id,
+            payload,
+          );
+          return result;
+        })(req.params),
+      ),
+  );
 };

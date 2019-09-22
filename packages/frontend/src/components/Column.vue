@@ -12,6 +12,11 @@
             <a :href="thread.url" target="_blank">{{thread.title}}</a>
           </div>
           <div class="column-header-actions">
+            <i
+              class="el-icon-edit"
+              :class="{active: isShownCommentForm}"
+              @click="toggleCommentForm()"
+            ></i>
             <i class="el-icon-bottom" @click="moveToBottom()"></i>
             <i class="el-icon-picture-outline" v-if="!isFilteringImage" @click="toggleDisplayImage"></i>
             <i class="el-icon-picture active" v-if="isFilteringImage" @click="toggleDisplayImage"></i>
@@ -23,6 +28,7 @@
           :responses="this.thread.responses"
           :isFilteringImage="isFilteringImage"
         ></ResponseList>
+        <CommentForm v-if="isShownCommentForm" :thread="thread"></CommentForm>
       </div>
     </div>
   </div>
@@ -103,20 +109,26 @@
 
 <script>
 import ResponseList from "@/components/ResponseList.vue";
+import CommentForm from "@/components/CommentForm.vue";
 
 export default {
   name: "Column",
   components: {
-    ResponseList
+    ResponseList,
+    CommentForm
   },
   props: ["thread"],
   data() {
     return {
+      isShownCommentForm: false,
       isFilteringImage: false,
       intervalId: undefined
     };
   },
   methods: {
+    toggleCommentForm() {
+      this.isShownCommentForm = !this.isShownCommentForm;
+    },
     moveToBottom() {
       this.$refs.responseList.moveToBottom();
     },

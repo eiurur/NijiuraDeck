@@ -41,8 +41,8 @@
   },
   "name": "nijiura-deck",
   "dependencies": {
+    "chalk": "^2.4.2",
     "concurrently": "^4.1.2",
-    "lerna": "^3.16.4",
-    "chalk": "^2.4.2"
+    "lerna": "^3.16.4"
   }
 }

@@ -32,5 +32,12 @@ export default {
   async fetchResponseList({ boardType, threadId }) {
     const { data } = await axios.get(`${API_ROOT}/${boardType}/thread/${threadId}`);
     return this.normalizeResponses(data);
+  },
+  async postComment({ boardType, thread, payload }) {
+    const { data } = await axios.post(`${API_ROOT}/${boardType}/thread`, {
+      thread,
+      payload: Object.assign({ password: 'password' }, payload)
+    });
+    return this.normalizeResponses(data);
   }
 };
