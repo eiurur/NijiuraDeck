@@ -97,7 +97,10 @@ export default {
         url: this.thread.url,
         comment: this.comment
       };
-      this.$store.dispatch("watchingThread/postComment", payload);
+      try {
+        this.$store.dispatch("watchingThread/postComment", payload);
+        this.comment = "";
+      } catch (e) {}
     }
   }
 };

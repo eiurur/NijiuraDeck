@@ -54,14 +54,12 @@ const actions = {
   },
   async postComment({ commit, dispatch }, value) {
     const payload = Object.assign({ boardType: 'MAY' }, { threadId: value.id });
-    try {
-      await board.postComment({
-        boardType: 'MAY',
-        thread: { threadID: value.id, threadURL: value.url },
-        payload: { comment: value.comment }
-      });
-      dispatch('loadResponse', payload);
-    } catch (e) {}
+    await board.postComment({
+      boardType: 'MAY',
+      thread: { threadID: value.id, threadURL: value.url },
+      payload: { comment: value.comment }
+    });
+    dispatch('loadResponse', payload);
   },
   async update({ commit, dispatch }, value) {
     const payload = {
