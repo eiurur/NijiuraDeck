@@ -73,7 +73,7 @@ export default {
   name: "CatalogHeader",
   props: ["value"],
   methods: {
-    onChangeInput(event) {
+    onChangeInput() {
       this.commitChange();
     },
     commitChange() {
@@ -87,13 +87,13 @@ export default {
 
     showInput() {
       this.inputVisible = true;
-      this.$nextTick(_ => {
+      this.$nextTick(() => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
     },
 
     handleInputConfirm() {
-      let inputValue = this.inputValue;
+      const { inputValue } = this;
       if (inputValue) {
         this.$store.dispatch("catalog/addFavoriteSearchWords", inputValue);
         this.$store.dispatch("saveLocalStorage");
@@ -112,7 +112,7 @@ export default {
   computed: {
     favoriteSearchWords: {
       get() {
-        return this.$store.getters["catalog/getFavoriteSearchWords"];
+        return this.$store.getters["catalog/getFavoriteSearchWords"] || [];
       },
       set() {}
     }

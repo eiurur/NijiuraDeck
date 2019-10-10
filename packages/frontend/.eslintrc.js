@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
   extends: ['plugin:vue/essential', '@vue/airbnb'],
   rules: {
@@ -11,11 +11,12 @@ module.exports = {
     'comma-dangle': 0,
     'eol-last': 0,
     quotes: 0,
+    'max-len': 0,
     'no-shadow': 0,
     'no-param-reassign': 0,
-    'import/no-useless-path-segments': 0
+    'import/no-useless-path-segments': 0,
   },
   parserOptions: {
-    parser: 'babel-eslint'
-  }
+    parser: 'babel-eslint',
+  },
 };
