@@ -12,7 +12,7 @@
           <div>
             <span
               class="res-number"
-              :class="{ 
+              :class="{
               over300: thread.number >= 300,
               over100: 300 > thread.number && thread.number >= 100,
             }"
@@ -97,7 +97,7 @@ export default {
         { threadId: thread.id }
       );
       this.$store.dispatch("catalog/loadResponse", payload);
-      this.$store.dispatch("catalog/setCurrentThread", { thread: thread });
+      this.$store.dispatch("catalog/setCurrentThread", { thread });
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;

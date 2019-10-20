@@ -85,20 +85,15 @@ export default {
     },
     favoriteList() {
       if (!this.threads.list) return [];
-      if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0)
-        return [];
+      if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0) return [];
       const words = this.favoriteSearchWords.map(word => word.toLowerCase());
-      return this.threads.list.filter(thread =>
-        words.some(word => thread.title.toLowerCase().indexOf(word) !== -1)
-      );
+      return this.threads.list.filter(thread => words.some(word => thread.title.toLowerCase().indexOf(word) !== -1));
     },
     filteredList() {
       if (!this.threads.list) return [];
       if (this.searchWord === "") return this.threads.list;
       const word = this.searchWord.toLowerCase();
-      return this.threads.list.filter(thread => {
-        return thread.title.toLowerCase().includes(word);
-      });
+      return this.threads.list.filter(thread => thread.title.toLowerCase().includes(word));
     },
     currentThread() {
       return this.$store.getters["catalog/getCurrentThread"];
