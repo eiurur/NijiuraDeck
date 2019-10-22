@@ -146,6 +146,14 @@ main {
   position: relative;
   overflow-y: auto;
 }
+/* FIXME: disabled in Component */
+.column-content a {
+  color: #5d5dc5 !important;
+  transition: color 0.5s;
+  &:hover {
+    color: #9292e9 !important;
+  }
+}
 </style>
 
 

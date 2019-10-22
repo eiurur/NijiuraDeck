@@ -75,9 +75,6 @@ article.stream-item {
   }
   & .res {
     line-height: 1.7;
-    a {
-      color: #5d5dc5;
-    }
   }
 
   & .image {
@@ -104,7 +101,7 @@ export default {
       if (!this.responses || this.responses.length === 0) {
         return [];
       }
-      return this.responses.filter((response) => {
+      return this.responses.filter(response => {
         if (this.isFilteringImage) {
           return !!response.img;
         }

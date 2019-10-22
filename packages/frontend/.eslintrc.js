@@ -14,6 +14,7 @@ module.exports = {
     'max-len': 0,
     'no-shadow': 0,
     'no-param-reassign': 0,
+    'arrow-parens': 0,
     'import/no-useless-path-segments': 0
   }
 };
