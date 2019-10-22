@@ -37,17 +37,8 @@
 </style>
 
 <script>
-import Catalog from "@/components/Catalog.vue"; // @ is an alias to /src
-import Setting from "@/components/Setting.vue"; // @ is an alias to /src
-import About from "@/components/About.vue"; // @ is an alias to /src
-
 export default {
   name: "SideMenu",
-  components: {
-    Catalog,
-    Setting,
-    About
-  },
   methods: {
     updateCatalogModal() {
       // TODO:選択式
