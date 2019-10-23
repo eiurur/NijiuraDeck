@@ -44,7 +44,7 @@ export default {
   methods: {
     showOriginal(img) {
       const ext = img
-        .split(/\#|\?/)[0]
+        .split(/#|\?/)[0]
         .split(".")
         .pop()
         .trim();
@@ -59,7 +59,7 @@ export default {
   updated() {
     Array.from(
       document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
-    ).map((img) => {
+    ).map(img => {
       img.onload = () => {
         mediumZoom(img, { background: "#000" });
       };
