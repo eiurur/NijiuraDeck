@@ -101,7 +101,7 @@ export default {
         this.$store.dispatch("watchingThread/postComment", payload);
         this.comment = "";
       } catch (e) {
-        window.alert(e);
+        this.$message.error(e);
       }
     }
   }
