@@ -14,7 +14,7 @@
                 <span>{{fromNow}}</span>
               </div>
               <div class="response-text">
-                <div class="res" v-html="$sanitize(rawText)"></div>
+                <div class="res" ref="res" v-html="$sanitize(rawText)"></div>
               </div>
             </div>
             <ResponseImage :thumb="thumb" :img="img" :orig="img"></ResponseImage>
@@ -108,6 +108,20 @@ export default {
         return true;
       });
     }
+  },
+  mounted() {
+    if (!this.$refs.res) return;
+    Array.from(this.$refs.res).map(r => {
+      const nextTheadLinks = r.querySelectorAll("span[data-id]");
+      if (nextTheadLinks.length === 0) return;
+      Array.from(nextTheadLinks).map(l => {
+        l.addEventListener("click", event => {
+          const threadID = event.target.getAttribute("data-id");
+          const payload = { boardType: "MAY", id: threadID };
+          this.$store.dispatch("watchingThread/load", payload);
+        });
+      });
+    });
   },
   methods: {
     moveToBottom() {

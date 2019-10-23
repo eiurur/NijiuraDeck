@@ -147,7 +147,9 @@ main {
   overflow-y: auto;
 }
 /* FIXME: disabled in Component */
+.column-content [data-id],
 .column-content a {
+  cursor: pointer;
   color: #5d5dc5 !important;
   transition: color 0.5s;
   &:hover {

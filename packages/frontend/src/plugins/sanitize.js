@@ -7,14 +7,29 @@ const sanitizeFont = (text) => {
   return text.replace(start.re, start.to).replace(end.re, end.to);
 };
 
+const enableNextThreadLink = (text) => {
+  if (!text) return text;
+  const start = {
+    re: new RegExp('<a href="https?://(?:\\w+).2chan.net/(?:\\w+)/res/(\\d+).htm" target="_blank">', 'g'),
+    to: '<span class="next-thread-link" data-id="$1">'
+  };
+  const end = { re: new RegExp('</a>', 'g'), to: '</span>' };
+  if (!start.re.exec(text)) return text;
+  return text.replace(start.re, start.to).replace(end.re, end.to);
+};
+
 const enableUrl = (text) => {
   if (!text) return text;
   return text.replace('/bin/jump.php?', '');
 };
 
 export default function sanitize(dirty) {
-  return sanitizeHTML(enableUrl(sanitizeFont(dirty)), {
+  return sanitizeHTML(enableNextThreadLink(enableUrl(sanitizeFont(dirty))), {
     allowedTags: [...sanitizeHTML.defaults.allowedTags, 'span'],
+    allowedAttributes: {
+      span: ['href', 'data-*'],
+      a: ['href', 'class', 'target']
+    },
     allowedClasses: {
       '*': ['allowed']
     }

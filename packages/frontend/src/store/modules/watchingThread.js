@@ -19,6 +19,21 @@ const actions = {
     commit('ADD_WATCHING_THREAD_ID', payload);
     dispatch('update', payload);
   },
+  async load({ commit, dispatch }, value) {
+    const threadList = await board.fetchCatalogList(value);
+    const thread = threadList.find(thread => Number(thread.id) === Number(value.id));
+    if (!thread) return;
+
+    const payload = Object.assign({
+      id: value.id,
+      boardType: value.boardType
+    }, {
+      title: thread.title,
+      url: thread.url
+    });
+    dispatch('update', payload);
+    commit('ADD_WATCHING_THREAD_ID', payload);
+  },
   remove({ commit, dispatch }, value) {
     const payload = {
       id: value.id
@@ -39,7 +54,7 @@ const actions = {
           boardType: 'MAY',
           threadId: thread.id
         })
-        .catch((e) => {
+        .catch(() => {
           const payload = {
             id: thread.id
           };
@@ -52,7 +67,7 @@ const actions = {
   clear({ commit }) {
     commit('CLEAR_WATCHING_THREAD_ID');
   },
-  async postComment({ commit, dispatch }, value) {
+  async postComment({ dispatch }, value) {
     const payload = Object.assign({ boardType: 'MAY' }, { threadId: value.id });
     await board.postComment({
       boardType: 'MAY',
@@ -100,7 +115,7 @@ const actions = {
     commit('UPDATE_ALL_WATCHING_THREAD', payload);
     dispatch('saveLocalStorage', null, { root: true });
   },
-  async load({ commit }, value) {
+  async loadCatalog({ commit }, value) {
     const payload = {};
     const data = await board.fetchCatalogList(value);
     payload.list = data;
@@ -115,24 +130,24 @@ const actions = {
 };
 const mutations = {
   ADD_WATCHING_THREAD_ID(state, payload) {
-    const isThreadDuplicated = state.list.some(thread => thread.id === payload.id);
+    const isThreadDuplicated = state.list.some(thread => Number(thread.id) === Number(payload.id));
     if (isThreadDuplicated) return;
     state.list = [...state.list, payload];
   },
   REMOVE_WATCHING_THREAD_ID(state, payload) {
-    state.list = state.list.filter(thread => thread.id !== payload.id);
+    state.list = state.list.filter(thread => Number(thread.id) !== Number(payload.id));
   },
   CLEAR_WATCHING_THREAD_ID(state) {
     state.list = [];
   },
   FREEZE_WATCHING_THREAD(state, payload) {
-    const i = state.list.findIndex(thread => thread.id === payload.id);
+    const i = state.list.findIndex(thread => Number(thread.id) === Number(payload.id));
     if (i === -1) return;
     const freezedThread = Object.assign({}, state.list[i], { isDown: true });
     state.list.splice(i, 1, freezedThread);
   },
   UPDATE_WATCHING_THREAD(state, payload) {
-    const i = state.list.findIndex(thread => thread.id === payload.id);
+    const i = state.list.findIndex(thread => Number(thread.id) === Number(payload.id));
     if (i === -1) return;
     state.list.splice(i, 1, payload);
   },
