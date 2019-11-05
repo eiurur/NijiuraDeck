@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
+import VueAnalytics from 'vue-analytics';
 
 import App from './App.vue';
 import router from './router';
@@ -9,6 +10,10 @@ import './registerServiceWorker';
 import './styles.scss';
 
 Vue.use(ElementUI);
+Vue.use(VueAnalytics, {
+  id: 'UA-42893827-26',
+  router
+});
 
 Vue.prototype.$sanitize = sanitize;
 
