@@ -10,14 +10,14 @@ const SORT_TYPE = {
   MANY: 3,
   FEW: 4,
   MOMENT: 6,
-  SO: 8
+  SO: 8,
 };
 const VERSION = 'v1';
 const API_ROOT = `/api/${VERSION}`;
 
 export default {
   normalizeResponses(responses) {
-    return responses.map((response) => {
+    return responses.map(response => {
       response.createdAt = `20${response.createdAt.replace(/\(.\)/, ' ')}`;
       response.fromNow = dayjs(response.createdAt).fromNow();
       return response;
@@ -25,19 +25,21 @@ export default {
   },
   async fetchCatalogList({ boardType }) {
     const { data } = await axios.get(`${API_ROOT}/${boardType}/threads`, {
-      params: { sort: SORT_TYPE.MANY }
+      params: { sort: SORT_TYPE.MANY },
     });
     return data;
   },
   async fetchResponseList({ boardType, threadId }) {
-    const { data } = await axios.get(`${API_ROOT}/${boardType}/thread/${threadId}`);
+    const { data } = await axios.get(
+      `${API_ROOT}/${boardType}/thread/${threadId}`,
+    );
     return this.normalizeResponses(data);
   },
   async postComment({ boardType, thread, payload }) {
     const { data } = await axios.post(`${API_ROOT}/${boardType}/thread`, {
       thread,
-      payload: Object.assign({ password: 'password' }, payload)
+      payload: { ...{ password: 'password' }, ...payload },
     });
     return this.normalizeResponses(data);
-  }
+  },
 };

@@ -14,7 +14,7 @@ export default new Vuex.Store({
     catalog,
     setting,
     modal,
-    watchingThread
+    watchingThread,
   },
   strict: debug,
   actions: {
@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
     loadLocalStorage({ commit }) {
       commit('LOAD');
-    }
+    },
   },
   mutations: {
     SAVE(state) {
@@ -32,8 +32,8 @@ export default new Vuex.Store({
     LOAD(state) {
       if (localStorage.getItem('store')) {
         const store = JSON.parse(localStorage.getItem('store'));
-        this.replaceState(Object.assign(state, store));
+        this.replaceState({ ...state, ...store });
       }
-    }
-  }
+    },
+  },
 });

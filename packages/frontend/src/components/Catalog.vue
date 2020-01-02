@@ -61,15 +61,15 @@ export default {
   },
   methods: {
     loadResponses(thread) {
-      const payload = Object.assign(
-        { boardType: "MAY" },
-        { threadId: thread.id }
-      );
+      const payload = {
+        ...{ boardType: "MAY" },
+        ...{ threadId: thread.id }
+      };
       this.$store.dispatch("catalog/loadResponse", payload);
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = Object.assign({ boardType: "MAY" }, thread);
+      const payload = { ...{ boardType: "MAY" }, ...thread };
       this.$store.dispatch("watchingThread/add", payload);
     }
   },
@@ -84,16 +84,26 @@ export default {
       return this.$store.getters["catalog/getFavoriteSearchWords"];
     },
     favoriteList() {
-      if (!this.threads.list) return [];
-      if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0) return [];
+      if (!this.threads.list) {
+        return [];
+      }
+      if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0) {
+        return [];
+      }
       const words = this.favoriteSearchWords.map(word => word.toLowerCase());
-      return this.threads.list.filter(thread => words.some(word => thread.title.toLowerCase().indexOf(word) !== -1));
+      return this.threads.list.filter(thread => {
+        return words.some(
+          word => thread.title.toLowerCase().indexOf(word) !== -1
+        );
+      });
     },
     filteredList() {
       if (!this.threads.list) return [];
       if (this.searchWord === "") return this.threads.list;
       const word = this.searchWord.toLowerCase();
-      return this.threads.list.filter(thread => thread.title.toLowerCase().includes(word));
+      return this.threads.list.filter(thread => {
+        return thread.title.toLowerCase().includes(word);
+      });
     },
     currentThread() {
       return this.$store.getters["catalog/getCurrentThread"];

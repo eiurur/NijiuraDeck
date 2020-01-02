@@ -89,7 +89,7 @@ export default {
   methods: {
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = Object.assign({ boardType: "MAY" }, thread);
+      const payload = { ...{ boardType: "MAY" }, ...thread };
       this.$store.dispatch("watchingThread/add", payload);
     },
     toggleDisplayImage() {

@@ -2,7 +2,7 @@
   <div class="container" v-if="show">
     <el-divider content-position="left">{{title}}</el-divider>
     <div v-for="thread in threads" :key="thread.id" @click="loadResponses(thread)" class="thread">
-      <img class="threadImage" :src="thread.img">
+      <img class="threadImage" :src="thread.img" />
       <div class="threadBody">
         <div class="title">{{ thread.title }}</div>
         <div class="footer">
@@ -92,16 +92,16 @@ export default {
   props: ["threads", "title"],
   methods: {
     loadResponses(thread) {
-      const payload = Object.assign(
-        { boardType: "MAY" },
-        { threadId: thread.id }
-      );
+      const payload = {
+        ...{ boardType: "MAY" },
+        ...{ threadId: thread.id }
+      };
       this.$store.dispatch("catalog/loadResponse", payload);
       this.$store.dispatch("catalog/setCurrentThread", { thread });
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = Object.assign({ boardType: "MAY" }, thread);
+      const payload = { ...{ boardType: "MAY" }, ...thread };
       this.$store.dispatch("watchingThread/add", payload);
     }
   },

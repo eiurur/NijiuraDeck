@@ -34,7 +34,9 @@
     "docker:build": "IMAGE_VERSION=$(node -p \"require('./lerna.json').version\") && docker image build -t $npm_package_config_imageRepo:$IMAGE_VERSION -f ./docker/Dockerfile .",
     "publish": "lerna publish",
     "preinstall": "npm cache clean -f",
-    "postinstall": "npm run bootstrap && npm run build"
+    "postinstall": "npm run bootstrap && npm run build",
+    "update:dep": "cd ./packages/frontend && npx ncu -u && cd ../../ && cd ./packages/backend && npx ncu -u && cd ../../",
+    "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../"
   },
   "engines": {
     "node": "10.x"
@@ -42,7 +44,7 @@
   "name": "nijiura-deck",
   "dependencies": {
     "chalk": "^3.0.0",
-    "concurrently": "^5.0.0",
-    "lerna": "^3.18.4"
+    "concurrently": "^5.0.2",
+    "lerna": "^3.20.1"
   }
 }

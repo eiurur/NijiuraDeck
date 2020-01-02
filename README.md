@@ -44,6 +44,8 @@ npm run bootstrap
 npm run dev
 ```
 
+Adnd go to `http://127.0.0.1:9001`
+
 ## ビルド
 
 ```bash

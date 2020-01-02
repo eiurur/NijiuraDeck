@@ -23,7 +23,7 @@
     "express-error-handler": "^1.1.0",
     "file-stream-rotator": "^0.5.5",
     "konfig": "^0.2.1",
-    "log4js": "^6.0.0",
+    "log4js": "^6.1.0",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
     "nijiura": "^0.0.11",
@@ -31,16 +31,16 @@
     "yakaa": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.6.0",
+    "eslint-config-prettier": "^6.9.0",
     "eslint-friendly-formatter": "^4.0.1",
-    "eslint-import-resolver-webpack": "^0.11.1",
-    "eslint-loader": "^3.0.2",
+    "eslint-import-resolver-webpack": "^0.12.0",
+    "eslint-loader": "^3.0.3",
     "eslint-plugin-html": "^6.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.1",
-    "nodemon": "^1.19.4"
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.2"
   },
   "engines": {
     "node": ">= 10.0.0",
