@@ -3,21 +3,48 @@
     <div class="column-scroller scrollbar">
       <article
         class="stream-item"
-        v-for="{ id, rawText, quote, res, img, thumb, fromNow } in filteredResponse"
+        v-for="{
+          id,
+          address,
+          rawText,
+          quote,
+          res,
+          img,
+          thumb,
+          fromNow,
+        } in filteredResponse"
         :key="id"
       >
         <div class="item-box">
           <div class="res">
             <div class="response-body">
               <div class="response-header">
-                <span>No.{{id}}</span>
-                <span>{{fromNow}}</span>
+                <div class="left">
+                  <span>No.{{ id }}</span>
+                  <span
+                    class="clickable address"
+                    v-if="address"
+                    @click="copyToClipboard(address)"
+                  >
+                    <el-tooltip effect="dark" placement="bottom">
+                      <div slot="content">{{ address }}</div>
+                      <i class="el-icon-message"></i>
+                    </el-tooltip>
+                  </span>
+                </div>
+                <div class="right">
+                  <span>{{ fromNow }}</span>
+                </div>
               </div>
               <div class="response-text">
                 <div class="res" ref="res" v-html="$sanitize(rawText)"></div>
               </div>
             </div>
-            <ResponseImage :thumb="thumb" :img="img" :orig="img"></ResponseImage>
+            <ResponseImage
+              :thumb="thumb"
+              :img="img"
+              :orig="img"
+            ></ResponseImage>
           </div>
         </div>
       </article>
@@ -68,6 +95,12 @@ article.stream-item {
       justify-content: space-between;
       color: #c9686870;
       padding: 8px 0;
+      .address {
+        color: #5d5dc5;
+      }
+      & .left > span + span {
+        margin-left: 8px;
+      }
     }
   }
   & .response-text {
@@ -88,14 +121,14 @@ article.stream-item {
 </style>
 
 <script>
-import ResponseImage from "@/components/ResponseImage.vue"; // @ is an alias to /src
+import ResponseImage from '@/components/ResponseImage.vue'; // @ is an alias to /src
 
 export default {
-  name: "ResponseList",
+  name: 'ResponseList',
   components: {
-    ResponseImage
+    ResponseImage,
   },
-  props: ["responses", "isFilteringImage"],
+  props: ['responses', 'isFilteringImage'],
   computed: {
     filteredResponse() {
       if (!this.responses || this.responses.length === 0) {
@@ -107,26 +140,34 @@ export default {
         }
         return true;
       });
-    }
+    },
   },
   mounted() {
     if (!this.$refs.res) return;
     Array.from(this.$refs.res).map(r => {
-      const nextTheadLinks = r.querySelectorAll("span[data-id]");
+      const nextTheadLinks = r.querySelectorAll('span[data-id]');
       if (nextTheadLinks.length === 0) return;
       Array.from(nextTheadLinks).map(l => {
-        l.addEventListener("click", event => {
-          const threadID = event.target.getAttribute("data-id");
-          const payload = { boardType: "MAY", id: threadID };
-          this.$store.dispatch("watchingThread/load", payload);
+        l.addEventListener('click', event => {
+          const threadID = event.target.getAttribute('data-id');
+          const payload = { boardType: 'MAY', id: threadID };
+          this.$store.dispatch('watchingThread/load', payload);
         });
       });
     });
   },
   methods: {
+    copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.$message({
+          message: `クリップボードにコピーしました: ${text}`,
+          type: 'success',
+        });
+      });
+    },
     moveToBottom() {
       this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;
-    }
-  }
+    },
+  },
 };
 </script>

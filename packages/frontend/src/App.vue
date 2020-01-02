@@ -26,10 +26,10 @@ html,
 #app {
   background: rgb(255, 255, 238);
   color: #000;
-  font-family: YuGothic, "Yu Gothic", "游ゴシック体", "游ゴシック",
-    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
-    "MSPゴシック", "Osaka", "MS PGothic", "Arial", "Helvetica", "Verdana",
-    "sans-serif";
+  font-family: YuGothic, 'Yu Gothic', '游ゴシック体', '游ゴシック',
+    'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo',
+    'MSPゴシック', 'Osaka', 'MS PGothic', 'Arial', 'Helvetica', 'Verdana',
+    'sans-serif';
   font-size: 18px;
   font-weight: 600;
   margin-top: 0;
@@ -141,7 +141,9 @@ main {
 .quote {
   color: rgb(120, 153, 34);
 }
-
+.clickable {
+  cursor: pointer;
+}
 .scrollable {
   position: relative;
   overflow-y: auto;
@@ -158,22 +160,21 @@ main {
 }
 </style>
 
-
 <script>
-import SideMenu from "@/components/SideMenu.vue"; // @ is an alias to /src
-import Catalog from "@/components/Catalog.vue"; // @ is an alias to /src
-import Setting from "@/components/Setting.vue"; // @ is an alias to /src
-import About from "@/components/About.vue"; // @ is an alias to /src
-import Columns from "@/components/Columns.vue"; // @ is an alias to /src
+import SideMenu from '@/components/SideMenu.vue'; // @ is an alias to /src
+import Catalog from '@/components/Catalog.vue'; // @ is an alias to /src
+import Setting from '@/components/Setting.vue'; // @ is an alias to /src
+import About from '@/components/About.vue'; // @ is an alias to /src
+import Columns from '@/components/Columns.vue'; // @ is an alias to /src
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     SideMenu,
     Catalog,
     Setting,
     About,
-    Columns
-  }
+    Columns,
+  },
 };
 </script>

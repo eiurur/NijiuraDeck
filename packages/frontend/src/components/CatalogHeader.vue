@@ -18,7 +18,9 @@
         @keyup.enter.native="handleInputConfirm"
         @blur="handleInputConfirm"
       ></el-input>
-      <el-button v-else class="button-new-tag" size="small" @click="showInput">+ お気に入り検索ワードを追加</el-button>
+      <el-button v-else class="button-new-tag" size="small" @click="showInput"
+        >+ お気に入り検索ワードを追加</el-button
+      >
       <el-tag
         :key="tag"
         v-for="tag in favoriteSearchWords.slice().reverse()"
@@ -27,7 +29,8 @@
         type="info"
         effect="plain"
         @close="handleClose(tag)"
-      >{{tag}}</el-tag>
+        >{{ tag }}</el-tag
+      >
     </div>
   </div>
 </template>
@@ -70,19 +73,19 @@
 
 <script>
 export default {
-  name: "CatalogHeader",
-  props: ["value"],
+  name: 'CatalogHeader',
+  props: ['value'],
   methods: {
     onChangeInput() {
       this.commitChange();
     },
     commitChange() {
-      this.$emit("input", this.searchWord);
+      this.$emit('input', this.searchWord);
     },
 
     handleClose(tag) {
-      this.$store.dispatch("catalog/removeFavoriteSearchWords", tag);
-      this.$store.dispatch("saveLocalStorage");
+      this.$store.dispatch('catalog/removeFavoriteSearchWords', tag);
+      this.$store.dispatch('saveLocalStorage');
     },
 
     showInput() {
@@ -95,27 +98,27 @@ export default {
     handleInputConfirm() {
       const { inputValue } = this;
       if (inputValue) {
-        this.$store.dispatch("catalog/addFavoriteSearchWords", inputValue);
-        this.$store.dispatch("saveLocalStorage");
+        this.$store.dispatch('catalog/addFavoriteSearchWords', inputValue);
+        this.$store.dispatch('saveLocalStorage');
       }
       this.inputVisible = false;
-      this.inputValue = "";
-    }
+      this.inputValue = '';
+    },
   },
   data() {
     return {
       searchWord: this.value,
       inputVisible: false,
-      inputValue: ""
+      inputValue: '',
     };
   },
   computed: {
     favoriteSearchWords: {
       get() {
-        return this.$store.getters["catalog/getFavoriteSearchWords"] || [];
+        return this.$store.getters['catalog/getFavoriteSearchWords'] || [];
       },
-      set() {}
-    }
-  }
+      set() {},
+    },
+  },
 };
 </script>

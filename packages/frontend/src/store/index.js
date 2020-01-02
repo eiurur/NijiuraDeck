@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 import catalog from './modules/catalog';
 import setting from './modules/setting';
 import modal from './modules/modal';
