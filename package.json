@@ -39,12 +39,12 @@
     "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../"
   },
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "name": "nijiura-deck",
   "dependencies": {
     "chalk": "^3.0.0",
-    "concurrently": "^5.0.2",
-    "lerna": "^3.20.1"
+    "concurrently": "^5.1.0",
+    "lerna": "^3.20.2"
   }
 }
