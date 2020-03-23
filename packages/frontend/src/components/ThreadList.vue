@@ -1,22 +1,31 @@
 <template>
   <div class="container" v-if="show">
-    <el-divider content-position="left">{{title}}</el-divider>
-    <div v-for="thread in threads" :key="thread.id" @click="loadResponses(thread)" class="thread">
-      <img class="threadImage" v-lazy="thread.img" />
+    <el-divider content-position="left">{{ title }}</el-divider>
+    <div
+      v-for="thread in threads"
+      :key="thread.id"
+      @click="loadResponses(thread)"
+      class="thread"
+    >
+      <img class="threadImage" :src="thread.img" />
       <div class="threadBody">
         <div class="title">{{ thread.title }}</div>
         <div class="footer">
           <span>
-            <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
+            <i
+              class="el-icon-circle-plus"
+              @click.stop="addThreadhColumn(thread)"
+            ></i>
           </span>
           <div>
             <span
               class="res-number"
               :class="{
-              over300: thread.number >= 300,
-              over100: 300 > thread.number && thread.number >= 100,
-            }"
-            >{{thread.number}}</span>
+                over300: thread.number >= 300,
+                over100: 300 > thread.number && thread.number >= 100,
+              }"
+              >{{ thread.number }}</span
+            >
             <span class="suffix">res</span>
           </div>
         </div>
@@ -88,27 +97,27 @@
 
 <script>
 export default {
-  name: "ThreadList",
-  props: ["threads", "title"],
+  name: 'ThreadList',
+  props: ['threads', 'title'],
   methods: {
     loadResponses(thread) {
       const payload = {
-        ...{ boardType: "MAY" },
-        ...{ threadId: thread.id }
+        ...{ boardType: 'MAY' },
+        ...{ threadId: thread.id },
       };
-      this.$store.dispatch("catalog/loadResponse", payload);
-      this.$store.dispatch("catalog/setCurrentThread", { thread });
+      this.$store.dispatch('catalog/loadResponse', payload);
+      this.$store.dispatch('catalog/setCurrentThread', { thread });
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = { ...{ boardType: "MAY" }, ...thread };
-      this.$store.dispatch("watchingThread/add", payload);
-    }
+      const payload = { ...{ boardType: 'MAY' }, ...thread };
+      this.$store.dispatch('watchingThread/add', payload);
+    },
   },
   computed: {
     show() {
       return this.threads.length > 0;
-    }
-  }
+    },
+  },
 };
 </script>

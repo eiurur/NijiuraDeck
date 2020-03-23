@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import VueAnalytics from 'vue-analytics';
-import VueLazyload from 'vue-lazyload';
 
 import App from './App.vue';
 import router from './router';
@@ -22,10 +21,6 @@ Vue.use(VueAnalytics, {
     sendHitTask: isProd,
   },
 });
-Vue.use(VueLazyload, {
-  preLoad: 1.3,
-});
-
 Vue.prototype.$sanitize = sanitize;
 
 Vue.config.productionTip = false;

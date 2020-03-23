@@ -2,12 +2,19 @@
   <span :data-orig="orig">
     <img
       class="image"
-      v-lazy="thumb"
+      :src="thumb"
       v-if="!(isShownImage || isShownVideo)"
       @click="showOriginal(img)"
     />
-    <img v-lazy="img" class="original" v-if="isShownImage" data-zoomable />
-    <video autoplay controls loop :src="img" class="original" v-if="isShownVideo"></video>
+    <img :src="img" class="original" v-if="isShownImage" data-zoomable />
+    <video
+      autoplay
+      controls
+      loop
+      :src="img"
+      class="original"
+      v-if="isShownVideo"
+    ></video>
   </span>
 </template>
 
@@ -26,11 +33,11 @@
 </style>
 
 <script>
-import mediumZoom from "medium-zoom";
+import mediumZoom from 'medium-zoom';
 
 export default {
-  name: "ResponseImage",
-  props: ["thumb", "img", "orig"],
+  name: 'ResponseImage',
+  props: ['thumb', 'img', 'orig'],
   created() {
     this.isShownImage = false;
     this.isShownVideo = false;
@@ -38,34 +45,32 @@ export default {
   data() {
     return {
       isShownImage: false,
-      isShownVideo: false
+      isShownVideo: false,
     };
   },
   methods: {
     showOriginal(img) {
       const ext = img
         .split(/#|\?/)[0]
-        .split(".")
+        .split('.')
         .pop()
         .trim();
-      const VIDEO_EXTENSIONS = ["mp4", "webm"];
+      const VIDEO_EXTENSIONS = ['mp4', 'webm'];
       if (VIDEO_EXTENSIONS.includes(ext)) {
         this.isShownVideo = true;
       } else {
         this.isShownImage = true;
       }
-    }
+    },
   },
   updated() {
     Array.from(
-      document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
+      document.querySelectorAll('[data-zoomable]:not(.medium-zoom-image)'),
     ).map(img => {
       img.onload = () => {
-        if (!img.classList.contains("medium-zoom-image")) {
-          mediumZoom(img, { background: "#000" });
-        }
+        mediumZoom(img, { background: '#000' });
       };
     });
-  }
+  },
 };
 </script>
