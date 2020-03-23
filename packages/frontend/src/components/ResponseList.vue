@@ -21,7 +21,11 @@
               <div class="response-header">
                 <div class="left">
                   <span>No.{{ id }}</span>
-                  <span class="clickable address" v-if="address" @click="copyToClipboard(address)">
+                  <span
+                    class="clickable address"
+                    v-if="address"
+                    @click="copyToClipboard(address)"
+                  >
                     <el-tooltip effect="dark" placement="bottom">
                       <div slot="content">{{ address }}</div>
                       <i class="el-icon-message"></i>
@@ -36,7 +40,11 @@
                 <div class="res" ref="res" v-html="$sanitize(rawText)"></div>
               </div>
             </div>
-            <ResponseImage :thumb="thumb" :img="img" :orig="img"></ResponseImage>
+            <ResponseImage
+              :thumb="thumb"
+              :img="img"
+              :orig="img"
+            ></ResponseImage>
           </div>
         </div>
       </article>
@@ -113,14 +121,14 @@ article.stream-item {
 </style>
 
 <script>
-import ResponseImage from "@/components/ResponseImage.vue"; // @ is an alias to /src
+import ResponseImage from '@/components/ResponseImage.vue'; // @ is an alias to /src
 
 export default {
-  name: "ResponseList",
+  name: 'ResponseList',
   components: {
-    ResponseImage
+    ResponseImage,
   },
-  props: ["responses", "isFilteringImage"],
+  props: ['responses', 'isFilteringImage'],
   computed: {
     filteredResponse() {
       if (!this.responses || this.responses.length === 0) {
@@ -132,18 +140,20 @@ export default {
         }
         return true;
       });
-    }
+    },
   },
   mounted() {
-    if (!this.$refs.res) return;
-    Array.from(this.$refs.res).map(r => {
-      const nextThreadLinks = r.querySelectorAll("span[data-id]");
-      if (nextThreadLinks.length === 0) return;
-      Array.from(nextThreadLinks).map(l => {
-        l.addEventListener("click", event => {
-          const threadID = event.target.getAttribute("data-id");
-          const payload = { boardType: "MAY", id: threadID };
-          this.$store.dispatch("watchingThread/load", payload);
+    this.$nextTick(() => {
+      if (!this.$refs.res) return;
+      Array.from(this.$refs.res).map(r => {
+        const nextThreadLinks = r.querySelectorAll('span[data-id]');
+        if (nextThreadLinks.length === 0) return;
+        Array.from(nextThreadLinks).map(l => {
+          l.addEventListener('click', event => {
+            const threadID = event.target.getAttribute('data-id');
+            const payload = { boardType: 'MAY', id: threadID };
+            this.$store.dispatch('watchingThread/load', payload);
+          });
         });
       });
     });
@@ -153,13 +163,13 @@ export default {
       navigator.clipboard.writeText(text).then(() => {
         this.$message({
           message: `クリップボードにコピーしました: ${text}`,
-          type: "success"
+          type: 'success',
         });
       });
     },
     moveToBottom() {
       this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;
-    }
-  }
+    },
+  },
 };
 </script>
