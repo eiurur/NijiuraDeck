@@ -2,7 +2,7 @@
   <div class="container" v-if="show">
     <el-divider content-position="left">{{title}}</el-divider>
     <div v-for="thread in threads" :key="thread.id" @click="loadResponses(thread)" class="thread">
-      <img class="threadImage" :src="thread.img" />
+      <img class="threadImage" v-lazy="thread.img" />
       <div class="threadBody">
         <div class="title">{{ thread.title }}</div>
         <div class="footer">

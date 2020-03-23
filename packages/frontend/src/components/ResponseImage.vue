@@ -2,11 +2,11 @@
   <span :data-orig="orig">
     <img
       class="image"
-      :src="thumb"
+      v-lazy="thumb"
       v-if="!(isShownImage || isShownVideo)"
       @click="showOriginal(img)"
     />
-    <img :src="img" class="original" v-if="isShownImage" data-zoomable />
+    <img v-lazy="img" class="original" v-if="isShownImage" data-zoomable />
     <video autoplay controls loop :src="img" class="original" v-if="isShownVideo"></video>
   </span>
 </template>
@@ -61,7 +61,9 @@ export default {
       document.querySelectorAll("[data-zoomable]:not(.medium-zoom-image)")
     ).map(img => {
       img.onload = () => {
-        mediumZoom(img, { background: "#000" });
+        if (!img.classList.contains("medium-zoom-image")) {
+          mediumZoom(img, { background: "#000" });
+        }
       };
     });
   }
