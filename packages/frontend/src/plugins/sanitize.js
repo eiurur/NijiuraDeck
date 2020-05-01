@@ -26,8 +26,8 @@ const enableNextThreadLink = (text) => {
 
 const enableUrl = (text) => {
   if (!text) return text;
-  const reg = new RegExp('/bin/jump.php?', 'g');
-  return text.replace(reg, '');
+  const regJump = new RegExp('/bin/jump.php\\?', 'g');
+  return text.replace(regJump, '');
 };
 
 export default function sanitize(dirty) {
