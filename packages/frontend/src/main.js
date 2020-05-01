@@ -7,7 +7,7 @@ import router from './router';
 import store from './store/';
 import sanitize from './plugins/sanitize';
 
-import './registerServiceWorker';
+// import './registerServiceWorker';
 import './styles.scss';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -28,7 +28,7 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
   beforeCreate() {
     this.$store.dispatch('loadLocalStorage');
   },
