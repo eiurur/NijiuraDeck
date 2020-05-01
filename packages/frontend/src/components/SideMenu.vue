@@ -52,6 +52,7 @@ export default {
           message: "新着レスの更新が完了しました",
           type: "success"
         });
+        this.$store.dispatch("saveLocalStorage");
       });
     },
     removeDownThreadColumn() {
@@ -61,6 +62,7 @@ export default {
           message: "dat落ちしているスレッドを一覧から削除しました。",
           type: "success"
         });
+        this.$store.dispatch("saveLocalStorage");
       });
     },
     updateSettingModal() {

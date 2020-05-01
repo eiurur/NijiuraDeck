@@ -3,17 +3,9 @@
     <div class="column-holder">
       <div class="column-panel">
         <header class="column-header">
-          <div
-            class="column-header-title"
-            :class="{ down: this.thread.isDown }"
-          >
+          <div class="column-header-title" :class="{ down: this.thread.isDown }">
             <span v-if="this.thread.isDown">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="スレ落ち"
-                placement="bottom"
-              >
+              <el-tooltip class="item" effect="dark" content="スレ落ち" placement="bottom">
                 <i class="el-icon-warning left"></i>
               </el-tooltip>
             </span>
@@ -26,16 +18,8 @@
               @click="toggleCommentForm()"
             ></i>
             <i class="el-icon-bottom" @click="moveToBottom()"></i>
-            <i
-              class="el-icon-picture-outline"
-              v-if="!isFilteringImage"
-              @click="toggleDisplayImage"
-            ></i>
-            <i
-              class="el-icon-picture active"
-              v-if="isFilteringImage"
-              @click="toggleDisplayImage"
-            ></i>
+            <i class="el-icon-picture-outline" v-if="!isFilteringImage" @click="toggleDisplayImage"></i>
+            <i class="el-icon-picture active" v-if="isFilteringImage" @click="toggleDisplayImage"></i>
             <i class="el-icon-close" @click="remove()"></i>
           </div>
         </header>
@@ -120,21 +104,21 @@
 </style>
 
 <script>
-import ResponseList from '@/components/ResponseList.vue';
-import CommentForm from '@/components/CommentForm.vue';
+import ResponseList from "@/components/ResponseList.vue";
+import CommentForm from "@/components/CommentForm.vue";
 
 export default {
-  name: 'Column',
+  name: "Column",
   components: {
     ResponseList,
-    CommentForm,
+    CommentForm
   },
-  props: ['thread'],
+  props: ["thread"],
   data() {
     return {
       isShownCommentForm: false,
       isFilteringImage: false,
-      intervalId: undefined,
+      intervalId: undefined
     };
   },
   methods: {
@@ -149,33 +133,34 @@ export default {
     },
     remove() {
       const payload = {
-        id: this.thread.id,
+        id: this.thread.id
       };
-      this.$store.dispatch('watchingThread/remove', payload);
-    },
+      this.$store.dispatch("watchingThread/remove", payload);
+      this.$store.dispatch("saveLocalStorage");
+    }
   },
   watch: {
     thread() {
       if (this.thread.isDown) {
         clearInterval(this.intervalId);
       }
-    },
+    }
   },
   mounted() {
     this.intervalId = setInterval(() => {
       if (this.thread.isDown) return;
       const payload = {
-        boardType: 'MAY',
+        boardType: "MAY",
         id: this.thread.id,
         title: this.thread.title,
-        url: this.thread.url,
+        url: this.thread.url
       };
-      this.$store.dispatch('watchingThread/update', payload);
-      this.$store.dispatch('saveLocalStorage');
+      this.$store.dispatch("watchingThread/update", payload);
+      this.$store.dispatch("saveLocalStorage");
     }, 60 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.intervalId);
-  },
+  }
 };
 </script>
