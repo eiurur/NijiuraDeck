@@ -51,9 +51,10 @@
   }
 }
 .tag-container {
-  flex-wrap: nowrap;
   display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
+  width: 100%;
 }
 .el-tag + .el-tag {
   margin-left: 10px;
