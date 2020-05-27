@@ -1,32 +1,25 @@
 <template>
   <div class="container" v-if="show">
     <el-divider content-position="left">{{ title }}</el-divider>
-    <div
-      v-for="thread in threads"
-      :key="thread.id"
-      @click="loadResponses(thread)"
-      class="thread"
-    >
-      <img class="threadImage" :src="thread.img" />
-      <div class="threadBody">
-        <div class="title">{{ thread.title }}</div>
-        <div class="footer">
-          <span>
-            <i
-              class="el-icon-circle-plus"
-              @click.stop="addThreadhColumn(thread)"
-            ></i>
-          </span>
-          <div>
-            <span
-              class="res-number"
-              :class="{
+    <div class="threads">
+      <div v-for="thread in threads" :key="thread.id" @click="loadResponses(thread)" class="thread">
+        <img class="threadImage" :src="thread.img" />
+        <div class="threadBody">
+          <div class="title">{{ thread.title }}</div>
+          <div class="footer">
+            <span>
+              <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
+            </span>
+            <div>
+              <span
+                class="res-number"
+                :class="{
                 over300: thread.number >= 300,
                 over100: 300 > thread.number && thread.number >= 100,
               }"
-              >{{ thread.number }}</span
-            >
-            <span class="suffix">res</span>
+              >{{ thread.number }}</span>
+              <span class="suffix">res</span>
+            </div>
           </div>
         </div>
       </div>
@@ -41,6 +34,7 @@
   -webkit-box-pack: start;
   justify-content: flex-start;
   padding-bottom: 8px;
+  width: 100%;
 }
 .over300 {
   color: #f56c6c;
@@ -55,16 +49,22 @@
   }
 }
 
+.threads {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  width: 100%;
+}
 .thread {
   display: flex;
   flex-direction: column;
   user-select: none;
   cursor: pointer;
   color: #666;
-  width: 120px;
-  flex-grow: 1;
+  // width: 120px;
+  // flex-grow: 1;
   font-size: 14px;
-  padding: 0.5em 0.5em 0 0;
+  // padding: 0.5em 0.5em 0 0;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -97,27 +97,27 @@
 
 <script>
 export default {
-  name: 'ThreadList',
-  props: ['threads', 'title'],
+  name: "ThreadList",
+  props: ["threads", "title"],
   methods: {
     loadResponses(thread) {
       const payload = {
-        ...{ boardType: 'MAY' },
-        ...{ threadId: thread.id },
+        ...{ boardType: "MAY" },
+        ...{ threadId: thread.id }
       };
-      this.$store.dispatch('catalog/loadResponse', payload);
-      this.$store.dispatch('catalog/setCurrentThread', { thread });
+      this.$store.dispatch("catalog/loadResponse", payload);
+      this.$store.dispatch("catalog/setCurrentThread", { thread });
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = { ...{ boardType: 'MAY' }, ...thread };
-      this.$store.dispatch('watchingThread/add', payload);
-    },
+      const payload = { ...{ boardType: "MAY" }, ...thread };
+      this.$store.dispatch("watchingThread/add", payload);
+    }
   },
   computed: {
     show() {
       return this.threads.length > 0;
-    },
-  },
+    }
+  }
 };
 </script>

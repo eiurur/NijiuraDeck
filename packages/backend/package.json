@@ -24,7 +24,7 @@
     "file-stream-rotator": "^0.5.7",
     "iconv": "^3.0.0",
     "konfig": "^0.2.1",
-    "log4js": "^6.2.1",
+    "log4js": "^6.3.0",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "nijiura": "^0.0.15",
@@ -32,7 +32,7 @@
     "yakaa": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-friendly-formatter": "^4.0.1",
@@ -41,7 +41,7 @@
     "eslint-plugin-html": "^6.0.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.3",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.4"
   },
   "engines": {
     "node": ">= 10.0.0",

@@ -41,6 +41,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   flex-direction: column;
+  width: 100%;
 }
 .w-80 {
   width: 80%;
