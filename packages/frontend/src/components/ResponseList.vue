@@ -155,7 +155,7 @@ export default {
               });
               return;
             }
-            this.$store.dispatch("watchingThread/load", payload);
+            await this.$store.dispatch("watchingThread/load", payload);
           });
         });
       });

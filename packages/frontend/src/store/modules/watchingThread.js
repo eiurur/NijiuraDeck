@@ -27,12 +27,11 @@ const actions = {
     return thread;
   },
   async load({ commit, dispatch }, value) {
-    const thread = await this.fetch(value);
+    const thread = await dispatch('fetch', value);
     const isThreadNotFound = !thread;
     if (isThreadNotFound) {
       return;
     }
-
     const payload = {
       ...{
         id: value.id,
