@@ -98,7 +98,6 @@ const mutations = {
         new Set([...state.ngSearchWords, payload.word]),
       );
     }
-    console.log(state.ngSearchWords);
   },
   UPDATE_CURRENT_THREAD(state, payload) {
     state.currentThread = payload.thread;

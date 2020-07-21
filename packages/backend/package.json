@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "bunyan": "^1.8.12",
+    "bunyan": "^1.8.14",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -32,15 +32,15 @@
     "yakaa": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-friendly-formatter": "^4.0.1",
-    "eslint-import-resolver-webpack": "^0.12.1",
+    "eslint-import-resolver-webpack": "^0.12.2",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-html": "^6.0.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "nodemon": "^2.0.4"
   },
   "engines": {
