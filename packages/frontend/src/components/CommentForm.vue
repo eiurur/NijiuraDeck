@@ -1,4 +1,3 @@
-
 <template>
   <div class="comment-form">
     <div class="textarea-wrapper">
@@ -10,13 +9,6 @@
         @keyup.ctrl.enter="submit"
       />
     </div>
-    <!-- <el-input
-      @keyup.ctrl.enter="submit"
-      type="textarea"
-      :rows="4"
-      placeholder="コメント"
-      v-model="comment"
-    ></el-input>-->
   </div>
 </template>
 
@@ -79,31 +71,31 @@
 
 <script>
 export default {
-  name: "CommentForm",
-  props: ["thread"],
+  name: 'CommentForm',
+  props: ['thread'],
   components: {},
   computed: {},
   data() {
     return {
-      comment: "",
-      password: ""
+      comment: '',
+      password: '',
     };
   },
   methods: {
     submit() {
       const payload = {
-        boardType: "MAY",
+        boardType: 'MAY',
         id: this.thread.id,
         url: this.thread.url,
-        comment: this.comment
+        comment: this.comment,
       };
       try {
-        this.$store.dispatch("watchingThread/postComment", payload);
-        this.comment = "";
+        this.$store.dispatch('watchingThread/postComment', payload);
+        this.comment = '';
       } catch (e) {
         this.$message.error(e);
       }
-    }
-  }
+    },
+  },
 };
 </script>
