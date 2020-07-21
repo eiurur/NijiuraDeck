@@ -84,26 +84,40 @@ export default {
     favoriteSearchWords() {
       return this.$store.getters["catalog/getFavoriteSearchWords"];
     },
+    ngSearchWords() {
+      return this.$store.getters["catalog/getNgSearchWords"];
+    },
+    validThreads() {
+      if (!this.threads.list) return [];
+
+      let threads = this.threads.list;
+      const ngWords = this.ngSearchWords.map(word => word.toLowerCase());
+      threads = threads.filter(thread => {
+        return ngWords.every(
+          word => thread.title.toLowerCase().indexOf(word) === -1
+        );
+      });
+      return threads;
+    },
     favoriteList() {
-      if (!this.threads.list) {
+      if (!this.validThreads) {
         return [];
       }
       if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0) {
         return [];
       }
       const words = this.favoriteSearchWords.map(word => word.toLowerCase());
-      return this.threads.list.filter(thread => {
+      return this.validThreads.filter(thread => {
         return words.some(
           word => thread.title.toLowerCase().indexOf(word) !== -1
         );
       });
     },
     filteredList() {
-      if (!this.threads.list) return [];
-      if (this.searchWord === "") return this.threads.list;
-      const word = this.searchWord.toLowerCase();
-      return this.threads.list.filter(thread => {
-        return thread.title.toLowerCase().includes(word);
+      if (this.searchWord === "") return this.validThreads;
+      const searchWord = this.searchWord.toLowerCase();
+      return this.validThreads.filter(thread => {
+        return thread.title.toLowerCase().includes(searchWord);
       });
     },
     currentThread() {

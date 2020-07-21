@@ -3,23 +3,25 @@ import board from '../../api/board';
 const state = {
   modalOpen: false,
   favoriteSearchWords: [],
+  ngSearchWords: [],
   currentThread: {},
   threads: {
     loading: false,
-    list: []
+    list: [],
   },
   responses: {
     loading: false,
-    list: []
-  }
+    list: [],
+  },
 };
 
 const getters = {
-  getModal: state => state.modalOpen,
-  getFavoriteSearchWords: state => state.favoriteSearchWords,
-  getCurrentThread: state => state.currentThread,
-  getThreads: state => state.threads,
-  getResponses: state => state.responses
+  getModal: (state) => state.modalOpen,
+  getFavoriteSearchWords: (state) => state.favoriteSearchWords,
+  getNgSearchWords: (state) => state.ngSearchWords,
+  getCurrentThread: (state) => state.currentThread,
+  getThreads: (state) => state.threads,
+  getResponses: (state) => state.responses,
 };
 
 const actions = {
@@ -36,6 +38,14 @@ const actions = {
   addFavoriteSearchWords({ commit }, value) {
     const payload = { word: value };
     commit('UPDATE_FAVORITE_SEARCH_WORDS', payload);
+  },
+  removeNgSearchWords({ commit }, value) {
+    const payload = { word: value };
+    commit('REMOVE_NG_SEARCH_WORDS', payload);
+  },
+  addNgSearchWords({ commit }, value) {
+    const payload = { word: value };
+    commit('UPDATE_NG_SEARCH_WORDS', payload);
   },
   setCurrentThread({ commit }, value) {
     const payload = { thread: value.thread };
@@ -56,21 +66,39 @@ const actions = {
     payload.list = list;
     commit('LOAD_RESPONSE', payload);
     commit('UPDATE_FETCHING_STATUS', { type: 'responses', loading: false });
-  }
+  },
 };
 const mutations = {
   UPDATE_MODAL(state) {
     state.modalOpen = !state.modalOpen;
   },
   REMOVE_FAVORITE_SEARCH_WORDS(state, payload) {
-    state.favoriteSearchWords.splice(state.favoriteSearchWords.indexOf(payload.word), 1);
+    state.favoriteSearchWords.splice(
+      state.favoriteSearchWords.indexOf(payload.word),
+      1,
+    );
   },
   UPDATE_FAVORITE_SEARCH_WORDS(state, payload) {
     if (!state.favoriteSearchWords) {
-      state.favoriteSearchWord = [payload.word];
+      state.favoriteSearchWords = [payload.word];
     } else {
-      state.favoriteSearchWords = Array.from(new Set([...state.favoriteSearchWords, payload.word]));
+      state.favoriteSearchWords = Array.from(
+        new Set([...state.favoriteSearchWords, payload.word]),
+      );
     }
+  },
+  REMOVE_NG_SEARCH_WORDS(state, payload) {
+    state.ngSearchWords.splice(state.ngSearchWords.indexOf(payload.word), 1);
+  },
+  UPDATE_NG_SEARCH_WORDS(state, payload) {
+    if (!state.ngSearchWords) {
+      state.ngSearchWords = [payload.word];
+    } else {
+      state.ngSearchWords = Array.from(
+        new Set([...state.ngSearchWords, payload.word]),
+      );
+    }
+    console.log(state.ngSearchWords);
   },
   UPDATE_CURRENT_THREAD(state, payload) {
     state.currentThread = payload.thread;
@@ -84,12 +112,12 @@ const mutations = {
   },
   LOAD_RESPONSE(state, payload) {
     state.responses.list = payload.list;
-  }
+  },
 };
 export default {
   namespaced: true,
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };

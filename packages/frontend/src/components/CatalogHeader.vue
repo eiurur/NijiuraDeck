@@ -9,27 +9,8 @@
         v-model="searchWord"
       ></el-input>
     </div>
-    <div class="tag-container">
-      <el-input
-        class="input-new-tag"
-        v-if="inputVisible"
-        v-model="inputValue"
-        ref="saveTagInput"
-        size="small"
-        @keyup.enter.native="handleInputConfirm"
-        @blur="handleInputConfirm"
-      ></el-input>
-      <el-button v-else class="button-new-tag" size="small" @click="showInput">+ お気に入り検索ワードを追加</el-button>
-      <el-tag
-        :key="tag"
-        v-for="tag in favoriteSearchWords.slice().reverse()"
-        closable
-        :disable-transitions="false"
-        type="info"
-        effect="plain"
-        @close="handleClose(tag)"
-      >{{ tag }}</el-tag>
-    </div>
+    <FavoriteTagInput :words="favoriteSearchWords"></FavoriteTagInput>
+    <NgTagInput :words="ngSearchWords"></NgTagInput>
   </div>
 </template>
 
@@ -74,9 +55,16 @@
 </style>
 
 <script>
+import FavoriteTagInput from "@/components/FavoriteTagInput.vue";
+import NgTagInput from "@/components/NgTagInput.vue";
+
 export default {
   name: "CatalogHeader",
   props: ["value"],
+  components: {
+    FavoriteTagInput,
+    NgTagInput
+  },
   methods: {
     onChangeInput() {
       this.commitChange();
@@ -118,6 +106,12 @@ export default {
     favoriteSearchWords: {
       get() {
         return this.$store.getters["catalog/getFavoriteSearchWords"] || [];
+      },
+      set() {}
+    },
+    ngSearchWords: {
+      get() {
+        return this.$store.getters["catalog/getNgSearchWords"] || [];
       },
       set() {}
     }
