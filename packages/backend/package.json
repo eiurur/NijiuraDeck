@@ -32,14 +32,14 @@
     "yakaa": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.5.0",
+    "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-friendly-formatter": "^4.0.1",
-    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-html": "^6.0.2",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-html": "^6.1.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
     "nodemon": "^2.0.4"
   },
