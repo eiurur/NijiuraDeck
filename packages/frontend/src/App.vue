@@ -30,7 +30,7 @@ html,
     'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo',
     'MSPゴシック', 'Osaka', 'MS PGothic', 'Arial', 'Helvetica', 'Verdana',
     'sans-serif';
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 0;
   line-height: 1.6;

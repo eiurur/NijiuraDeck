@@ -7,8 +7,9 @@
         <div class="threadBody">
           <div class="title">{{ thread.title }}</div>
           <div class="footer">
-            <span>
-              <i class="el-icon-circle-plus" @click.stop="addThreadhColumn(thread)"></i>
+            <span class="add-btn" @click.stop="addThreadhColumn(thread)">
+              <i class="el-icon-circle-plus"></i>
+              <span>追加</span>
             </span>
             <div>
               <span
@@ -28,6 +29,13 @@
 </template>
 
 <style lang="scss" scoped>
+.add-btn {
+  flex: 1;
+}
+i + span {
+  margin-left: .25rem;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -63,7 +71,7 @@
   color: #666;
   // width: 120px;
   // flex-grow: 1;
-  font-size: 14px;
+  font-size: 12px;
   // padding: 0.5em 0.5em 0 0;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
@@ -88,9 +96,11 @@
   justify-content: space-between;
   align-items: flex-end;
   flex: 1;
-  transition: color 0.1s ease;
-  & i:hover {
-    color: #5cb6ff;
+  & .add-btn {
+    transition: color 0.1s ease;
+    &:hover {
+      color: #5cb6ff;
+    }
   }
 }
 </style>

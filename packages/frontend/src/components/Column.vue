@@ -49,11 +49,11 @@
   position: relative;
   display: inline-block;
   overflow: hidden;
-  width: 480px;
+  width: 400px;
   height: 100%;
   margin: 0 6px 0 0;
   background-color: #fff;
-  font-size: 1.2rem;
+  font-size: 14px;
   white-space: normal;
   flex: 0 0 auto;
 }
