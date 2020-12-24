@@ -29,6 +29,11 @@
         <p>スレッド：3分ごと</p>
         <p>レスポンス：1分ごと</p>
       </section>
+      <section class="shortcut-keys">
+        <h2>ショートカットキー</h2>
+        <p><span class="command"><span class="key">Ctrl</span> + <span class="key">Space</span></span><span>カタログを表示</span></p>
+        <p><span class="command"><span class="key">Ctrl</span> + <span class="key">Delete</span></span><span>Dat落ちのスレッドを閉じる</span></p>
+      </section>
     </div>
   </el-dialog>
 </template>
@@ -37,6 +42,17 @@
 .about {
   & section {
     padding-bottom: 1rem;
+  }
+}
+.shortcut-keys {
+  .command + span {
+    margin-left: 1rem;
+  }
+  .key {
+    background: #eee;
+    border: 1px solid #ddd;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
   }
 }
 </style>

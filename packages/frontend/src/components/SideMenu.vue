@@ -22,6 +22,10 @@
         <span slot="title">このサイトについて</span>
       </el-menu-item>
     </el-menu>
+    <GlobalEvents
+      @keyup.ctrl.space="updateCatalogModal"
+      @keyup.ctrl.delete="removeDownThreadColumn"
+    />
   </el-aside>
 </template>
 

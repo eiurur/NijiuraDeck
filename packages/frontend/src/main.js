@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import VueAnalytics from 'vue-analytics';
+import GlobalEvents from 'vue-global-events';
 
 import App from './App.vue';
 import router from './router';
@@ -21,6 +22,8 @@ Vue.use(VueAnalytics, {
     sendHitTask: isProd,
   },
 });
+Vue.component('GlobalEvents', GlobalEvents);
+
 Vue.prototype.$sanitize = sanitize;
 
 Vue.config.productionTip = false;
