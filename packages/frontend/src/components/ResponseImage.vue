@@ -1,11 +1,16 @@
 <template>
-  <span :data-orig="orig">
-    <img
-      class="image"
-      :src="thumb"
-      v-if="!(isShownImage || isShownVideo)"
-      @click="showOriginal(img)"
-    />
+  <div :data-orig="orig" v-if="thumb">
+    <div class="media-wrapper" v-if="!(isShownImage || isShownVideo)">
+      <img
+        class="image"
+        :src="thumb"
+        @click="showOriginal(img)"
+      />
+      <span class="media-type-marker">
+        <i v-if="!hasVideo" class="el-icon-picture-outline"></i>
+        <i v-if="hasVideo" class="el-icon-video-camera"></i>
+      </span>
+    </div>
     <img :src="img" class="original" v-if="isShownImage" data-zoomable />
     <video
       ref="video"
@@ -16,10 +21,25 @@
       class="original"
       v-if="isShownVideo"
     ></video>
-  </span>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+.media-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.media-type-marker {
+    position: absolute;
+    top: .25rem;
+    right: .25rem;
+    padding: .15em .5rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: .25rem;
+    color: #eee;
+    line-height: 1.4;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
+}
 .image {
   cursor: pointer;
   object-fit: contain;
@@ -36,6 +56,8 @@
 <script>
 import mediumZoom from 'medium-zoom';
 
+const VIDEO_EXTENSIONS = ['mp4', 'webm'];
+
 export default {
   name: 'ResponseImage',
   props: ['thumb', 'img', 'orig'],
@@ -47,17 +69,29 @@ export default {
     return {
       isShownImage: false,
       isShownVideo: false,
+      observer: null,
     };
   },
-  methods: {
-    showOriginal(img) {
-      const ext = img
+  computed: {
+    ext() {
+      if (!this.img) return '';
+      return this.img
         .split(/#|\?/)[0]
         .split('.')
         .pop()
         .trim();
-      const VIDEO_EXTENSIONS = ['mp4', 'webm'];
-      if (VIDEO_EXTENSIONS.includes(ext)) {
+    },
+    thumbClass() {
+      if (this.hasVideo) return 'has-video';
+      return 'has-image';
+    },
+    hasVideo() {
+      return VIDEO_EXTENSIONS.includes(this.ext);
+    }
+  },
+  methods: {
+    showOriginal() {
+      if (this.hasVideo) {
         this.isShownVideo = true;
       } else {
         this.isShownImage = true;
@@ -65,7 +99,6 @@ export default {
       this.onScroll();
     },
     onScroll() {
-      console.log(this.isShownVideo);
       if (!this.isShownVideo) return;
       // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
       setTimeout(() => {
@@ -88,7 +121,9 @@ export default {
     });
   },
   beforeDestroy() {
-    this.observer.disconnect();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   },
 };
 </script>
