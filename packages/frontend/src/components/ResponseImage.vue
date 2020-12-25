@@ -8,6 +8,7 @@
     />
     <img :src="img" class="original" v-if="isShownImage" data-zoomable />
     <video
+      ref="video"
       autoplay
       controls
       loop
@@ -61,7 +62,21 @@ export default {
       } else {
         this.isShownImage = true;
       }
+      this.onScroll();
     },
+    onScroll() {
+      console.log(this.isShownVideo);
+      if (!this.isShownVideo) return;
+      // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
+      setTimeout(() => {
+        this.observer = new IntersectionObserver(entries => {
+          if (entries[0].intersectionRatio <= 0) {
+            this.$refs.video.pause();
+          }
+        });
+        this.observer.observe(this.$refs.video);
+      }, 100);
+    }
   },
   updated() {
     Array.from(
@@ -71,6 +86,9 @@ export default {
         mediumZoom(img, { background: '#000' });
       };
     });
+  },
+  beforeDestroy() {
+    this.observer.disconnect();
   },
 };
 </script>
