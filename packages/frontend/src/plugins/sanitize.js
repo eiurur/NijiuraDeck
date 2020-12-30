@@ -1,4 +1,4 @@
-import sanitizeHTML from 'sanitize-html';
+// import sanitizeHTML from 'sanitize-html';
 
 const sanitizeFont = (text) => {
   if (!text) return text;
@@ -31,14 +31,15 @@ const enableUrl = (text) => {
 };
 
 export default function sanitize(dirty) {
-  return sanitizeHTML(enableNextThreadLink(enableUrl(sanitizeFont(dirty))), {
-    allowedTags: [...sanitizeHTML.defaults.allowedTags, 'span'],
-    allowedAttributes: {
-      span: ['href', 'data-*'],
-      a: ['href', 'class', 'target'],
-    },
-    allowedClasses: {
-      '*': ['allowed'],
-    },
-  });
+  return enableNextThreadLink(enableUrl(sanitizeFont(dirty)));
+  // return sanitizeHTML(enableNextThreadLink(enableUrl(sanitizeFont(dirty))), {
+  //   allowedTags: [...sanitizeHTML.defaults.allowedTags, 'span'],
+  //   allowedAttributes: {
+  //     span: ['href', 'data-*'],
+  //     a: ['href', 'class', 'target'],
+  //   },
+  //   allowedClasses: {
+  //     '*': ['allowed'],
+  //   },
+  // });
 }
