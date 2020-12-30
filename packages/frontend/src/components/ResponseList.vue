@@ -14,7 +14,7 @@
         :key="id"
       >
         <div class="item-box">
-          <div class="res">
+          <div class="response">
             <div class="response-body">
               <div class="response-header">
                 <div class="left">
@@ -79,16 +79,15 @@ article.stream-item {
   color: #666;
 
   & .response {
-    background: #eddbd1;
-    color: #666;
-    font-size: 14px;
-    margin: 1rem;
-    display: flex;
-
-    line-height: 1.28578em;
+    // background: #eddbd1;
+    // color: #666;
+    // font-size: 14px;
+    // margin: 1rem;
+    // line-height: 1.28578em;
+    display: block;
     word-break: break-word;
     word-wrap: break-word;
-    display: block;
+    line-height: 1.7;
     &-header {
       display: flex;
       justify-content: space-between;
@@ -142,7 +141,7 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
+    setTimeout(() => {
       if (!this.$refs.res) return;
       Array.from(this.$refs.res).map((r) => {
         const nextThreadLinks = r.querySelectorAll("span[data-id]");
@@ -166,7 +165,7 @@ export default {
           });
         });
       });
-    });
+    }, 300);
   },
   methods: {
     copyToClipboard(text) {
