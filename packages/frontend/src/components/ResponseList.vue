@@ -73,7 +73,8 @@ article.stream-item {
 
 .item-box {
   position: relative;
-  padding: 8px 10px;
+  contain: content;
+  padding: .5rem;
   background: #eddbd1;
   color: #666;
 

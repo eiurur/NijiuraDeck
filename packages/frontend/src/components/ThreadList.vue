@@ -69,10 +69,8 @@ i + span {
   user-select: none;
   cursor: pointer;
   color: #666;
-  // width: 120px;
-  // flex-grow: 1;
+  contain: content;
   font-size: 12px;
-  // padding: 0.5em 0.5em 0 0;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
