@@ -15,15 +15,16 @@ module.exports = app => {
         (async ({ boardType, sort }) => {
           const board = new Board(boardType.toUpperCase());
           // TODO: cookieから取得
-          board.setCatalogSetting({
+          const catalog = board.getCatalog()
+          catalog.setSetting({
             width: 14,
             height: 20,
             num: 16,
             position: 0,
             size: 3,
           });
-          board.setCatalogParameter({ sort: sort });
-          const threads = await board.thread.list();
+          catalog.setParameter({ sort: sort });
+          const threads = await catalog.list();
           return threads;
         })(req.params),
       ),
@@ -38,7 +39,7 @@ module.exports = app => {
         res,
         (async ({ boardType, threadId }) => {
           const board = new Board(boardType.toUpperCase());
-          const responses = await board.response.list(threadId);
+          const responses = await board.getThread(threadId).list();
           return responses;
         })(req.params),
       ),
