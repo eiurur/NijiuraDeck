@@ -106,8 +106,13 @@ export default {
       if (!this.favoriteSearchWords || this.favoriteSearchWords.length === 0) {
         return [];
       }
+      let threads = this.validThreads;
+      const searchWord = this.searchWord.toLowerCase();
+      if (searchWord) {
+        threads = threads.filter(thread => thread.title.toLowerCase().indexOf(searchWord) !== -1);
+      }
       const words = this.favoriteSearchWords.map(word => word.toLowerCase());
-      return this.validThreads.filter(thread => {
+      return threads.filter(thread => {
         return words.some(
           word => thread.title.toLowerCase().indexOf(word) !== -1
         );

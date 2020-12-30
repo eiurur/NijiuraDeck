@@ -73,7 +73,9 @@ i + span {
   font-size: 12px;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 1px 1px 6px 0px rgba(0,0,0,.25);
+    border-radius: .25rem;
   }
 }
 .threadImage {
