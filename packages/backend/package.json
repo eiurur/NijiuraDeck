@@ -14,7 +14,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "crypto": "1.0.1",
     "csrf": "^3.1.0",
     "csurf": "^1.11.0",
@@ -27,21 +27,21 @@
     "log4js": "^6.3.0",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
-    "nijiura": "^0.0.15",
+    "nijiura": "^0.2.1",
     "util": "^0.12.3",
     "yakaa": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.10.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.12.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-html": "^6.1.0",
+    "eslint-plugin-html": "^6.1.1",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "nodemon": "^2.0.4"
+    "eslint-plugin-prettier": "^3.3.0",
+    "nodemon": "^2.0.6"
   },
   "engines": {
     "node": ">= 10.0.0",
