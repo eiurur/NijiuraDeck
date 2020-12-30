@@ -6,6 +6,7 @@
         size="small"
         prefix-icon="el-icon-search"
         v-model="searchWord"
+        clearable
       ></el-input>
     </div>
     <FavoriteTagInput :words="favoriteSearchWords"></FavoriteTagInput>
