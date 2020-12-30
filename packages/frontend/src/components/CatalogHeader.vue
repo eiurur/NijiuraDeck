@@ -5,7 +5,6 @@
         placeholder="検索"
         size="small"
         prefix-icon="el-icon-search"
-        @change.native="onChangeInput"
         v-model="searchWord"
       ></el-input>
     </div>
@@ -65,19 +64,19 @@ export default {
     FavoriteTagInput,
     NgTagInput
   },
-  methods: {
-    onChangeInput() {
+  watch: {
+    searchWord() {
       this.commitChange();
-    },
+    }
+  },
+  methods: {
     commitChange() {
       this.$emit("input", this.searchWord);
     },
-
     handleClose(tag) {
       this.$store.dispatch("catalog/removeFavoriteSearchWords", tag);
       this.$store.dispatch("saveLocalStorage");
     },
-
     showInput() {
       this.inputVisible = true;
       this.$nextTick(() => {
