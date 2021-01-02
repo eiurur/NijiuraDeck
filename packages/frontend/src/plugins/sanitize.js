@@ -32,6 +32,7 @@ const enableUrl = (text) => {
 
 export default function sanitize(dirty) {
   return enableNextThreadLink(enableUrl(sanitizeFont(dirty)));
+  // FIXME: sanitzeHTMLを通すとquoteクラスが飛ぶ
   // return sanitizeHTML(enableNextThreadLink(enableUrl(sanitizeFont(dirty))), {
   //   allowedTags: [...sanitizeHTML.defaults.allowedTags, 'span'],
   //   allowedAttributes: {

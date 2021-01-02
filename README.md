@@ -6,6 +6,10 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 
 <br>
 
+# ステータス
+
+![Node.js CI](https://github.com/eiurur/NijiuraDeck/workflows/Node.js%20CI/badge.svg?branch=master)
+
 # 機能
 
 - [x] カタログ表示
