@@ -140,14 +140,31 @@ export default {
       });
     },
   },
+  watched: {
+    responses() {
+      setTimeout(() => this.enableOpeningSuperLink(), 1000);
+    }
+  },
   mounted() {
-    setTimeout(() => {
+    setTimeout(() => this.enableOpeningSuperLink(), 1000);
+  },
+  methods: {
+    copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.$message({
+          message: `クリップボードにコピーしました: ${text}`,
+          type: "success",
+        });
+      });
+    },
+    enableOpeningSuperLink() {
       if (!this.$refs.res) return;
       Array.from(this.$refs.res).map((r) => {
         const nextThreadLinks = r.querySelectorAll("span[data-id]");
         if (nextThreadLinks.length === 0) return;
         Array.from(nextThreadLinks).map((l) => {
           l.addEventListener("click", async (event) => {
+            this.$message("カラムに追加します");
             const threadID = event.target.getAttribute("data-id");
             const payload = { boardType: "MAY", id: threadID };
             const thread = await this.$store.dispatch(
@@ -162,17 +179,11 @@ export default {
               return;
             }
             await this.$store.dispatch("watchingThread/load", payload);
+            this.$message({
+              message: `追加しました`,
+              type: "success",
+            });
           });
-        });
-      });
-    }, 300);
-  },
-  methods: {
-    copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        this.$message({
-          message: `クリップボードにコピーしました: ${text}`,
-          type: "success",
         });
       });
     },
