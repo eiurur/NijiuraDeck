@@ -1,23 +1,23 @@
 <template>
   <el-aside width="64px;" style="background-color: rgb(238, 241, 246)">
     <el-menu class="el-menu-vertical" :collapse="true">
-      <el-menu-item index="1" @click="updateCatalogModal">
+      <el-menu-item @click="updateCatalogModal">
         <i class="el-icon-s-grid"></i>
         <span slot="title">スレッド一覧を開く</span>
       </el-menu-item>
-      <el-menu-item index="2" @click="updateAllThreadColumn()">
+      <el-menu-item @click="updateAllThreadColumn()">
         <i class="el-icon-refresh-left"></i>
         <span slot="title">全スレッドを更新する</span>
       </el-menu-item>
-      <el-menu-item index="3" @click="removeDownThreadColumn()">
+      <el-menu-item @click="removeDownThreadColumn()">
         <i class="el-icon-delete"></i>
         <span slot="title">dat落ちのスレッドを削除する</span>
       </el-menu-item>
-      <el-menu-item index="4" @click="updateSettingModal" disabled>
+      <el-menu-item @click="updateSettingModal" disabled>
         <i class="el-icon-setting"></i>
         <span slot="title">設定</span>
       </el-menu-item>
-      <el-menu-item index="5" @click="updateAboutModal">
+      <el-menu-item @click="updateAboutModal">
         <i class="el-icon-info"></i>
         <span slot="title">このサイトについて</span>
       </el-menu-item>
@@ -42,39 +42,39 @@
 
 <script>
 export default {
-  name: "SideMenu",
+  name: 'SideMenu',
   methods: {
     updateCatalogModal() {
       // TODO:選択式
-      const payload = { boardType: "MAY" };
-      this.$store.dispatch("catalog/updateModal", payload);
+      const payload = { boardType: 'MAY' };
+      this.$store.dispatch('catalog/updateModal', payload);
     },
     updateAllThreadColumn() {
-      this.$message("各スレッドの新着レスを取得しています。");
-      this.$store.dispatch("watchingThread/updateAll").then(() => {
+      this.$message('各スレッドの新着レスを取得しています。');
+      this.$store.dispatch('watchingThread/updateAll').then(() => {
         this.$message({
-          message: "新着レスの更新が完了しました",
-          type: "success"
+          message: '新着レスの更新が完了しました',
+          type: 'success',
         });
-        this.$store.dispatch("saveLocalStorage");
+        this.$store.dispatch('saveLocalStorage');
       });
     },
     removeDownThreadColumn() {
-      this.$message("スレッドの状況確認を開始します。");
-      this.$store.dispatch("watchingThread/removeDown").then(() => {
+      this.$message('スレッドの状況確認を開始します。');
+      this.$store.dispatch('watchingThread/removeDown').then(() => {
         this.$message({
-          message: "dat落ちしているスレッドを一覧から削除しました。",
-          type: "success"
+          message: 'dat落ちしているスレッドを一覧から削除しました。',
+          type: 'success',
         });
-        this.$store.dispatch("saveLocalStorage");
+        this.$store.dispatch('saveLocalStorage');
       });
     },
     updateSettingModal() {
-      this.$store.dispatch("setting/updateModal");
+      this.$store.dispatch('setting/updateModal');
     },
     updateAboutModal() {
-      this.$store.dispatch("modal/updateAbout");
-    }
-  }
+      this.$store.dispatch('modal/updateAbout');
+    },
+  },
 };
 </script>
