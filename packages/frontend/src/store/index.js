@@ -28,12 +28,18 @@ export default new Vuex.Store({
   },
   mutations: {
     SAVE(state) {
-      localStorage.setItem('store', JSON.stringify(state));
+      setTimeout(() => {
+        localStorage.setItem('store', JSON.stringify(state));
+      }, 0);
     },
     LOAD(state) {
       if (localStorage.getItem('store')) {
         const store = JSON.parse(localStorage.getItem('store'));
-        this.replaceState({ ...state, ...store });
+        const patch = {
+          catalog: { ...store.catalog, ...{ isOpenedModal: false } },
+          setting: { ...store.setting, ...{ isOpenedModal: false } },
+        };
+        this.replaceState({ ...state, ...store, ...patch });
       }
     },
   },

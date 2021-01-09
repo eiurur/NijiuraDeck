@@ -1,25 +1,25 @@
 const state = {
-  modalOpen: false
+  isOpenedModal: false,
 };
 
 const getters = {
-  getModal: state => state.modalOpen
+  getModal: (state) => state.isOpenedModal,
 };
 
 const actions = {
-  updateModal({ commit }) {
-    commit('UPDATE_MODAL');
-  }
+  toggleModal({ commit }) {
+    commit('TOGGLE_MODAL');
+  },
 };
 const mutations = {
-  UPDATE_MODAL(state) {
-    state.modalOpen = !state.modalOpen;
-  }
+  TOGGLE_MODAL(state) {
+    state.isOpenedModal = !state.isOpenedModal;
+  },
 };
 export default {
   namespaced: true,
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };

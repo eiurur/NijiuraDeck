@@ -47,7 +47,7 @@ export default {
     updateCatalogModal() {
       // TODO:選択式
       const payload = { boardType: 'MAY' };
-      this.$store.dispatch('catalog/updateModal', payload);
+      this.$store.dispatch('catalog/toggleModal', payload);
     },
     updateAllThreadColumn() {
       this.$message('各スレッドの新着レスを取得しています。');
@@ -70,7 +70,7 @@ export default {
       });
     },
     updateSettingModal() {
-      this.$store.dispatch('setting/updateModal');
+      this.$store.dispatch('setting/toggleModal');
     },
     updateAboutModal() {
       this.$store.dispatch('modal/updateAbout');

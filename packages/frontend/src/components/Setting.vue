@@ -4,16 +4,16 @@
 
 <script>
 export default {
-  name: "Setting",
+  name: 'Setting',
   computed: {
     modal: {
       get() {
-        return this.$store.getters["setting/getModal"];
+        return this.$store.getters['setting/getModal'];
       },
       set() {
-        this.$store.dispatch("setting/updateModal");
-      }
-    }
-  }
+        this.$store.dispatch('setting/toggleModal');
+      },
+    },
+  },
 };
 </script>

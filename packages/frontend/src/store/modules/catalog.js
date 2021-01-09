@@ -1,7 +1,7 @@
 import board from '../../api/board';
 
 const state = {
-  modalOpen: false,
+  isOpenedModal: false,
   favoriteSearchWords: [],
   ngSearchWords: [],
   currentThread: {},
@@ -16,7 +16,7 @@ const state = {
 };
 
 const getters = {
-  getModal: (state) => state.modalOpen,
+  getModal: (state) => state.isOpenedModal,
   getFavoriteSearchWords: (state) => state.favoriteSearchWords,
   getNgSearchWords: (state) => state.ngSearchWords,
   getCurrentThread: (state) => state.currentThread,
@@ -25,9 +25,9 @@ const getters = {
 };
 
 const actions = {
-  updateModal({ commit, dispatch, state }, value) {
-    commit('UPDATE_MODAL');
-    if (state.modalOpen) {
+  toggleModal({ commit, dispatch, state }, value) {
+    commit('TOGGLE_MODAL');
+    if (state.isOpenedModal) {
       dispatch('load', value);
     }
   },
@@ -72,8 +72,8 @@ const actions = {
   },
 };
 const mutations = {
-  UPDATE_MODAL(state) {
-    state.modalOpen = !state.modalOpen;
+  TOGGLE_MODAL(state) {
+    state.isOpenedModal = !state.isOpenedModal;
   },
   REMOVE_FAVORITE_SEARCH_WORDS(state, payload) {
     state.favoriteSearchWords.splice(

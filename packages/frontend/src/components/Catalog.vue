@@ -26,7 +26,7 @@ export default {
         return this.$store.getters['catalog/getModal'];
       },
       set() {
-        this.$store.dispatch('catalog/updateModal');
+        this.$store.dispatch('catalog/toggleModal');
       },
     },
   },
