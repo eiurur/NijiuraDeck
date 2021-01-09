@@ -1,12 +1,7 @@
 <template>
   <div :data-orig="orig" v-if="thumb">
     <div class="media-wrapper" v-if="!(isShownImage || isShownVideo)">
-      <img
-        class="image"
-        loading="lazy"
-        :src="thumb"
-        @click="showOriginal(img)"
-      />
+      <img class="image" v-lazy="thumb" @click="showOriginal(img)" />
       <span class="media-type-marker">
         <i v-if="!hasVideo" class="el-icon-picture-outline"></i>
         <i v-if="hasVideo" class="el-icon-video-camera"></i>
