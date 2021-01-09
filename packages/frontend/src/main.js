@@ -8,11 +8,11 @@ import App from './App.vue';
 import router from './router';
 import store from './store/';
 import sanitize from './plugins/sanitize';
-import { errorImageBase64, loadingImageBase64 } from './constants';
-
+import { errorImageBase64 } from './constants';
 // import './registerServiceWorker';
 
 const isProd = process.env.NODE_ENV === 'production';
+const loadingImage = require('./assets/loading.png');
 
 Vue.use(ElementUI);
 Vue.use(VueAnalytics, {
@@ -26,7 +26,7 @@ Vue.use(VueAnalytics, {
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   observer: true,
-  loading: loadingImageBase64,
+  loading: loadingImage,
   error: errorImageBase64,
 });
 Vue.component('GlobalEvents', GlobalEvents);
