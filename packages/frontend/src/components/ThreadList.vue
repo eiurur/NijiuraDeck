@@ -2,8 +2,13 @@
   <div class="container" v-if="show">
     <el-divider content-position="left">{{ title }}</el-divider>
     <div class="threads">
-      <div v-for="thread in threads" :key="thread.id" @click="loadResponses(thread)" class="thread">
-        <img class="threadImage" :src="thread.img" />
+      <div
+        v-for="thread in threads"
+        :key="thread.id"
+        @click="loadResponses(thread)"
+        class="thread"
+      >
+        <img class="threadImage" :src="thread.img" loading="lazy" />
         <div class="threadBody">
           <div class="title">{{ thread.title }}</div>
           <div class="footer">
@@ -15,10 +20,11 @@
               <span
                 class="res-number"
                 :class="{
-                over300: thread.number >= 300,
-                over100: 300 > thread.number && thread.number >= 100,
-              }"
-              >{{ thread.number }}</span>
+                  over300: thread.number >= 300,
+                  over100: 300 > thread.number && thread.number >= 100,
+                }"
+                >{{ thread.number }}</span
+              >
               <span class="suffix">res</span>
             </div>
           </div>
@@ -33,7 +39,7 @@
   flex: 1;
 }
 i + span {
-  margin-left: .25rem;
+  margin-left: 0.25rem;
 }
 
 .container {
@@ -73,9 +79,8 @@ i + span {
   font-size: 12px;
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    box-shadow: 1px 1px 6px 0px rgba(0,0,0,.25);
-    border-radius: .25rem;
+    box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 0.25rem;
   }
 }
 .threadImage {
@@ -107,27 +112,27 @@ i + span {
 
 <script>
 export default {
-  name: "ThreadList",
-  props: ["threads", "title"],
+  name: 'ThreadList',
+  props: ['threads', 'title'],
   methods: {
     loadResponses(thread) {
       const payload = {
-        ...{ boardType: "MAY" },
-        ...{ threadId: thread.id }
+        ...{ boardType: 'MAY' },
+        ...{ threadId: thread.id },
       };
-      this.$store.dispatch("catalog/loadResponse", payload);
-      this.$store.dispatch("catalog/setCurrentThread", { thread });
+      this.$store.dispatch('catalog/loadResponse', payload);
+      this.$store.dispatch('catalog/setCurrentThread', { thread });
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = { ...{ boardType: "MAY" }, ...thread };
-      this.$store.dispatch("watchingThread/add", payload);
-    }
+      const payload = { ...{ boardType: 'MAY' }, ...thread };
+      this.$store.dispatch('watchingThread/add', payload);
+    },
   },
   computed: {
     show() {
       return this.threads.length > 0;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -3,6 +3,7 @@
     <div class="media-wrapper" v-if="!(isShownImage || isShownVideo)">
       <img
         class="image"
+        loading="lazy"
         :src="thumb"
         @click="showOriginal(img)"
       />
@@ -30,15 +31,15 @@
   display: inline-block;
 }
 .media-type-marker {
-    position: absolute;
-    top: .25rem;
-    right: .25rem;
-    padding: .15em .5rem;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: .25rem;
-    color: #eee;
-    line-height: 1.4;
-    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  padding: 0.15em 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+  color: #eee;
+  line-height: 1.4;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
 }
 .image {
   cursor: pointer;
@@ -87,7 +88,7 @@ export default {
     },
     hasVideo() {
       return VIDEO_EXTENSIONS.includes(this.ext);
-    }
+    },
   },
   methods: {
     showOriginal() {
@@ -102,19 +103,19 @@ export default {
       if (!this.isShownVideo) return;
       // Prevent error: TypeError: Failed to execute 'observe' on 'IntersectionObserver': parameter 1 is not of type 'Element'." vue refs
       setTimeout(() => {
-        this.observer = new IntersectionObserver(entries => {
+        this.observer = new IntersectionObserver((entries) => {
           if (entries[0].intersectionRatio <= 0) {
             this.$refs.video.pause();
           }
         });
         this.observer.observe(this.$refs.video);
       }, 100);
-    }
+    },
   },
   updated() {
     Array.from(
-      document.querySelectorAll('[data-zoomable]:not(.medium-zoom-image)'),
-    ).map(img => {
+      document.querySelectorAll('[data-zoomable]:not(.medium-zoom-image)')
+    ).map((img) => {
       img.onload = () => {
         mediumZoom(img, { background: '#000' });
       };

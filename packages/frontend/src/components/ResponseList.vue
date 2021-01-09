@@ -67,14 +67,14 @@
 }
 
 article.stream-item {
+  contain: content;
   background-color: #fff;
   border-bottom: 1px solid #e1e8ed;
 }
 
 .item-box {
   position: relative;
-  contain: content;
-  padding: .5rem;
+  padding: 0.5rem;
   background: #eddbd1;
   color: #666;
 
@@ -119,14 +119,14 @@ article.stream-item {
 </style>
 
 <script>
-import ResponseImage from "@/components/ResponseImage.vue"; // @ is an alias to /src
+import ResponseImage from '@/components/ResponseImage.vue'; // @ is an alias to /src
 
 export default {
-  name: "ResponseList",
+  name: 'ResponseList',
   components: {
     ResponseImage,
   },
-  props: ["responses", "isFilteringImage"],
+  props: ['responses', 'isFilteringImage'],
   computed: {
     filteredResponse() {
       if (!this.responses || this.responses.length === 0) {
@@ -143,7 +143,7 @@ export default {
   watched: {
     responses() {
       setTimeout(() => this.enableOpeningSuperLink(), 1000);
-    }
+    },
   },
   mounted() {
     setTimeout(() => this.enableOpeningSuperLink(), 1000);
@@ -153,35 +153,35 @@ export default {
       navigator.clipboard.writeText(text).then(() => {
         this.$message({
           message: `クリップボードにコピーしました: ${text}`,
-          type: "success",
+          type: 'success',
         });
       });
     },
     enableOpeningSuperLink() {
       if (!this.$refs.res) return;
       Array.from(this.$refs.res).map((r) => {
-        const nextThreadLinks = r.querySelectorAll("span[data-id]");
+        const nextThreadLinks = r.querySelectorAll('span[data-id]');
         if (nextThreadLinks.length === 0) return;
         Array.from(nextThreadLinks).map((l) => {
-          l.addEventListener("click", async (event) => {
-            this.$message("カラムに追加します");
-            const threadID = event.target.getAttribute("data-id");
-            const payload = { boardType: "MAY", id: threadID };
+          l.addEventListener('click', async (event) => {
+            this.$message('カラムに追加します');
+            const threadID = event.target.getAttribute('data-id');
+            const payload = { boardType: 'MAY', id: threadID };
             const thread = await this.$store.dispatch(
-              "watchingThread/fetch",
+              'watchingThread/fetch',
               payload
             );
             if (!thread) {
               this.$message({
                 message: `スレッドが見つかりません`,
-                type: "error",
+                type: 'error',
               });
               return;
             }
-            await this.$store.dispatch("watchingThread/load", payload);
+            await this.$store.dispatch('watchingThread/load', payload);
             this.$message({
               message: `追加しました`,
-              type: "success",
+              type: 'success',
             });
           });
         });
