@@ -9,7 +9,6 @@ import store from './store/';
 import sanitize from './plugins/sanitize';
 
 // import './registerServiceWorker';
-import './styles.scss';
 
 const isProd = process.env.NODE_ENV === 'production';
 
