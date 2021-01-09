@@ -55,28 +55,24 @@
 </style>
 
 <script>
-import FavoriteTagInput from "@/components/FavoriteTagInput.vue";
-import NgTagInput from "@/components/NgTagInput.vue";
+import FavoriteTagInput from '@/components/FavoriteTagInput.vue';
+import NgTagInput from '@/components/NgTagInput.vue';
 
 export default {
-  name: "CatalogHeader",
-  props: ["value"],
+  name: 'CatalogHeader',
+  props: ['value'],
   components: {
     FavoriteTagInput,
-    NgTagInput
+    NgTagInput,
   },
   watch: {
     searchWord() {
       this.commitChange();
-    }
+    },
   },
   methods: {
     commitChange() {
-      this.$emit("input", this.searchWord);
-    },
-    handleClose(tag) {
-      this.$store.dispatch("catalog/removeFavoriteSearchWords", tag);
-      this.$store.dispatch("saveLocalStorage");
+      this.$emit('input', this.searchWord);
     },
     showInput() {
       this.inputVisible = true;
@@ -88,33 +84,27 @@ export default {
     handleInputConfirm() {
       const { inputValue } = this;
       if (inputValue) {
-        this.$store.dispatch("catalog/addFavoriteSearchWords", inputValue);
-        this.$store.dispatch("saveLocalStorage");
+        this.$store.dispatch('catalog/addFavoriteSearchWords', inputValue);
+        this.$store.dispatch('saveLocalStorage');
       }
       this.inputVisible = false;
-      this.inputValue = "";
-    }
+      this.inputValue = '';
+    },
   },
   data() {
     return {
       searchWord: this.value,
       inputVisible: false,
-      inputValue: ""
+      inputValue: '',
     };
   },
   computed: {
-    favoriteSearchWords: {
-      get() {
-        return this.$store.getters["catalog/getFavoriteSearchWords"] || [];
-      },
-      set() {}
+    favoriteSearchWords() {
+      return this.$store.getters['catalog/getFavoriteSearchWords'] || [];
     },
-    ngSearchWords: {
-      get() {
-        return this.$store.getters["catalog/getNgSearchWords"] || [];
-      },
-      set() {}
-    }
-  }
+    ngSearchWords() {
+      return this.$store.getters['catalog/getNgSearchWords'] || [];
+    },
+  },
 };
 </script>
