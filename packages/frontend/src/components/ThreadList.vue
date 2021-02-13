@@ -80,7 +80,7 @@ i + span {
   transition: box-shadow ease-in 0.1s, opacity ease-in 0.2s;
   &:hover {
     // box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 25px 45px -15px rgb(0 0 0 / 15%);
+    box-shadow: 0 25px 45px -15px rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
   }
 }
