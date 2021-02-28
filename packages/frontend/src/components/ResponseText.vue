@@ -28,6 +28,18 @@ export default {
     this.timer = setInterval(() => this.enableOpeningSuperLink(), 1000);
   },
   methods: {
+    showSuccessMessage() {
+      this.$message({
+        message: `追加しました`,
+        type: 'success',
+      });
+    },
+    showErrorMessage() {
+      this.$message({
+        message: `スレッドが見つかりません`,
+        type: 'error',
+      });
+    },
     enableOpeningSuperLink() {
       if (!this.$refs.res || this.managed) {
         this.timer = null;
@@ -50,17 +62,11 @@ export default {
             payload
           );
           if (!thread) {
-            this.$message({
-              message: `スレッドが見つかりません`,
-              type: 'error',
-            });
+            this.showErrorMessage();
             return;
           }
           await this.$store.dispatch('watchingThread/load', payload);
-          this.$message({
-            message: `追加しました`,
-            type: 'success',
-          });
+          this.showSuccessMessage();
         });
       });
     },
