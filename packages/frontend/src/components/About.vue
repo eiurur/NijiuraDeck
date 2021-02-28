@@ -11,13 +11,18 @@
         <h2>NijiuraDeckとは</h2>
         <p>
           NijiuraDeck は
-          <a class="link" href="https://tweetdeck.twitter.com/" target="_blank"
+          <a
+            class="link"
+            href="https://tweetdeck.twitter.com/"
+            target="_blank"
+            rel="noreferrer"
             >TweetDeck</a
           >ライクに
           <a
             class="link"
             href="http://may.2chan.net/b/futaba.htm"
             target="_blank"
+            rel="noreferrer"
             >二次元裏＠ふたば</a
           >を閲覧するためのビューアです。
         </p>
@@ -30,6 +35,7 @@
             class="link"
             href="https://github.com/eiurur/NijiuraDeck"
             target="_blank"
+            rel="noreferrer"
             >Github</a
           >上に置いてありますので自由に確認・編集依頼が可能です。
         </p>

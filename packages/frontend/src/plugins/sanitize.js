@@ -15,7 +15,7 @@ const enableNextThreadLink = (text) => {
   const start = {
     re: new RegExp(
       '<a href="https?://(?:\\w+).2chan.net/(?:\\w+)/res/(\\d+).htm" target="_blank">',
-      'g',
+      'g'
     ),
     to: '<span class="next-thread-link" data-id="$1">',
   };
@@ -27,7 +27,10 @@ const enableNextThreadLink = (text) => {
 const enableUrl = (text) => {
   if (!text) return text;
   const regJump = new RegExp('/bin/jump.php\\?', 'g');
-  return text.replace(regJump, '');
+  const regRel = new RegExp('target="_blank">', 'g'); // FIXME: 厳しい
+  return text
+    .replace(regJump, '')
+    .replace(regRel, 'target="_blank" rel="noreferrer">');
 };
 
 export default function sanitize(dirty) {
