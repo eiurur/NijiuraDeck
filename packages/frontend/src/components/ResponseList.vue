@@ -34,9 +34,7 @@
                   <span>{{ fromNow }}</span>
                 </div>
               </div>
-              <div class="response-text">
-                <div class="res" ref="res" v-html="$sanitize(rawText)"></div>
-              </div>
+              <ResponseText :text="rawText"></ResponseText>
             </div>
             <ResponseImage
               :thumb="thumb"
@@ -101,12 +99,6 @@ article.stream-item {
       }
     }
   }
-  & .response-text {
-    padding: 8px 0 16px;
-  }
-  & .res {
-    line-height: 1.7;
-  }
 
   & .image {
     width: 100%;
@@ -120,11 +112,13 @@ article.stream-item {
 
 <script>
 import ResponseImage from '@/components/ResponseImage.vue'; // @ is an alias to /src
+import ResponseText from '@/components/ResponseText.vue'; // @ is an alias to /src
 
 export default {
   name: 'ResponseList',
   components: {
     ResponseImage,
+    ResponseText,
   },
   props: ['responses', 'isFilteringImage'],
   computed: {
@@ -140,50 +134,12 @@ export default {
       });
     },
   },
-  watched: {
-    responses() {
-      setTimeout(() => this.enableOpeningSuperLink(), 1000);
-    },
-  },
-  mounted() {
-    setTimeout(() => this.enableOpeningSuperLink(), 1000);
-  },
   methods: {
     copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         this.$message({
           message: `クリップボードにコピーしました: ${text}`,
           type: 'success',
-        });
-      });
-    },
-    enableOpeningSuperLink() {
-      if (!this.$refs.res) return;
-      Array.from(this.$refs.res).map((r) => {
-        const nextThreadLinks = r.querySelectorAll('span[data-id]');
-        if (nextThreadLinks.length === 0) return;
-        Array.from(nextThreadLinks).map((l) => {
-          l.addEventListener('click', async (event) => {
-            this.$message('カラムに追加します');
-            const threadID = event.target.getAttribute('data-id');
-            const payload = { boardType: 'MAY', id: threadID };
-            const thread = await this.$store.dispatch(
-              'watchingThread/fetch',
-              payload
-            );
-            if (!thread) {
-              this.$message({
-                message: `スレッドが見つかりません`,
-                type: 'error',
-              });
-              return;
-            }
-            await this.$store.dispatch('watchingThread/load', payload);
-            this.$message({
-              message: `追加しました`,
-              type: 'success',
-            });
-          });
         });
       });
     },
