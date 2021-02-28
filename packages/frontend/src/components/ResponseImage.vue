@@ -1,7 +1,14 @@
 <template>
   <div :data-orig="orig" v-if="thumb">
     <div class="media-wrapper" v-if="!(isShownImage || isShownVideo)">
-      <img class="image" v-lazy="thumb" @click="showOriginal(img)" :alt="img" />
+      <img
+        class="image"
+        width="368"
+        height="368"
+        v-lazy="thumb"
+        @click="showOriginal(img)"
+        :alt="img"
+      />
       <span class="media-type-marker">
         <i v-if="!hasVideo" class="el-icon-picture-outline"></i>
         <i v-if="hasVideo" class="el-icon-video-camera"></i>
@@ -21,6 +28,11 @@
 </template>
 
 <style lang="scss" scoped>
+img {
+  aspect-ratio: attr(width) / attr(height);
+  object-fit: contain;
+}
+
 .media-wrapper {
   position: relative;
   display: inline-block;
