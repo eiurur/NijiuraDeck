@@ -8,7 +8,7 @@
         @click="loadResponses(thread)"
         class="thread"
       >
-        <img class="threadImage" v-lazy="thread.img" />
+        <img class="threadImage" v-lazy="thread.img" :alt="thread.img" />
         <div class="threadBody">
           <div class="title">{{ thread.title }}</div>
           <div class="footer">
