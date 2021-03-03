@@ -1,6 +1,13 @@
 :root {
   --main-color: black;
 }
+* {
+  box-sizing: border-box;
+  outline: none !important;
+  &:focus {
+    outline: none;
+  }
+}
 
 body,
 html,
@@ -24,14 +31,9 @@ html,
 #nav {
   padding: 0 0 30px;
 }
-* {
-  box-sizing: border-box;
-  outline: none !important;
-  &:focus {
-    outline: none;
-  }
+main img {
+  content-visibility: auto;
 }
-
 ul {
   list-style: none;
   margin: 0;
