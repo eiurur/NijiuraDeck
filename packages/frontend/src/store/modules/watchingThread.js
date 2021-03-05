@@ -22,7 +22,7 @@ const actions = {
   async fetch(_, value) {
     const threadList = await board.fetchCatalogList(value);
     const thread = threadList.find(
-      (thread) => Number(thread.id) === Number(value.id),
+      (thread) => Number(thread.id) === Number(value.id)
     );
     return thread;
   },
@@ -40,6 +40,7 @@ const actions = {
       ...{
         title: thread.title,
         url: thread.url,
+        isBuried: thread.responses[0].isReachedMaxRes,
       },
     };
     dispatch('update', payload);
@@ -117,6 +118,7 @@ const actions = {
           id: thread.id,
           title: thread.title,
           url: thread.url,
+          isBuried: responses[0].isReachedMaxRes,
           responses,
         });
       } catch (e) {
@@ -126,6 +128,7 @@ const actions = {
           url: thread.url,
           responses: thread.responses,
           isDown: true,
+          isBuried: false,
         });
       }
     }
@@ -148,14 +151,14 @@ const actions = {
 const mutations = {
   ADD_WATCHING_THREAD_ID(state, payload) {
     const isThreadDuplicated = state.list.some(
-      (thread) => Number(thread.id) === Number(payload.id),
+      (thread) => Number(thread.id) === Number(payload.id)
     );
     if (isThreadDuplicated) return;
     state.list = [...state.list, payload];
   },
   REMOVE_WATCHING_THREAD_ID(state, payload) {
     state.list = state.list.filter(
-      (thread) => Number(thread.id) !== Number(payload.id),
+      (thread) => Number(thread.id) !== Number(payload.id)
     );
   },
   CLEAR_WATCHING_THREAD_ID(state) {
@@ -163,15 +166,18 @@ const mutations = {
   },
   FREEZE_WATCHING_THREAD(state, payload) {
     const i = state.list.findIndex(
-      (thread) => Number(thread.id) === Number(payload.id),
+      (thread) => Number(thread.id) === Number(payload.id)
     );
     if (i === -1) return;
-    const freezedThread = { ...state.list[i], ...{ isDown: true } };
+    const freezedThread = {
+      ...state.list[i],
+      ...{ isDown: true, isBuried: false },
+    };
     state.list.splice(i, 1, freezedThread);
   },
   UPDATE_WATCHING_THREAD(state, payload) {
     const i = state.list.findIndex(
-      (thread) => Number(thread.id) === Number(payload.id),
+      (thread) => Number(thread.id) === Number(payload.id)
     );
     if (i === -1) return;
     state.list.splice(i, 1, payload);

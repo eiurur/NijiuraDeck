@@ -5,7 +5,7 @@
         <header class="column-header">
           <div
             class="column-header-title"
-            :class="{ down: this.thread.isDown }"
+            :class="{ down: this.thread.isDown, buried: this.thread.isBuried }"
           >
             <span v-if="this.thread.isDown">
               <el-tooltip
@@ -15,6 +15,16 @@
                 placement="bottom"
               >
                 <i class="el-icon-warning left"></i>
+              </el-tooltip>
+            </span>
+            <span v-if="this.thread.isBuried">
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="完スレ"
+                placement="bottom"
+              >
+                <i class="el-icon-success left"></i>
               </el-tooltip>
             </span>
             <a :href="thread.url" target="_blank" rel="noreferrer">{{
@@ -101,6 +111,9 @@
   overflow: hidden;
   &.down {
     color: #f56c6c;
+  }
+  &.buried {
+    color: #f5ba6c;
   }
 }
 
