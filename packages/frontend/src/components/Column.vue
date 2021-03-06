@@ -185,6 +185,7 @@ export default {
         id: this.thread.id,
         title: this.thread.title,
         url: this.thread.url,
+        isBuried: this.thread.responses[0].isReachedMaxRes,
       };
       this.$store.dispatch('watchingThread/update', payload);
       this.$store.dispatch('saveLocalStorage');

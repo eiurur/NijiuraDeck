@@ -93,6 +93,7 @@ const actions = {
       id: value.id,
       title: value.title,
       url: value.url,
+      isBuried: value.isBuried,
     };
     try {
       const responses = await board.fetchResponseList({
