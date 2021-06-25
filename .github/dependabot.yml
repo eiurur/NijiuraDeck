@@ -1,0 +1,57 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: concurrently
+    versions:
+    - 6.0.0
+    - 6.0.1
+  - dependency-name: npm-check-updates
+    versions:
+    - 11.1.10
+    - 11.2.0
+    - 11.3.0
+    - 11.4.1
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.19.0
+    - 7.20.0
+    - 7.22.0
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+  - dependency-name: clipboard
+    versions:
+    - 2.0.7
+  - dependency-name: core-js
+    versions:
+    - 3.8.3
+    - 3.9.0
+    - 3.9.1
+  - dependency-name: sass-loader
+    versions:
+    - 10.1.1
+    - 11.0.1
+  - dependency-name: dayjs
+    versions:
+    - 1.10.4
+  - dependency-name: "@vue/cli-plugin-e2e-cypress"
+    versions:
+    - 4.5.11
+  - dependency-name: nodemon
+    versions:
+    - 2.0.7
+  - dependency-name: bunyan
+    versions:
+    - 1.8.15
+  - dependency-name: eslint-plugin-prettier
+    versions:
+    - 3.3.1
