@@ -81,7 +81,7 @@ i + span {
     box-shadow: 5px 5px 10px #e8e8e8, -5px -5px 10px #ffffff;
   }
   .diff {
-    color: #ffc917;
+    color: #a1bbf8;
     margin-right: 0.5rem;
     font-size: 10px;
     &:before {
@@ -116,9 +116,9 @@ i + span {
   .threadInfo {
     display: flex;
     flex-direction: row;
-
-    width: 100%;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
   div + div {
     margin-top: 0.25rem;
