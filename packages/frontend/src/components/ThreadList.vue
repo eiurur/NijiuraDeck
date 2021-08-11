@@ -50,9 +50,12 @@ export default {
         return this.threads;
       }
       const news = this.threads.filter((thread) => {
-        return pre.filter((preThread) => thread.id !== preThread.id);
+        return pre.find((preThread) => thread.id !== preThread.id);
       });
-      pre = [...pre, ...news];
+      const olds = pre.filter((preThread) => {
+        return this.threads.find((thread) => thread.id === preThread.id);
+      });
+      pre = [...olds, ...news];
       localStorage.setItem('pre', JSON.stringify(pre));
       return pre;
     },
