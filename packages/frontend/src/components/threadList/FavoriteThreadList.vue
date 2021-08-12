@@ -1,5 +1,9 @@
 <template>
-  <ThreadList title="お気に入り" :threads="threads"></ThreadList>
+  <ThreadList
+    title="お気に入り"
+    :threads="threads"
+    :preThreads="preThreads"
+  ></ThreadList>
 </template>
 
 <style lang="scss" scoped></style>
@@ -12,7 +16,7 @@ export default {
   components: {
     ThreadList,
   },
-  props: ['validThreads'],
+  props: ['validThreads', 'preThreads'],
   computed: {
     keys() {
       return this.$store.getters['catalog/getFavoriteSearchWords'];

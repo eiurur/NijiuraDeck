@@ -1,5 +1,9 @@
 <template>
-  <ThreadList title="一覧" :threads="validThreads"></ThreadList>
+  <ThreadList
+    title="一覧"
+    :threads="validThreads"
+    :preThreads="preThreads"
+  ></ThreadList>
 </template>
 
 <style lang="scss" scoped></style>
@@ -12,6 +16,6 @@ export default {
   components: {
     ThreadList,
   },
-  props: ['validThreads'],
+  props: ['validThreads', 'preThreads'],
 };
 </script>

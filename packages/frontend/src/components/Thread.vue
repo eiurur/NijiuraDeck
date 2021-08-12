@@ -144,7 +144,7 @@ i + span {
 <script>
 export default {
   name: 'Thread',
-  props: ['thread', 'pre'],
+  props: ['thread', 'preThreads'],
   methods: {
     loadResponses(thread) {
       const payload = {
@@ -162,14 +162,18 @@ export default {
       this.update();
     },
     getCurrent() {
-      const current = this.pre.find((thread) => thread.id === this.thread.id);
+      const current = this.preThreads.find(
+        (thread) => thread.id === this.thread.id
+      );
       if (!current) return '';
       return current;
     },
     update() {
-      const current = this.pre.find((thread) => thread.id === this.thread.id);
+      const current = this.preThreads.find(
+        (thread) => thread.id === this.thread.id
+      );
       current.number = this.thread.number;
-      localStorage.setItem('pre', JSON.stringify(this.pre));
+      localStorage.setItem('preThreads', JSON.stringify(this.preThreads));
     },
   },
   computed: {
