@@ -107,20 +107,23 @@ export default {
       return this.$store.getters['catalog/getCurrentThread'];
     },
     preThreads() {
-      let pre = JSON.parse(localStorage.getItem('pre'));
-      if (!pre) {
-        localStorage.setItem('pre', JSON.stringify(this.threads));
+      if (!this.threads.list.length) return [];
+      const threads = this.threads.list;
+      let preThreads = localStorage.getItem('preThreads');
+      if (!preThreads) {
+        localStorage.setItem('preThreads', JSON.stringify(threads));
         return this.threads;
       }
-      const olds = pre.filter((preThread) => {
-        return this.threads.find((thread) => thread.id === preThread.id);
+      preThreads = JSON.parse(preThreads);
+      const olds = preThreads.filter((preThread) => {
+        return threads.find((thread) => thread.id === preThread.id);
       });
-      const news = this.threads.filter((thread) => {
-        return !pre.find((preThread) => thread.id === preThread.id);
+      const news = threads.filter((thread) => {
+        return !preThreads.find((preThread) => thread.id === preThread.id);
       });
-      pre = [...olds, ...news];
-      localStorage.setItem('pre', JSON.stringify(pre));
-      return pre;
+      preThreads = [...olds, ...news];
+      localStorage.setItem('preThreads', JSON.stringify(preThreads));
+      return preThreads;
     },
   },
   data() {
