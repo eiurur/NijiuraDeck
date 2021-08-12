@@ -49,11 +49,11 @@ export default {
         localStorage.setItem('pre', JSON.stringify(this.threads));
         return this.threads;
       }
-      const news = this.threads.filter((thread) => {
-        return pre.find((preThread) => thread.id !== preThread.id);
-      });
       const olds = pre.filter((preThread) => {
         return this.threads.find((thread) => thread.id === preThread.id);
+      });
+      const news = this.threads.filter((thread) => {
+        return !pre.find((preThread) => thread.id === preThread.id);
       });
       pre = [...olds, ...news];
       localStorage.setItem('pre', JSON.stringify(pre));
