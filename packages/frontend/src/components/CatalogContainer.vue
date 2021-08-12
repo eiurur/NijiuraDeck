@@ -4,8 +4,14 @@
       <div class="catalog-wrapper" v-loading="threads.loading">
         <CatalogHeader v-model="searchWord"></CatalogHeader>
         <div class="catalog">
-          <FavoriteThreadList :validThreads="validThreads"></FavoriteThreadList>
-          <EntireThreadList :validThreads="validThreads"></EntireThreadList>
+          <FavoriteThreadList
+            :validThreads="validThreads"
+            :preThreads="preThreads"
+          ></FavoriteThreadList>
+          <EntireThreadList
+            :validThreads="validThreads"
+            :preThreads="preThreads"
+          ></EntireThreadList>
         </div>
       </div>
     </div>
@@ -99,6 +105,22 @@ export default {
     },
     currentThread() {
       return this.$store.getters['catalog/getCurrentThread'];
+    },
+    preThreads() {
+      let pre = JSON.parse(localStorage.getItem('pre'));
+      if (!pre) {
+        localStorage.setItem('pre', JSON.stringify(this.threads));
+        return this.threads;
+      }
+      const olds = pre.filter((preThread) => {
+        return this.threads.find((thread) => thread.id === preThread.id);
+      });
+      const news = this.threads.filter((thread) => {
+        return !pre.find((preThread) => thread.id === preThread.id);
+      });
+      pre = [...olds, ...news];
+      localStorage.setItem('pre', JSON.stringify(pre));
+      return pre;
     },
   },
   data() {

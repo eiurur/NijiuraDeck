@@ -6,7 +6,7 @@
         v-for="thread in threads"
         :key="thread.id"
         :thread="thread"
-        :pre="pre"
+        :preThreads="preThreads"
       ></Thread>
     </div>
   </div>
@@ -37,27 +37,11 @@ export default {
   components: {
     Thread,
   },
-  props: ['threads', 'title'],
+  props: ['title', 'threads', 'preThreads'],
   methods: {},
   computed: {
     show() {
       return this.threads.length > 0;
-    },
-    pre() {
-      let pre = JSON.parse(localStorage.getItem('pre'));
-      if (!pre) {
-        localStorage.setItem('pre', JSON.stringify(this.threads));
-        return this.threads;
-      }
-      const olds = pre.filter((preThread) => {
-        return this.threads.find((thread) => thread.id === preThread.id);
-      });
-      const news = this.threads.filter((thread) => {
-        return !pre.find((preThread) => thread.id === preThread.id);
-      });
-      pre = [...olds, ...news];
-      localStorage.setItem('pre', JSON.stringify(pre));
-      return pre;
     },
   },
 };
