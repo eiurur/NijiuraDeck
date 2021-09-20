@@ -112,6 +112,7 @@ export default {
     },
     changeBoardType(value) {
       this.$store.dispatch('catalog/changeBoardType', value);
+      this.$store.dispatch('saveLocalStorage');
     },
   },
   data() {
