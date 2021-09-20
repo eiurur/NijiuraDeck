@@ -35,7 +35,7 @@
     "publish": "lerna publish",
     "preinstall": "npm cache clean -f",
     "postinstall": "npm run bootstrap && npm run build",
-    "update:dep": "cd ./packages/frontend && ncu -u && cd ../../ && cd ./packages/backend && ncu -u && cd ../../",
+    "update:dep": "ncu -u && cd ./packages/frontend && ncu -u && cd ../../ && cd ./packages/backend && ncu -u && cd ../../",
     "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../"
   },
   "engines": {
@@ -43,11 +43,11 @@
   },
   "name": "nijiura-deck",
   "dependencies": {
-    "chalk": "^4.1.0",
-    "concurrently": "^5.3.0",
-    "lerna": "^3.22.1"
+    "chalk": "^4.1.2",
+    "concurrently": "^6.2.1",
+    "lerna": "^4.0.0"
   },
   "devDependencies": {
-    "npm-check-updates": "^10.2.5"
+    "npm-check-updates": "^11.8.5"
   }
 }
