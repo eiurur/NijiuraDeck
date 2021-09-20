@@ -19,7 +19,11 @@ const state = {
 const getters = {
   getModal: (state) => state.isOpenedModal,
   getBoardType: (state) => state.boardType,
-  getBoardTypeForRequest: (state) => state.boardType.toUpperCase(),
+  getBoardTypeForRequest: (state) => {
+    return !state.boardType
+      ? 'may'.toUpperCase()
+      : state.boardType.toUpperCase();
+  },
   getFavoriteSearchWords: (state) => state.favoriteSearchWords,
   getNgSearchWords: (state) => state.ngSearchWords,
   getCurrentThread: (state) => state.currentThread,
