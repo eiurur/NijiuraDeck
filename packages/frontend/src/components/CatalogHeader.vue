@@ -11,11 +11,7 @@
         ></el-input>
       </div>
       <div class="board-selection">
-        <el-radio-group
-          v-model="boardType"
-          size="small"
-          @change="changeBoardType"
-        >
+        <el-radio-group v-model="boardType" size="small">
           <el-radio-button label="may"></el-radio-button>
           <el-radio-button label="img"></el-radio-button>
         </el-radio-group>
@@ -110,20 +106,24 @@ export default {
       this.inputVisible = false;
       this.inputValue = '';
     },
-    changeBoardType(value) {
-      this.$store.dispatch('catalog/changeBoardType', value);
-      this.$store.dispatch('saveLocalStorage');
-    },
   },
   data() {
     return {
-      boardType: 'may',
       searchWord: this.value,
       inputVisible: false,
       inputValue: '',
     };
   },
   computed: {
+    boardType: {
+      get() {
+        return this.$store.getters['catalog/getBoardType'] || 'may';
+      },
+      set(value) {
+        this.$store.dispatch('catalog/changeBoardType', value);
+        this.$store.dispatch('saveLocalStorage');
+      },
+    },
     favoriteSearchWords() {
       return this.$store.getters['catalog/getFavoriteSearchWords'] || [];
     },
