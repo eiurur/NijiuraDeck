@@ -84,7 +84,7 @@ export default {
   methods: {
     submit() {
       const payload = {
-        boardType: 'MAY',
+        boardType: this.thread.boardType,
         id: this.thread.id,
         url: this.thread.url,
         comment: this.comment,

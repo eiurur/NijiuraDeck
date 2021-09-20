@@ -181,7 +181,7 @@ export default {
     this.intervalId = setInterval(() => {
       if (this.thread.isDown) return;
       const payload = {
-        boardType: 'MAY',
+        boardType: this.thread.boardType,
         id: this.thread.id,
         title: this.thread.title,
         url: this.thread.url,

@@ -1,5 +1,10 @@
 <template>
-  <div v-loading="responses.loading" ref="scrollable" :gutter="10" class="scrollable w-20">
+  <div
+    v-loading="responses.loading"
+    ref="scrollable"
+    :gutter="10"
+    class="scrollable w-20"
+  >
     <div class="stickyContainer">
       <div class="bottons">
         <el-button
@@ -25,7 +30,10 @@
       </div>
     </div>
     <div v-loading="responses.loading" class="container">
-      <ResponseList :responses="responses.list" :isFilteringImage="isFilteringImage"></ResponseList>
+      <ResponseList
+        :responses="responses.list"
+        :isFilteringImage="isFilteringImage"
+      ></ResponseList>
     </div>
   </div>
 </template>
@@ -70,31 +78,32 @@
 </style>
 
 <script>
-import ResponseList from "@/components/ResponseList.vue"; // @ is an alias to /src
+import ResponseList from '@/components/ResponseList.vue'; // @ is an alias to /src
 
 export default {
-  name: "ThreadPreview",
+  name: 'ThreadPreview',
   components: {
-    ResponseList
+    ResponseList,
   },
-  props: ["responses", "currentThread"],
+  props: ['responses', 'currentThread'],
   updated() {
     this.$refs.scrollable.scrollTop = 0;
   },
   data() {
     return {
-      isFilteringImage: false
+      isFilteringImage: false,
     };
   },
   methods: {
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = { ...{ boardType: "MAY" }, ...thread };
-      this.$store.dispatch("watchingThread/add", payload);
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const payload = { ...{ boardType }, ...thread };
+      this.$store.dispatch('watchingThread/add', payload);
     },
     toggleDisplayImage() {
       this.isFilteringImage = !this.isFilteringImage;
-    }
-  }
+    },
+  },
 };
 </script>

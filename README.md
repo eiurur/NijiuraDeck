@@ -26,7 +26,7 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 # 対応掲示板
 
 - [x] may
-- [ ] img
+- [x] img
 - [ ] dat
 
 <br>

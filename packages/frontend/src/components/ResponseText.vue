@@ -55,8 +55,11 @@ export default {
       Array.from(nextThreadLinks).map((l) => {
         l.addEventListener('click', async (event) => {
           this.$message('カラムに追加します');
+          const boardType = event.target
+            .getAttribute('data-board-type')
+            .toUpperCase();
           const threadID = event.target.getAttribute('data-id');
-          const payload = { boardType: 'MAY', id: threadID };
+          const payload = { boardType, id: threadID };
           const thread = await this.$store.dispatch(
             'watchingThread/fetch',
             payload

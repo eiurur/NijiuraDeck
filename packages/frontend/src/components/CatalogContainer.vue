@@ -70,9 +70,17 @@ export default {
     ThreadPreview,
   },
   methods: {
+    load() {
+      if (!this.modal) return;
+      this.$refs.scrollable.scrollTop = 0;
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const payload = { boardType };
+      this.$store.dispatch('catalog/load', payload);
+    },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = { ...{ boardType: 'MAY' }, ...thread };
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const payload = { ...{ boardType }, ...thread };
       this.$store.dispatch('watchingThread/add', payload);
     },
   },
@@ -132,10 +140,7 @@ export default {
     };
   },
   mounted() {
-    if (!this.modal) return;
-    this.$refs.scrollable.scrollTop = 0;
-    const payload = { boardType: 'MAY' };
-    this.$store.dispatch('catalog/load', payload);
+    this.load();
   },
 };
 </script>

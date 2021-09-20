@@ -147,8 +147,9 @@ export default {
   props: ['thread', 'preThreads'],
   methods: {
     loadResponses(thread) {
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
       const payload = {
-        ...{ boardType: 'MAY' },
+        ...{ boardType },
         ...{ threadId: thread.id },
       };
       this.$store.dispatch('catalog/loadResponse', payload);
@@ -157,7 +158,11 @@ export default {
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
-      const payload = { ...{ boardType: 'MAY' }, ...thread };
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const payload = {
+        ...{ boardType },
+        ...thread,
+      };
       this.$store.dispatch('watchingThread/add', payload);
       this.update();
     },

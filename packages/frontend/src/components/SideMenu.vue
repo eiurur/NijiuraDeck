@@ -45,8 +45,8 @@ export default {
   name: 'SideMenu',
   methods: {
     updateCatalogModal() {
-      // TODO:選択式
-      const payload = { boardType: 'MAY' };
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const payload = { boardType };
       this.$store.dispatch('catalog/toggleModal', payload);
     },
     updateAllThreadColumn() {
