@@ -14,10 +14,10 @@ const enableNextThreadLink = (text) => {
   if (!text) return text;
   const start = {
     re: new RegExp(
-      '<a href="https?://(?:\\w+).2chan.net/(?:\\w+)/res/(\\d+).htm" target="_blank" rel="noreferrer">',
+      '<a href="https?://(\\w+).2chan.net/(?:\\w+)/res/(\\d+).htm" target="_blank" rel="noreferrer">',
       'g'
     ),
-    to: '<span class="next-thread-link" data-id="$1">',
+    to: '<span class="next-thread-link" data-board-type="$1" data-id="$2">',
   };
   const end = { re: new RegExp('</a>', 'g'), to: '</span>' };
   if (!start.re.exec(text)) return text;

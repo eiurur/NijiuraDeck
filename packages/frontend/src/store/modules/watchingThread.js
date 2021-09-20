@@ -63,7 +63,7 @@ const actions = {
       }
       await board
         .fetchResponseList({
-          boardType: 'MAY',
+          boardType: thread.boardType,
           threadId: thread.id,
         })
         .catch(() => {
@@ -80,9 +80,9 @@ const actions = {
     commit('CLEAR_WATCHING_THREAD_ID');
   },
   async postComment({ dispatch }, value) {
-    const payload = { boardType: 'MAY', threadId: value.id };
+    const payload = { boardType: value.boardType, threadId: value.id };
     await board.postComment({
-      boardType: 'MAY',
+      boardType: value.boardType,
       thread: { threadID: value.id, threadURL: value.url },
       payload: { comment: value.comment },
     });
@@ -90,6 +90,7 @@ const actions = {
   },
   async update({ commit, dispatch }, value) {
     const payload = {
+      boardType: value.boardType,
       id: value.id,
       title: value.title,
       url: value.url,
@@ -97,7 +98,7 @@ const actions = {
     };
     try {
       const responses = await board.fetchResponseList({
-        boardType: 'MAY',
+        boardType: value.boardType,
         threadId: value.id,
       });
       payload.responses = responses;
@@ -112,10 +113,11 @@ const actions = {
     for (const thread of state.list) {
       try {
         const responses = await board.fetchResponseList({
-          boardType: 'MAY',
+          boardType: thread.boardType,
           threadId: thread.id,
         });
         payload.push({
+          boardType: thread.boardType,
           id: thread.id,
           title: thread.title,
           url: thread.url,
@@ -124,6 +126,7 @@ const actions = {
         });
       } catch (e) {
         payload.push({
+          boardType: thread.boardType,
           id: thread.id,
           title: thread.title,
           url: thread.url,

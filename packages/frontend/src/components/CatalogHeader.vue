@@ -1,13 +1,25 @@
 <template>
   <div class="catalog-header">
     <div class="input-container">
-      <el-input
-        placeholder="検索"
-        size="small"
-        prefix-icon="el-icon-search"
-        v-model="searchWord"
-        clearable
-      ></el-input>
+      <div>
+        <el-input
+          placeholder="検索"
+          size="small"
+          prefix-icon="el-icon-search"
+          v-model="searchWord"
+          clearable
+        ></el-input>
+      </div>
+      <div class="board-selection">
+        <el-radio-group
+          v-model="boardType"
+          size="small"
+          @change="changeBoardType"
+        >
+          <el-radio-button label="may"></el-radio-button>
+          <el-radio-button label="img"></el-radio-button>
+        </el-radio-group>
+      </div>
     </div>
     <FavoriteTagInput :words="favoriteSearchWords"></FavoriteTagInput>
     <NgTagInput :words="ngSearchWords"></NgTagInput>
@@ -21,14 +33,23 @@
   justify-content: flex-start;
   width: 100%;
   flex-direction: column;
-  div + div {
+  & > div + div {
     margin-top: 0.5rem;
   }
 }
 .input-container {
-  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
   & input {
     min-width: 160px;
+    display: flex;
+  }
+  .board-selection {
+    display: flex;
   }
 }
 .tag-container {
@@ -80,7 +101,6 @@ export default {
         this.$refs.saveTagInput.$refs.input.focus();
       });
     },
-
     handleInputConfirm() {
       const { inputValue } = this;
       if (inputValue) {
@@ -90,9 +110,13 @@ export default {
       this.inputVisible = false;
       this.inputValue = '';
     },
+    changeBoardType(value) {
+      this.$store.dispatch('catalog/changeBoardType', value);
+    },
   },
   data() {
     return {
+      boardType: 'may',
       searchWord: this.value,
       inputVisible: false,
       inputValue: '',

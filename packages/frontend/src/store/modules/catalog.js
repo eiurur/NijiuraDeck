@@ -2,6 +2,7 @@ import board from '../../api/board';
 
 const state = {
   isOpenedModal: false,
+  boardType: 'may',
   favoriteSearchWords: [],
   ngSearchWords: [],
   currentThread: {},
@@ -17,6 +18,8 @@ const state = {
 
 const getters = {
   getModal: (state) => state.isOpenedModal,
+  getBoardType: (state) => state.boardType,
+  getBoardTypeForRequest: (state) => state.boardType.toUpperCase(),
   getFavoriteSearchWords: (state) => state.favoriteSearchWords,
   getNgSearchWords: (state) => state.ngSearchWords,
   getCurrentThread: (state) => state.currentThread,
@@ -33,6 +36,12 @@ const actions = {
   },
   clearThreads({ commit }) {
     commit('CLEAR_THREADS');
+  },
+  changeBoardType({ commit, dispatch }, value) {
+    const payload = { boardType: value };
+    commit('CHANGE_BOARD_TYPE', payload);
+    const loadPayload = { boardType: value.toUpperCase() }; // NOTE: ロジックが重複している
+    dispatch('load', loadPayload);
   },
   removeFavoriteSearchWords({ commit }, value) {
     const payload = { word: value };
@@ -74,6 +83,9 @@ const actions = {
 const mutations = {
   TOGGLE_MODAL(state) {
     state.isOpenedModal = !state.isOpenedModal;
+  },
+  CHANGE_BOARD_TYPE(state, payload) {
+    state.boardType = payload.boardType;
   },
   REMOVE_FAVORITE_SEARCH_WORDS(state, payload) {
     state.favoriteSearchWords.splice(
