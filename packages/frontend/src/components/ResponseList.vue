@@ -134,7 +134,7 @@ article.stream-item {
     font-size: 0.8rem;
     line-height: 1.8;
     border-radius: 1rem;
-    padding: 0px 1rem;
+    padding: 0 0.5rem;
     margin: 0.5rem 0;
   }
   .postedBy {
