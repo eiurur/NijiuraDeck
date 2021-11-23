@@ -8,19 +8,29 @@
         v-lazy="thumb"
         @click="showOriginal(img)"
         :alt="img"
+        :title="img"
       />
       <span class="media-type-marker">
         <i v-if="!hasVideo" class="el-icon-picture-outline"></i>
         <i v-if="hasVideo" class="el-icon-video-camera"></i>
       </span>
     </div>
-    <img :src="img" class="original" v-if="isShownImage" data-zoomable />
+    <img
+      :src="img"
+      :alt="img"
+      :title="img"
+      class="original"
+      v-if="isShownImage"
+      data-zoomable
+    />
     <video
       ref="video"
       autoplay
       controls
       loop
+      muted
       :src="img"
+      :title="img"
       class="original"
       v-if="isShownVideo"
     ></video>
