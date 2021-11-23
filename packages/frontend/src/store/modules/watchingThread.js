@@ -29,22 +29,29 @@ const actions = {
   async load({ commit, dispatch }, value) {
     const thread = await dispatch('fetch', value);
     const isThreadNotFound = !thread;
-    if (isThreadNotFound) {
-      return;
-    }
-    const payload = {
-      ...{
-        id: value.id,
+    if (isThreadNotFound) return '';
+
+    try {
+      const responses = await board.fetchResponseList({
         boardType: value.boardType,
-      },
-      ...{
-        title: thread.title,
-        url: thread.url,
-        isBuried: thread.responses[0].isReachedMaxRes,
-      },
-    };
-    dispatch('update', payload);
-    commit('ADD_WATCHING_THREAD_ID', payload);
+        threadId: value.id,
+      });
+      const payload = {
+        ...{
+          id: value.id,
+          boardType: value.boardType,
+        },
+        ...{
+          title: thread.title,
+          url: thread.url,
+          isBuried: responses[0].isReachedMaxRes,
+        },
+      };
+      dispatch('update', payload);
+      commit('ADD_WATCHING_THREAD_ID', payload);
+    } catch (e) {
+      return '';
+    }
   },
   remove({ commit, dispatch }, value) {
     const payload = {
