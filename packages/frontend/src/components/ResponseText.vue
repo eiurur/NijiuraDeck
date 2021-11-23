@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
 .response-text {
-  padding: 8px 0 16px;
+  padding: 8px 0;
 }
 .res {
   line-height: 1.7;

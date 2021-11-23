@@ -7,6 +7,8 @@
           id,
           address,
           rawText,
+          postedBy,
+          soudane,
           img,
           thumb,
           fromNow,
@@ -41,6 +43,22 @@
               :img="img"
               :orig="img"
             ></ResponseImage>
+            <div class="response-footer">
+              <div class="left">
+                <span class="postedBy" v-if="postedBy">
+                  <span
+                    class="icon"
+                    :style="{ 'background-color': postedByIconColor(postedBy) }"
+                  />
+                  <span class="name">{{ postedBy }}</span>
+                </span>
+              </div>
+              <div class="right">
+                <span class="soudane" v-if="soudane"
+                  >そうだねx{{ soudane }}</span
+                >
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -107,12 +125,41 @@ article.stream-item {
       border-radius: 1rem;
     }
   }
+  .response-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #c9686870;
+    padding-top: 8px;
+    font-size: 0.8rem;
+  }
+  .postedBy {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    .icon {
+      display: flex;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 100%;
+    }
+    .name {
+      margin-left: 0.25rem;
+    }
+  }
+  .soudane {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
 }
 </style>
 
 <script>
 import ResponseImage from '@/components/ResponseImage.vue'; // @ is an alias to /src
 import ResponseText from '@/components/ResponseText.vue'; // @ is an alias to /src
+import stc from 'string-to-color';
 
 export default {
   name: 'ResponseList',
@@ -135,6 +182,9 @@ export default {
     },
   },
   methods: {
+    postedByIconColor(postedBy) {
+      return stc(postedBy);
+    },
     copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         this.$message({
