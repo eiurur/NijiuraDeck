@@ -10,6 +10,8 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 
 ![Node.js CI](https://github.com/eiurur/NijiuraDeck/workflows/Node.js%20CI/badge.svg?branch=master)
 
+<br>
+
 # 機能
 
 - [x] カタログ表示
@@ -23,6 +25,8 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 - [ ] スレ立て
 - [ ] そうだね
 
+<br>
+
 # 対応掲示板
 
 - [x] may
@@ -31,7 +35,9 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 
 <br>
 
-# アクセス
+# 使い方
+
+以下の URL にアクセス。
 
 - 国内サーバ：https://nijiuradeck.ochinchin.online/
 - 海外サーバ：https://nijiuradeck.herokuapp.com/
