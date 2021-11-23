@@ -27,7 +27,7 @@
     "log4js": "^6.3.0",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
-    "nijiura": "^0.3.0",
+    "nijiura": "^0.4.0",
     "util": "^0.12.4",
     "yakaa": "^1.0.1"
   },
