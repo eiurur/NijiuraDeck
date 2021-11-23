@@ -3,64 +3,10 @@
     <div class="column-scroller scrollbar">
       <article
         class="stream-item"
-        v-for="{
-          id,
-          address,
-          rawText,
-          postedBy,
-          soudane,
-          img,
-          thumb,
-          fromNow,
-        } in filteredResponse"
-        :key="id"
+        v-for="response in filteredResponse"
+        :key="response.id"
       >
-        <div class="item-box">
-          <div class="response">
-            <div class="response-body">
-              <div class="response-header">
-                <div class="left">
-                  <span>No.{{ id }}</span>
-                  <span
-                    class="clickable address"
-                    v-if="address"
-                    @click="copyToClipboard(address)"
-                  >
-                    <el-tooltip effect="dark" placement="bottom">
-                      <div slot="content">{{ address }}</div>
-                      <i class="el-icon-message"></i>
-                    </el-tooltip>
-                  </span>
-                </div>
-                <div class="right">
-                  <span>{{ fromNow }}</span>
-                </div>
-              </div>
-              <ResponseText :text="rawText"></ResponseText>
-            </div>
-            <ResponseImage
-              :thumb="thumb"
-              :img="img"
-              :orig="img"
-            ></ResponseImage>
-            <div class="response-footer">
-              <div class="left">
-                <span class="postedBy" v-if="postedBy">
-                  <span
-                    class="icon"
-                    :style="{ 'background-color': postedByIconColor(postedBy) }"
-                  />
-                  <span class="name">{{ postedBy }}</span>
-                </span>
-              </div>
-              <div class="right">
-                <span class="soudane" v-if="soudane"
-                  >そうだねx{{ soudane }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <Response :response="response"></Response>
       </article>
     </div>
   </div>
@@ -95,11 +41,6 @@ article.stream-item {
   color: #666;
 
   & .response {
-    // background: #eddbd1;
-    // color: #666;
-    // font-size: 14px;
-    // margin: 1rem;
-    // line-height: 1.28578em;
     display: block;
     word-break: break-word;
     word-wrap: break-word;
@@ -162,15 +103,12 @@ article.stream-item {
 </style>
 
 <script>
-import ResponseImage from '@/components/ResponseImage.vue'; // @ is an alias to /src
-import ResponseText from '@/components/ResponseText.vue'; // @ is an alias to /src
-import stc from 'string-to-color';
+import Response from '@/components/Response.vue'; // @ is an alias to /src
 
 export default {
   name: 'ResponseList',
   components: {
-    ResponseImage,
-    ResponseText,
+    Response,
   },
   props: ['responses', 'isFilteringImage'],
   computed: {
@@ -187,17 +125,6 @@ export default {
     },
   },
   methods: {
-    postedByIconColor(postedBy) {
-      return stc(postedBy);
-    },
-    copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        this.$message({
-          message: `クリップボードにコピーしました: ${text}`,
-          type: 'success',
-        });
-      });
-    },
     moveToBottom() {
       this.$refs.scrollable.scrollTop = this.$refs.scrollable.scrollHeight;
     },
