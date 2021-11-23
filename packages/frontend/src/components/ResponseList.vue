@@ -127,10 +127,15 @@ article.stream-item {
   }
   .response-footer {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     color: #c9686870;
-    padding-top: 8px;
+    background: #ffe4;
     font-size: 0.8rem;
+    line-height: 1.8;
+    border-radius: 1rem;
+    padding: 0px 1rem;
+    margin: 0.5rem 0;
   }
   .postedBy {
     display: flex;
