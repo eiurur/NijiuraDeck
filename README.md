@@ -8,7 +8,7 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 
 # ステータス
 
-[![Node.js CI](https://github.com/eiurur/NijiuraDeck/actions/workflows/node.js.yml/badge.svg)](https://github.com/eiurur/NijiuraDeck/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/eiurur/NijiuraDeck/actions/workflows/node.js.yml/badge.svg?branch=master)](https://github.com/eiurur/NijiuraDeck/actions/workflows/node.js.yml)
 
 <br>
 
