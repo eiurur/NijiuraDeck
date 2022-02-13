@@ -39,7 +39,7 @@
     "update:audit": "cd ./packages/frontend && npm i && npm audit fix && cd ../../ && cd ./packages/backend && npm i && npm audit fix && cd ../../"
   },
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "name": "nijiura-deck",
   "dependencies": {
