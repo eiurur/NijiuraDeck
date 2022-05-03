@@ -1,0 +1,10 @@
+version: '3'
+services:
+  nijiuradeck-app:
+    container_name: nijiuradeck-app
+    restart: always
+    build: .
+    ports:
+      - '18721:8721'
+    environment:
+      TZ: Asia/Tokyo
