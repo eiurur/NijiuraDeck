@@ -50,14 +50,23 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 ```bash
 git clone https://github.com/eiurur/NijiuraDeck
 cd NijiuraDeck
-npm install
-npm run bootstrap
+cd frontend && npm install && npm run build
+cd ../
+cd backend && npm install
 ```
 
 ## 開発
 
+@cmd1
+
 ```
-npm run dev
+cd backend && npm run dev
+```
+
+@cmd2
+
+```
+cd frontend && npm run dev
 ```
 
 and go to `http://127.0.0.1:9001`
@@ -65,12 +74,12 @@ and go to `http://127.0.0.1:9001`
 ## ビルド
 
 ```bash
-npm run build
+cd frontend && npm run build
 
 ```
 
 ## Production Start
 
 ```bash
-npm run start
+cd backend && npm run start
 ```
