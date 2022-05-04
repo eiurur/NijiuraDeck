@@ -27,3 +27,4 @@ yarn-error.log*
 *.sw*
 
 launch.bat
+**/node_modules/**

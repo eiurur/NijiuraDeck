@@ -29,7 +29,7 @@ vendor/assets
 
 # Node
 node_modules
-packages/backend/node_modules
-packages/frontend/node_modules
-packages/storage
+backend/node_modules
+frontend/node_modules
+storage
 volume
