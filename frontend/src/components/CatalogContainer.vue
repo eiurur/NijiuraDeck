@@ -117,12 +117,14 @@ export default {
     preThreads() {
       if (!this.threads.list.length) return [];
       const threads = this.threads.list;
+
       let preThreads = localStorage.getItem('preThreads');
       if (!preThreads) {
         localStorage.setItem('preThreads', JSON.stringify(threads));
-        return this.threads;
+        return threads;
       }
       preThreads = JSON.parse(preThreads);
+
       const olds = preThreads.filter((preThread) => {
         return threads.find((thread) => thread.id === preThread.id);
       });
@@ -130,6 +132,7 @@ export default {
         return !preThreads.find((preThread) => thread.id === preThread.id);
       });
       preThreads = [...olds, ...news];
+
       localStorage.setItem('preThreads', JSON.stringify(preThreads));
       return preThreads;
     },
