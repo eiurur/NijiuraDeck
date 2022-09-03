@@ -58,14 +58,6 @@ img {
   line-height: 1.4;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
 }
-.image {
-  cursor: pointer;
-  object-fit: contain;
-  height: auto;
-  width: auto;
-  max-height: 320px;
-  max-width: 320px;
-}
 .original {
   width: 100%;
 }
@@ -93,11 +85,7 @@ export default {
   computed: {
     ext() {
       if (!this.img) return '';
-      return this.img
-        .split(/#|\?/)[0]
-        .split('.')
-        .pop()
-        .trim();
+      return this.img.split(/#|\?/)[0].split('.').pop().trim();
     },
     thumbClass() {
       if (this.hasVideo) return 'has-video';

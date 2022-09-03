@@ -33,8 +33,30 @@ const enableUrl = (text) => {
     .replace(regRel, 'target="_blank" rel="noreferrer">');
 };
 
+const enableUpImageUrl = (text) => {
+  if (!text) return text;
+  const start = {
+    re: new RegExp('(f\\d+.(?:jpg|png|webp)+)', 'g'),
+    to: `<a href="http://dec.2chan.net/up/src/$1" target="_blank" rel="noreferrer"><img class="image" loading="lazy" src="http://dec.2chan.net/up/src/$1"></a>`,
+  };
+  if (!start.re.exec(text)) return text;
+  return text.replace(start.re, start.to);
+};
+
+const enableUp2ImageUrl = (text) => {
+  if (!text) return text;
+  const start = {
+    re: new RegExp('(fu\\d+.(?:jpg|png|webp))', 'g'),
+    to: `<a href="http://dec.2chan.net/up2/src/$1" target="_blank" rel="noreferrer"><img class="image" loading="lazy" src="http://dec.2chan.net/up2/src/$1"></a>`,
+  };
+  if (!start.re.exec(text)) return text;
+  return text.replace(start.re, start.to);
+};
+
 export default function sanitize(dirty) {
-  return enableNextThreadLink(enableUrl(sanitizeFont(dirty)));
+  return enableNextThreadLink(
+    enableUp2ImageUrl(enableUpImageUrl(enableUrl(sanitizeFont(dirty))))
+  );
   // FIXME: sanitzeHTMLを通すとquoteクラスが飛ぶ
   // return sanitizeHTML(enableNextThreadLink(enableUrl(sanitizeFont(dirty))), {
   //   allowedTags: [...sanitizeHTML.defaults.allowedTags, 'span'],
