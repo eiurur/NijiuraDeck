@@ -36,8 +36,8 @@ const enableUrl = (text) => {
 const enableUpImageUrl = (text) => {
   if (!text) return text;
   const start = {
-    re: new RegExp('(f\\d+.(?:jpg|png|webp)+)', 'g'),
-    to: `<a href="http://dec.2chan.net/up/src/$1" target="_blank" rel="noreferrer"><img class="image" loading="lazy" src="http://dec.2chan.net/up/src/$1"></a>`,
+    re: new RegExp('(f\\d+.(?:jpe?g|png|webp|mp4)+)', 'g'),
+    to: '<span data-tooltip="http://dec.2chan.net/up/src/$1"><a href="http://dec.2chan.net/up/src/$1" target="blank">$1</a></span>',
   };
   if (!start.re.exec(text)) return text;
   return text.replace(start.re, start.to);
@@ -46,8 +46,8 @@ const enableUpImageUrl = (text) => {
 const enableUp2ImageUrl = (text) => {
   if (!text) return text;
   const start = {
-    re: new RegExp('(fu\\d+.(?:jpg|png|webp))', 'g'),
-    to: `<a href="http://dec.2chan.net/up2/src/$1" target="_blank" rel="noreferrer"><img class="image" loading="lazy" src="http://dec.2chan.net/up2/src/$1"></a>`,
+    re: new RegExp('(fu\\d+.(?:jpe?g|png|webp|mp4))', 'g'),
+    to: '<span data-tooltip="http://dec.2chan.net/up2/src/$1"><a href="http://dec.2chan.net/up2/src/$1" target="blank">$1</a></span>',
   };
   if (!start.re.exec(text)) return text;
   return text.replace(start.re, start.to);

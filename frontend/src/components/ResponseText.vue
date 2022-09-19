@@ -14,6 +14,8 @@
 </style>
 
 <script>
+import tippy from 'tippy.js';
+
 export default {
   name: 'ResponseText',
   components: {},
@@ -46,6 +48,18 @@ export default {
         return;
       }
       this.managed = true;
+
+      const tooltips = this.$refs.res.querySelectorAll('span[data-tooltip]');
+      if (tooltips.length) {
+        Array.from(tooltips).map((l) => {
+          const src = l.getAttribute('data-tooltip');
+          tippy(l, {
+            content: `<img style="width:20rem;" src="${src}" />`,
+            allowHTML: true,
+            placement: 'auto',
+          });
+        });
+      }
 
       const nextThreadLinks = this.$refs.res.querySelectorAll('span[data-id]');
       if (nextThreadLinks.length === 0) {

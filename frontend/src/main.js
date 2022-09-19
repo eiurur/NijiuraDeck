@@ -9,6 +9,7 @@ import router from './router';
 import store from './store/';
 import sanitize from './plugins/sanitize';
 import { errorImageBase64 } from './constants';
+import 'tippy.js/dist/tippy.css'; // optional for styling
 // import './registerServiceWorker';
 
 const isProd = process.env.NODE_ENV === 'production';
