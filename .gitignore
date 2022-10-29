@@ -28,3 +28,4 @@ yarn-error.log*
 
 launch.bat
 **/node_modules/**
+_frontend@3/
