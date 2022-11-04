@@ -66,7 +66,7 @@ const enableUp2ImageUrl = (text) => {
 export default function sanitize(dirty) {
   return enableNextThreadLink(
     enableUp2ImageUrl(
-      enableUpImageUrl(enableImageUrl(enableUrl(sanitizeFont(dirty))))
+      enableUpImageUrl(enableUrl(sanitizeFont(dirty)))
     )
   );
   // FIXME: sanitzeHTMLを通すとquoteクラスが飛ぶ
