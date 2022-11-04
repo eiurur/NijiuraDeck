@@ -33,15 +33,15 @@ const enableUrl = (text) => {
     .replace(regRel, 'target="_blank" rel="noreferrer">');
 };
 
-const enableImageUrl = (text) => {
-  if (!text) return text;
-  const start = {
-    re: new RegExp('(?:(?!fu)|(?!f))(\\d+.(?:jpe?g|png|webp)+)', 'g'),
-    to: '<span data-tooltip="https://may.2chan.net/b/src/$1"><a href="https://may.2chan.net/b/src/$1" target="blank">$1</a></span>',
-  };
-  if (!start.re.exec(text)) return text;
-  return text.replace(start.re, start.to);
-};
+// const enableImageUrl = (text) => {
+//   if (!text) return text;
+//   const start = {
+//     re: new RegExp('(?:(?!fu)|(?!f))(\\d+.(?:jpe?g|png|webp)+)', 'g'),
+//     to: '<span data-tooltip="https://may.2chan.net/b/src/$1"><a href="https://may.2chan.net/b/src/$1" target="blank">$1</a></span>',
+//   };
+//   if (!start.re.exec(text)) return text;
+//   return text.replace(start.re, start.to);
+// };
 
 const enableUpImageUrl = (text) => {
   if (!text) return text;
@@ -65,9 +65,7 @@ const enableUp2ImageUrl = (text) => {
 
 export default function sanitize(dirty) {
   return enableNextThreadLink(
-    enableUp2ImageUrl(
-      enableUpImageUrl(enableUrl(sanitizeFont(dirty)))
-    )
+    enableUp2ImageUrl(enableUpImageUrl(enableUrl(sanitizeFont(dirty))))
   );
   // FIXME: sanitzeHTMLを通すとquoteクラスが飛ぶ
   // return sanitizeHTML(enableNextThreadLink(enableUrl(sanitizeFont(dirty))), {
