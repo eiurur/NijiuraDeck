@@ -7,5 +7,5 @@ default:
 production: &production
   PROTOCOL: 'http'
   DOMAIN: 'localhost'
-  PORT: 8721
+  PORT: 8080
   APP_NAME: 'NijiuraDeck'

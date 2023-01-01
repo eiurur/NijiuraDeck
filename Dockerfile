@@ -12,7 +12,7 @@ RUN cd frontend && npm cache clean -f && npm install
 # Copy application source
 COPY . .
 
-EXPOSE 18721
+EXPOSE 8080
 
 RUN cd frontend && npm run build
 

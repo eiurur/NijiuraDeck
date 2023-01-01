@@ -33,3 +33,5 @@ backend/node_modules
 frontend/node_modules
 storage
 volume
+**/node_modules/**
+_frontend@3
