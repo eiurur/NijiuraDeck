@@ -39,7 +39,7 @@ TweetDeck ライクに<a href="http://may.2chan.net/b/futaba.htm" target="_blank
 
 以下の URL にアクセス。
 
-- 国内サーバ：https://nijiuradeck.ochinchin.online/
+- 国内サーバ：https://nijiuradeck.fly.dev/
 
 <br>
 
