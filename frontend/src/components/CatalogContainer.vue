@@ -1,7 +1,12 @@
 <template>
   <div class="split--vertical">
-    <div ref="scrollable" :gutter="10" class="scrollable w-80">
-      <div class="catalog-wrapper" v-loading="threads.loading">
+    <div
+      ref="scrollable"
+      v-loading="threads.loading"
+      :gutter="10"
+      class="scrollable w-80"
+    >
+      <div class="catalog-wrapper">
         <CatalogHeader v-model="searchWord"></CatalogHeader>
         <ThreadsListContainer
           v-if="!threads.loading"
