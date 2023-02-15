@@ -81,7 +81,7 @@
             シェア:
             <a
               class="link"
-              href="https://twitter.com/intent/tweet?hashtags=NijiuraDeck&original_referer=https://nijiuradeck.fly.io&text=TweetDeckライクに二次元裏@ふたばを閲覧するやつ&url=https://nijiuradeck.fly.io"
+              href="https://twitter.com/intent/tweet?hashtags=NijiuraDeck&original_referer=https://nijiuradeck.fly.dev&text=TweetDeckライクに二次元裏@ふたばを閲覧するやつ&url=https://nijiuradeck.fly.dev"
               target="_blank"
               rel="noreferrer"
               >このサイトをツイートする</a
