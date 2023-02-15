@@ -166,19 +166,22 @@ export default {
       this.$store.dispatch('watchingThread/add', payload);
       this.update();
     },
-    getCurrent() {
-      const current = this.preThreads.find(
+    getPreThread() {
+      const pre = this.preThreads.find(
         (thread) => thread.id === this.thread.id
       );
-      if (!current) return '';
-      return current;
+      if (!pre) return '';
+      return pre;
     },
     update() {
-      const current = this.preThreads.find(
+      const pre = this.preThreads.find(
         (thread) => thread.id === this.thread.id
       );
-      current.number = this.thread.number;
-      localStorage.setItem('preThreads', JSON.stringify(this.preThreads));
+      pre.number = this.thread.number;
+
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const key = `${boardType}:preThreads`;
+      localStorage.setItem(key, JSON.stringify(this.preThreads));
     },
   },
   computed: {
@@ -186,9 +189,9 @@ export default {
       return this.threads.length > 0;
     },
     diff() {
-      const current = this.getCurrent();
-      if (!current) return '';
-      const diff = this.thread.number - current.number;
+      const pre = this.getPreThread();
+      if (!pre) return '';
+      const diff = this.thread.number - pre.number;
       if (!diff) return '';
       return `+${diff}`;
     },

@@ -3,16 +3,11 @@
     <div ref="scrollable" :gutter="10" class="scrollable w-80">
       <div class="catalog-wrapper" v-loading="threads.loading">
         <CatalogHeader v-model="searchWord"></CatalogHeader>
-        <div class="catalog">
-          <FavoriteThreadList
-            :validThreads="validThreads"
-            :preThreads="preThreads"
-          ></FavoriteThreadList>
-          <EntireThreadList
-            :validThreads="validThreads"
-            :preThreads="preThreads"
-          ></EntireThreadList>
-        </div>
+        <ThreadsListContainer
+          v-if="!threads.loading"
+          :validThreads="validThreads"
+          :preThreads="preThreads"
+        ></ThreadsListContainer>
       </div>
     </div>
     <ThreadPreview
@@ -43,13 +38,6 @@
 .scrollable {
   height: calc(100vh - 25vh);
 }
-.catalog {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  flex-direction: column;
-  width: 100%;
-}
 .w-80 {
   width: 80%;
 }
@@ -57,25 +45,20 @@
 
 <script>
 import CatalogHeader from '@/components/CatalogHeader.vue';
-import FavoriteThreadList from '@/components/threadList/FavoriteThreadList.vue';
-import EntireThreadList from '@/components/threadList/EntireThreadList.vue';
+import ThreadsListContainer from '@/components/ThreadsListContainer.vue';
 import ThreadPreview from '@/components/ThreadPreview.vue';
 
 export default {
   name: 'CatalogContainer',
   components: {
     CatalogHeader,
-    FavoriteThreadList,
-    EntireThreadList,
+    ThreadsListContainer,
     ThreadPreview,
   },
   methods: {
     load() {
       if (!this.modal) return;
       this.$refs.scrollable.scrollTop = 0;
-      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
-      const payload = { boardType };
-      this.$store.dispatch('catalog/load', payload);
     },
     addThreadhColumn(thread) {
       if (!thread.id) return;
@@ -98,9 +81,9 @@ export default {
       return this.ngSearchWords.map((word) => word.toLowerCase());
     },
     validThreads() {
-      const threads = this.threads.list;
-      if (!threads) return [];
+      if (!this.threads.list.length) return [];
 
+      const threads = this.threads.list;
       const searchWord = this.searchWord.toLowerCase();
       const keys = this.normalizedKeys;
       return threads.filter((thread) => {
@@ -116,11 +99,13 @@ export default {
     },
     preThreads() {
       if (!this.threads.list.length) return [];
-      const threads = this.threads.list;
 
-      let preThreads = localStorage.getItem('preThreads');
+      const threads = this.threads.list;
+      const boardType = this.$store.getters['catalog/getBoardTypeForRequest'];
+      const key = `${boardType}:preThreads`;
+      let preThreads = localStorage.getItem(key);
       if (!preThreads) {
-        localStorage.setItem('preThreads', JSON.stringify(threads));
+        localStorage.setItem(key, JSON.stringify(threads));
         return threads;
       }
       preThreads = JSON.parse(preThreads);
@@ -128,12 +113,9 @@ export default {
       const olds = preThreads.filter((preThread) => {
         return threads.find((thread) => thread.id === preThread.id);
       });
-      const news = threads.filter((thread) => {
-        return !preThreads.find((preThread) => thread.id === preThread.id);
-      });
-      preThreads = [...olds, ...news];
+      preThreads = [...olds, ...threads];
 
-      localStorage.setItem('preThreads', JSON.stringify(preThreads));
+      localStorage.setItem(key, JSON.stringify(preThreads));
       return preThreads;
     },
   },
