@@ -64,6 +64,31 @@
           ><span>Dat落ちのスレッドを閉じる</span>
         </p>
       </section>
+      <section class="shares">
+        <h2>リンク</h2>
+        <section data-v-221584e6="">
+          <p data-v-221584e6="">
+            更新通知/要望対応/不具合報告など:
+            <a
+              class="link"
+              href="https://twitter.com/fsns_"
+              target="_blank"
+              rel="noreferrer"
+              >Twitter</a
+            >
+          </p>
+          <p data-v-221584e6="">
+            シェア:
+            <a
+              class="link"
+              href="https://twitter.com/intent/tweet?hashtags=NijiuraDeck&original_referer=https://nijiuradeck.fly.io&text=TweetDeckライクに二次元裏@ふたばを閲覧するやつ&url=https://nijiuradeck.fly.io"
+              target="_blank"
+              rel="noreferrer"
+              >このサイトをツイートする</a
+            >
+          </p>
+        </section>
+      </section>
     </div>
   </el-dialog>
 </template>
