@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
@@ -18,17 +18,29 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
         working-directory: ./frontend
-      - run: npm run build --if-present
+      - run: npm run build-only --if-present
         working-directory: ./frontend
+      # - run: npm run build --if-present
+      #   working-directory: ./frontend
       # - run: npm test
       - name: run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.5.x
           lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=./frontend/dist || echo "LHCI failed!"
+          
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
