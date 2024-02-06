@@ -17,8 +17,8 @@ module.exports = app => {
           // TODO: cookieから取得
           const catalog = board.getCatalog()
           catalog.setSetting({
-            width: 14,
-            height: 20,
+            width: 32,
+            height: 32,
             num: 16,
             position: 0,
             size: 3,
